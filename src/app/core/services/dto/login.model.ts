@@ -1,5 +1,5 @@
 /** DTO for authorization method response */
-export interface LoginDTO {
+export class LoginDTO {
   /** The request type, always "identitytoolkit#VerifyPasswordResponse". */
   kind: string;
   /** The uid of the authenticated user. */

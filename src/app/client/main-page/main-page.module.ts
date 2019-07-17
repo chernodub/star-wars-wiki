@@ -8,10 +8,10 @@ import { FilmPageComponent } from './film-page/film-page.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 const mainPageRoutes: Routes = [
-  { path: 'films', component: FilmsListComponent, canActivate: [AuthGuard] },
+  { path: 'films', component: FilmPageComponent, canActivate: [AuthGuard] },
   {
     path: 'films/:id',
-    component: FilmDescriptionComponent,
+    component: FilmPageComponent,
     canActivate: [AuthGuard]
   }
 ];

@@ -8,6 +8,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { LoginFormComponent } from './login-form.component';
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [LoginFormComponent],
   imports: [
@@ -16,8 +18,11 @@ import { LoginFormComponent } from './login-form.component';
     MatButtonModule,
     FormsModule,
     SharedModule,
-    MatCardModule
+    MatCardModule,
+    RouterModule.forChild([
+      { path: '', pathMatch: 'full', component: LoginFormComponent }
+    ])
   ],
-  exports: [LoginFormComponent]
+  exports: [RouterModule]
 })
 export class LoginPageModule {}

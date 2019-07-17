@@ -1,0 +1,17 @@
+<mat-accordion class="my-headers-align">
+  <ng-container *ngFor="let film of films">
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ film.name }}
+        </mat-panel-title>
+        <mat-panel-description>
+          <i>
+            {{ film.director }}
+          </i>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>{{ film.description }}</p>
+    </mat-expansion-panel>
+  </ng-container>
+</mat-accordion>

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginFormComponent } from './client/login-page/login-form.component';
 import { AuthGuard } from './core/guard/auth.guard';
 
 const routes: Routes = [
@@ -10,7 +9,13 @@ const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard]
   },
-  { path: 'login', component: LoginFormComponent }
+  {
+    path: 'login',
+    loadChildren: () =>
+      import('./client/login-page/login-page.module').then(
+        (m) => m.LoginPageModule
+      )
+  }
 ];
 
 @NgModule({
