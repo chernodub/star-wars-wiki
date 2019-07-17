@@ -7,9 +7,9 @@ import {
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { LoginWindowComponent } from './login-window.component';
+import { LoginFormComponent } from './login-form.component';
 @NgModule({
-  declarations: [LoginWindowComponent],
+  declarations: [LoginFormComponent],
   imports: [
     CommonModule,
     MatInputModule,
@@ -18,6 +18,6 @@ import { LoginWindowComponent } from './login-window.component';
     SharedModule,
     MatCardModule
   ],
-  exports: [LoginWindowComponent]
+  exports: [LoginFormComponent]
 })
-export class LoginWindowModule {}
+export class LoginPageModule {}

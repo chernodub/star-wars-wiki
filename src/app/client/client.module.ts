@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginWindowModule } from './login-window/login-window.module';
-import { MainWindowModule } from './main-window/main-window.module';
-import { LoginWindowComponent } from './login-window/login-window.component';
+import { LoginPageModule } from './login-page/login-page.module';
+import { MainPageModule } from './main-page/main-page.module';
+import { LoginFormComponent } from './login-page/login-form.component';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, LoginWindowModule, MainWindowModule],
-  exports: [LoginWindowComponent]
+  imports: [CommonModule, LoginPageModule, MainPageModule],
+  exports: [LoginFormComponent]
 })
 export class ClientModule {}

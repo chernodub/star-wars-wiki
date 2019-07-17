@@ -3,10 +3,10 @@ import { AuthorizationService } from '../../core/services/authorization.service'
 
 @Component({
   selector: 'app-login-window',
-  templateUrl: './login-window.component.html',
-  styleUrls: ['./login-window.component.css']
+  templateUrl: './login-form.component.html',
+  styleUrls: ['./login-form.component.css']
 })
-export class LoginWindowComponent {
+export class LoginFormComponent {
   // TODO: remove default credentials
   /**
    * Email field value
