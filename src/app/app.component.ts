@@ -11,9 +11,15 @@ export class AppComponent {
    * Is application paused
    */
   loading: boolean;
+
+  /**
+   * Is user logged in
+   */
+  authorized: boolean;
   constructor(private appStateService: AppStateService) {
     this.appStateService.isLoading.pipe(skip(1)).subscribe((isLoading) => {
       this.loading = isLoading;
+      this.authorized = !!this.appStateService.idToken;
     });
   }
 }

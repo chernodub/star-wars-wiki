@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginFormComponent } from './login-form/login-form.component';
 import {
   MatInputModule,
   MatButtonModule,
   MatCardModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { LoginWindowComponent } from './login-window.component';
 @NgModule({
-  declarations: [LoginFormComponent, LoginWindowComponent],
+  declarations: [LoginWindowComponent],
   imports: [
     CommonModule,
     MatInputModule,

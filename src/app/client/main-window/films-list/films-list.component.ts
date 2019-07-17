@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from 'src/app/core/services/data.service';
-import { first } from 'rxjs/operators';
-import { AppStateService } from 'src/app/core/services/app-state.service';
+import { DataService } from '../../../core/services/data.service';
+import { AppStateService } from '../../../core/services/app-state.service';
 
 @Component({
-  selector: 'app-main-window',
-  templateUrl: './main-window.component.html',
-  styleUrls: ['./main-window.component.css']
+  selector: 'app-films-list',
+  templateUrl: './films-list.component.html',
+  styleUrls: ['./films-list.component.css']
 })
-export class MainWindowComponent implements OnInit {
+export class FilmsListComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private appStateService: AppStateService

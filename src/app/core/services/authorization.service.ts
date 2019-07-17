@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Login } from '../models/login.model';
+import { LoginDTO } from './dto/login.model';
 import { first } from 'rxjs/operators';
 import { AppStateService } from './app-state.service';
 import { Router } from '@angular/router';
@@ -24,8 +24,9 @@ export class AuthorizationService {
    */
   public loginWithEmail(email: string, password: string): void {
     this.appStateService.setLoading();
+    const url = new URL(`${LOGIN_URL}${API_KEY}`);
     this.http
-      .post<Login>(`${LOGIN_URL}${API_KEY}`, {
+      .post<LoginDTO>(url.toString(), {
         email: email,
         password: password,
         returnSecureToken: true
@@ -42,4 +43,5 @@ export class AuthorizationService {
         }
       );
   }
+  // TODO: make the refreshing of token
 }

@@ -6,3 +6,8 @@
   align-items: center;
   justify-content: center;
 }
+.login-form {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+}
