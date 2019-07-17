@@ -1,1 +1,4 @@
+/**
+ * planet
+ */
 export class PlanetDTO {}

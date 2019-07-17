@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginDTO } from './dto/login.model';
-import { first } from 'rxjs/operators';
+import { LoginDTO } from './dto/login';
 import { AppStateService } from './app-state.service';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { AppConfig } from './environment';
 
-const LOGIN_URL =
-  'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=';
-const API_KEY = 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4';
-
+/**
+ * Used for authorization needs
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -16,31 +17,33 @@ export class AuthorizationService {
   constructor(
     private http: HttpClient,
     private appStateService: AppStateService,
-    private router: Router
+    private router: Router,
+    private config: AppConfig
   ) {}
   /**
    * loginWithEmail
    * Gets the authorization token from the server
    */
-  public loginWithEmail(email: string, password: string): void {
-    this.appStateService.setLoading();
-    const url = new URL(`${LOGIN_URL}${API_KEY}`);
-    this.http
+  public loginWithEmail(email: string, password: string): Observable<LoginDTO> {
+    this.appStateService.startLoading();
+    const url = new URL(this.config.loginUrl + this.config.apiKey);
+    return this.http
       .post<LoginDTO>(url.toString(), {
         email: email,
         password: password,
         returnSecureToken: true
       })
-      .pipe(first())
-      .subscribe(
-        (result) => {
-          this.appStateService.idToken = result.idToken;
-          this.router.navigateByUrl('');
-        },
-        (error) => {
-          console.log(error);
-          this.appStateService.unsetLoading();
-        }
+      .pipe(
+        tap(
+          (result) => {
+            localStorage.idToken = result.idToken;
+            this.router.navigateByUrl('');
+          },
+          (error) => {
+            console.log(error);
+            this.appStateService.stopLoading();
+          }
+        )
       );
   }
   // TODO: make the refreshing of token

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AuthorizationService } from '../../core/services/authorization.service';
 
+/**
+ * Login form
+ */
 @Component({
   selector: 'app-login-window',
   templateUrl: './login-form.component.html',
@@ -23,6 +26,8 @@ export class LoginFormComponent {
    * Trying to authorize with email and password
    */
   login(): void {
-    this.authorizationService.loginWithEmail(this.email, this.password);
+    this.authorizationService
+      .loginWithEmail(this.email, this.password)
+      .subscribe();
   }
 }

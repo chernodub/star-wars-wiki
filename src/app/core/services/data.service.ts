@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
-import { AppStateService } from './app-state.service';
 import { HttpClient } from '@angular/common/http';
-import { first, map } from 'rxjs/operators';
-import { Film } from '../models/film.model';
+import { map } from 'rxjs/operators';
+import { Film } from '../models/film';
 import { Observable } from 'rxjs';
+import { AppConfig } from './environment';
 
-const API_URL = 'https://starwarswiki.firebaseio.com';
-
+/**
+ * Used to get data about films and other things
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  constructor(
-    private appStateService: AppStateService,
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient, private config: AppConfig) {}
 
+  /**
+   * Used to get Film[]
+   */
   getFilms(): Observable<Film[]> {
-    const url = new URL(`${API_URL}/swapi/films.json`);
-    url.searchParams.append('auth', this.appStateService.idToken);
-    return this.http.get<any[]>(url.toString()).pipe(
-      first(),
-      map((dataWrapArray) => dataWrapArray.map((row) => new Film(row.fields)))
-    );
+    const url = new URL(this.config.filmsUrl);
+    url.searchParams.append('auth', localStorage.idToken);
+    return this.http
+      .get<any[]>(url.toString())
+      .pipe(
+        map((dataWrapArray) => dataWrapArray.map((row) => new Film(row.fields)))
+      );
   }
 }

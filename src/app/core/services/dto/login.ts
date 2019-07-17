@@ -1,6 +1,6 @@
 /** DTO for authorization method response */
 export class LoginDTO {
-  /** The request type, always "identitytoolkit#VerifyPasswordResponse". */
+  /** The request type */
   kind: string;
   /** The uid of the authenticated user. */
   localId: string;

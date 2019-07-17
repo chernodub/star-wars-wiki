@@ -14,10 +14,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./client/login-page/login-page.module').then(
         (m) => m.LoginPageModule
-      )
+      ),
+    canActivate: [AuthGuard]
   }
 ];
 
+/** Main routing module */
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

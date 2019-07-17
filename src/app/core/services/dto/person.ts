@@ -1,1 +1,4 @@
+/**
+ * person
+ */
 export class PersonDTO {}

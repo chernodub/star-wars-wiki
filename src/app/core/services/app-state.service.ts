@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+/**
+ * State of application service
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -8,26 +11,19 @@ export class AppStateService {
   /**
    * Shows whether the app has to be paused
    */
-  isLoading = new BehaviorSubject(false);
-
-  /**
-   * Authorization token
-   */
-  idToken: string;
-
-  constructor() {}
+  public isLoading$ = new BehaviorSubject(false);
 
   /**
    * Pause application
    */
-  setLoading(): void {
-    this.isLoading.next(true);
+  startLoading(): void {
+    this.isLoading$.next(true);
   }
 
   /**
    * Unpause application
    */
-  unsetLoading(): void {
-    this.isLoading.next(false);
+  stopLoading(): void {
+    this.isLoading$.next(false);
   }
 }

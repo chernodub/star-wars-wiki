@@ -7,21 +7,36 @@ import {
 } from '@angular/router';
 import { AppStateService } from '../services/app-state.service';
 
+/**
+ * Checks if user is authorized
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(
-    private appStateService: AppStateService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
-  canActivate(): boolean {
-    if (this.appStateService.idToken) {
-      return true;
+  /**
+   * Used for allowing or not allowing to get into the main and login pages
+   * @param next next route
+   * @param state current route
+   */
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
+    if (next.routeConfig.path !== 'login') {
+      if (localStorage.idToken) {
+        return true;
+      } else {
+        this.router.navigate(['login']);
+      }
     } else {
-      this.router.navigate(['login']);
-      return false;
+      if (localStorage.idToken) {
+        this.router.navigate(['films']);
+      } else {
+        return true;
+      }
     }
   }
 }
