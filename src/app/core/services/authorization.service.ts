@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginDTO } from './dto/login';
+import { LoginDTO } from './dto/login-dto';
 import { AppStateService } from './app-state.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';

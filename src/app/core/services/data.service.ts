@@ -25,8 +25,10 @@ export class DataService {
   getFilms(): Observable<Film[]> {
     const url = new URL(this.config.filmsUrl);
     url.searchParams.append('auth', localStorage.idToken);
-    const $ = this.http.get<any[]>(url.toString()).pipe(
-      map((dataWrapArray) => dataWrapArray.map((row) => new Film(row.fields))),
+    const $ = this.http.get<Object[]>(url.toString()).pipe(
+      map((dataWrapArray) =>
+        dataWrapArray.map((row) => new Film(row['fields']))
+      ),
       catchError((error) => {
         // TODO: find out what is the status code of token expiration and the fix this thing here
         if (error.status === 401 && error.statusText !== 'Unauthorized') {

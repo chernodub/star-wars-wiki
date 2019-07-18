@@ -1,4 +1,4 @@
-import { FilmDTO } from '../services/dto/film';
+import { FilmDTO } from '../services/dto/film-dto';
 
 /**
  * Model for Film
