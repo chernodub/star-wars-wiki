@@ -1,5 +1,5 @@
 /** DTO for authorization method response */
-export class LoginDTO {
+export interface LoginDTO {
   /** The request type */
   kind: string;
   /** The uid of the authenticated user. */

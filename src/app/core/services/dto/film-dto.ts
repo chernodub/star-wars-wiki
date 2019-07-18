@@ -1,7 +1,7 @@
 /**
  * DTO model for film
  */
-export class FilmDTO {
+export interface FilmDTO {
   /**
    * Characters
    */

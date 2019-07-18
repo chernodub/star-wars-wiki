@@ -1,4 +1,4 @@
 /**
  * planet
  */
-export class PlanetDTO {}
+// Export interface PlanetDTO {}

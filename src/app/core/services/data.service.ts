@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { Film } from '../models/film';
-import { Observable, empty } from 'rxjs';
+import { Observable, EMPTY } from 'rxjs';
 import { AuthorizationService } from './authorization.service';
 import { AppConfig } from '../../../environments/environment';
 import { WrapDTO } from './dto/wrap-dto';
@@ -35,7 +35,7 @@ export class DataService {
           this.authorizationService.refreshToken().subscribe();
           return $;
         }
-        return empty();
+        return EMPTY;
       })
     );
     return $;

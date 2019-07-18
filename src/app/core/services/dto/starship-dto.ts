@@ -1,4 +1,4 @@
 /**
  * dto model starships
  */
-export class StarshipDTO {}
+// Export interface StarshipDTO {}

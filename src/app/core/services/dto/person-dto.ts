@@ -1,4 +1,4 @@
 /**
  * person
  */
-export class PersonDTO {}
+// Export interface PersonDTO {}

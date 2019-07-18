@@ -1,4 +1,4 @@
 /**
  * dto model for species
  */
-export class SpeciesDTO {}
+// Export interface SpeciesDTO {}
