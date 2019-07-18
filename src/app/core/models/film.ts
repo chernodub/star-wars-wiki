@@ -4,31 +4,36 @@ import { FilmDTO } from '../services/dto/film-dto';
  * Model for Film
  */
 export class Film {
-  /** name */
+  /** Name */
   name: string;
-  /** director */
+  /** Director */
   director: string;
-  /** short description*/
+  /** Short description*/
   description: string;
 
-  /** release date */
+  /** Release date */
   releaseDate: Date;
 
-  /** edited */
+  /** Edited */
   edited: Date;
 
-  /** release date */
+  /** Release date */
   created: Date;
 
-  /** id */
-  id: number;
-  public constructor(film: FilmDTO) {
-    this.name = film.title;
+  /** Id */
+  episode_id: number;
+
+  /** Number in db */
+  number: number;
+
+  public constructor(film: Partial<Film>, idx?: number) {
+    this.name = film.name;
     this.director = film.director;
-    this.description = film.opening_crawl;
-    this.id = film.episode_id;
-    this.releaseDate = new Date(film.release_date);
-    this.created = new Date(film.created);
-    this.edited = new Date(film.edited);
+    this.description = film.description;
+    this.episode_id = film.episode_id;
+    this.releaseDate = film.releaseDate;
+    this.created = film.created;
+    this.edited = film.edited;
+    this.number = idx;
   }
 }

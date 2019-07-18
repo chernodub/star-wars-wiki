@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../../../core/services/data.service';
+import { Film } from '../../../../core/models/film';
+import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs/operators';
 
 /**
  * Film description page
@@ -9,5 +14,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./film-description.component.css']
 })
 export class FilmDescriptionComponent {
-  // TODO
+  /**
+   * Film to render on description page
+   */
+  public film$: Observable<Film>;
+
+  public constructor(
+    private dataService: DataService,
+    private route: ActivatedRoute
+  ) {
+    this.film$ = this.dataService
+      .getFilmById(+this.route.snapshot.paramMap.get('id'))
+      .pipe(tap((x) => console.log(x)));
+  }
 }

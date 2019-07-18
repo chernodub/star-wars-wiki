@@ -20,7 +20,9 @@
           </mat-expansion-panel-header>
           <p>{{ film.description }}</p>
           <div class="button-panel">
-            <button mat-button (click)="open(film.id)">OK</button>
+            <button mat-button [routerLink]="['/films/' + film.number]">
+              Open
+            </button>
           </div>
         </mat-expansion-panel>
       </ng-container>

@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
   templateUrl: './films-list.component.html',
   styleUrls: ['./films-list.component.css']
 })
-export class FilmsListComponent implements OnInit {
+export class FilmsListComponent {
   /**
    * table data
    */
@@ -21,12 +21,7 @@ export class FilmsListComponent implements OnInit {
   public constructor(
     private dataService: DataService,
     private appStateService: AppStateService
-  ) {}
-
-  /**
-   * Getting the initial data for the table
-   */
-  public ngOnInit(): void {
+  ) {
     this.films$ = this.dataService
       .getFilms()
       .pipe(tap(() => this.appStateService.stopLoading()));
@@ -35,7 +30,7 @@ export class FilmsListComponent implements OnInit {
   /**
    * Opens the window with film description
    */
-  public open(id: string | number): void {
+  public open(id: number): void {
     console.log(id);
   }
 }

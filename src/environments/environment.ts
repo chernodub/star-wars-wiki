@@ -26,24 +26,31 @@ export class AppConfig {
   /**
    * APP KEY for api
    */
-  apiKey = 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4';
-
-  /**
-   * Login URL
-   */
-  loginUrl =
-    'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=';
+  private apiKey = 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4';
 
   /**
    * API URL
    */
-  apiUrl = 'https://starwarswiki.firebaseio.com';
+  private apiUrl = 'https://starwarswiki.firebaseio.com/';
 
   /**
    * URL for getting films table
    */
-  filmsUrl = this.apiUrl + '/swapi/films.json';
+  get filmsURL(): string {
+    return this.apiUrl + 'swapi/films';
+  }
 
   /** URL for refreshing an id token */
-  refreshTokenUrl = 'https://securetoken.googleapis.com/v1/token?key=';
+  get refreshTokenURL(): string {
+    return 'https://securetoken.googleapis.com/v1/token?key=' + this.apiKey;
+  }
+  /**
+   * Login URL
+   */
+  get loginURL(): string {
+    return (
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' +
+      this.apiKey
+    );
+  }
 }

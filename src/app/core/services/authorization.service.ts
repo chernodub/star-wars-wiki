@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoginDTO } from './dto/login-dto';
 import { AppStateService } from './app-state.service';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
+import { tap, mapTo } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AppConfig } from '../../../environments/environment';
 
@@ -26,7 +26,7 @@ export class AuthorizationService {
    */
   public loginWithEmail(email: string, password: string): Observable<LoginDTO> {
     this.appStateService.startLoading();
-    const url = new URL(this.config.loginUrl + this.config.apiKey);
+    const url = new URL(this.config.loginURL);
     return this.http
       .post<LoginDTO>(url.toString(), {
         email: email,
@@ -51,9 +51,9 @@ export class AuthorizationService {
   /**
    * Request for token refreshing
    */
-  public refreshToken(): Observable<any> {
+  public refreshToken(): Observable<void> {
     this.appStateService.startLoading();
-    const url = new URL(this.config.refreshTokenUrl + this.config.apiKey);
+    const url = new URL(this.config.refreshTokenURL);
     return this.http
       .post(url.toString(), {
         grant_type: 'refresh_token',
@@ -61,9 +61,11 @@ export class AuthorizationService {
       })
       .pipe(
         tap((result) => {
-          localStorage.idToken = result.id_token;
-          localStorage.refreshToken = result.refresh_token;
-        })
+          // TODO: make DTO here
+          localStorage.idToken = result['id_token'];
+          localStorage.refreshToken = result['refresh_token'];
+        }),
+        mapTo(null)
       );
   }
 }

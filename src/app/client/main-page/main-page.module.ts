@@ -11,7 +11,7 @@ const mainPageRoutes: Routes = [
   { path: 'films', component: FilmsListComponent, canActivate: [AuthGuard] },
   {
     path: 'films/:id',
-    component: FilmsListComponent,
+    component: FilmDescriptionComponent,
     canActivate: [AuthGuard]
   }
 ];
