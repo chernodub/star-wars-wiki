@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
    * @param next next route
    * @param state current route
    */
-  canActivate(
+  public canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {

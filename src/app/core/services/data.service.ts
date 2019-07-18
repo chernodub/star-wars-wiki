@@ -24,7 +24,7 @@ export class DataService {
   /**
    * Used to get Film[]
    */
-  getFilms(): Observable<Film[]> {
+  public getFilms(): Observable<Film[]> {
     const url = new URL(this.config.filmsUrl);
     url.searchParams.append('auth', localStorage.idToken);
     const $ = this.http.get<WrapDTO<FilmDTO>[]>(url.toString()).pipe(

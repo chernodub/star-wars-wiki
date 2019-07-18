@@ -16,14 +16,14 @@ export class AppStateService {
   /**
    * Pause application
    */
-  startLoading(): void {
+  public startLoading(): void {
     this.isLoading$.next(true);
   }
 
   /**
    * Unpause application
    */
-  stopLoading(): void {
+  public stopLoading(): void {
     this.isLoading$.next(false);
   }
 }

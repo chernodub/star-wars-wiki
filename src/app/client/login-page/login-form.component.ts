@@ -25,7 +25,7 @@ export class LoginFormComponent {
   /**
    * Trying to authorize with email and password
    */
-  login(): void {
+  public login(): void {
     this.authorizationService
       .loginWithEmail(this.email, this.password)
       .subscribe();
