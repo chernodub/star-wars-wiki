@@ -14,13 +14,13 @@ export class LoginFormComponent {
   /**
    * Email field value
    */
-  email = 'test@test.com';
+  public email = 'test@test.com';
   /**
    * Password field value
    */
-  password = '123456';
+  public password = '123456';
 
-  constructor(private authorizationService: AuthorizationService) {}
+  public constructor(private authorizationService: AuthorizationService) {}
 
   /**
    * Trying to authorize with email and password

@@ -5,7 +5,7 @@ import { AppStateService } from './app-state.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { AppConfig } from './environment';
+import { AppConfig } from '../../../environments/environment';
 
 /**
  * Used for authorization needs
@@ -14,7 +14,7 @@ import { AppConfig } from './environment';
   providedIn: 'root'
 })
 export class AuthorizationService {
-  constructor(
+  public constructor(
     private http: HttpClient,
     private appStateService: AppStateService,
     private router: Router,
@@ -37,6 +37,7 @@ export class AuthorizationService {
         tap(
           (result) => {
             localStorage.idToken = result.idToken;
+            localStorage.refreshToken = result.refreshToken;
             this.router.navigateByUrl('');
           },
           (error) => {
@@ -46,5 +47,23 @@ export class AuthorizationService {
         )
       );
   }
-  // TODO: make the refreshing of token
+
+  /**
+   * Request for token refreshing
+   */
+  public refreshToken(): Observable<any> {
+    this.appStateService.startLoading();
+    const url = new URL(this.config.refreshTokenUrl + this.config.apiKey);
+    return this.http
+      .post(url.toString(), {
+        grant_type: 'refresh_token',
+        refresh_token: localStorage.refreshToken
+      })
+      .pipe(
+        tap((result) => {
+          localStorage.idToken = result.id_token;
+          localStorage.refreshToken = result.refresh_token;
+        })
+      );
+  }
 }

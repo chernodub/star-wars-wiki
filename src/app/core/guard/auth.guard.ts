@@ -14,7 +14,7 @@ import { AppStateService } from '../services/app-state.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+  public constructor(private router: Router) {}
 
   /**
    * Used for allowing or not allowing to get into the main and login pages
@@ -28,15 +28,15 @@ export class AuthGuard implements CanActivate {
     if (next.routeConfig.path !== 'login') {
       if (localStorage.idToken) {
         return true;
-      } else {
-        this.router.navigate(['login']);
       }
+      this.router.navigate(['login']);
+      return false;
     } else {
       if (localStorage.idToken) {
         this.router.navigate(['films']);
-      } else {
-        return true;
+        return false;
       }
+      return true;
     }
   }
 }

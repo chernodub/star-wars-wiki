@@ -20,8 +20,8 @@ export class AppComponent {
    * Is user logged in
    * used for rendering navbar
    */
-  authorized: boolean;
-  constructor(private appStateService: AppStateService) {
+  public authorized: boolean;
+  public constructor(private appStateService: AppStateService) {
     this.appStateService.isLoading$.pipe(
       skip(1),
       tap((isLoading) => {

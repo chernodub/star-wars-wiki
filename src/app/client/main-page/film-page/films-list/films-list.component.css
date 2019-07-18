@@ -5,3 +5,11 @@
 .my-headers-align .mat-expansion-panel-header-description {
   flex-basis: 0;
 }
+.layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.layout-part {
+  margin: 0 3em;
+}

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { Film } from '../models/film';
-import { Observable } from 'rxjs';
-import { AppConfig } from './environment';
+import { Observable, empty } from 'rxjs';
+import { AuthorizationService } from './authorization.service';
+import { AppConfig } from '../../../environments/environment';
 
 /**
  * Used to get data about films and other things
@@ -12,7 +13,11 @@ import { AppConfig } from './environment';
   providedIn: 'root'
 })
 export class DataService {
-  constructor(private http: HttpClient, private config: AppConfig) {}
+  public constructor(
+    private http: HttpClient,
+    private config: AppConfig,
+    private authorizationService: AuthorizationService
+  ) {}
 
   /**
    * Used to get Film[]
@@ -20,10 +25,17 @@ export class DataService {
   getFilms(): Observable<Film[]> {
     const url = new URL(this.config.filmsUrl);
     url.searchParams.append('auth', localStorage.idToken);
-    return this.http
-      .get<any[]>(url.toString())
-      .pipe(
-        map((dataWrapArray) => dataWrapArray.map((row) => new Film(row.fields)))
-      );
+    const $ = this.http.get<any[]>(url.toString()).pipe(
+      map((dataWrapArray) => dataWrapArray.map((row) => new Film(row.fields))),
+      catchError((error) => {
+        // TODO: find out what is the status code of token expiration and the fix this thing here
+        if (error.status === 401 && error.statusText !== 'Unauthorized') {
+          this.authorizationService.refreshToken().subscribe();
+          return $;
+        }
+        return empty();
+      })
+    );
+    return $;
   }
 }
