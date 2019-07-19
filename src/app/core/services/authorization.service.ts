@@ -61,7 +61,6 @@ export class AuthorizationService {
       })
       .pipe(
         tap((result) => {
-          // TODO: make DTO here
           localStorage.idToken = result['id_token'];
           localStorage.refreshToken = result['refresh_token'];
         }),

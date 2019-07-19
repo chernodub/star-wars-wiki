@@ -21,7 +21,7 @@ export class Film {
   created: Date;
 
   /** Id */
-  episode_id: number;
+  episodeId: number;
 
   /** Number in db */
   number: number;
@@ -30,7 +30,7 @@ export class Film {
     this.name = film.name;
     this.director = film.director;
     this.description = film.description;
-    this.episode_id = film.episode_id;
+    this.episodeId = film.episodeId;
     this.releaseDate = film.releaseDate;
     this.created = film.created;
     this.edited = film.edited;

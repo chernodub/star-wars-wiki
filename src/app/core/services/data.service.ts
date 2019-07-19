@@ -22,7 +22,7 @@ export class DataService {
   ) {}
 
   /**
-   * retries request if there is a expired token
+   * Retries request if there is a expired token
    * @param buildObservable function that builds proper observable to retry request with refreshing of token
    */
   public handleExpiredToken<T>(
@@ -47,31 +47,28 @@ export class DataService {
    * Used to get Film[]
    */
   public getFilms(): Observable<Film[]> {
-    const url = new URL(this.config.filmsURL + '.json');
+    const url = this.getUrlWithAuthToken(this.config.filmsURL + '.json');
     url.searchParams.append('auth', localStorage.idToken);
-    const buildObservable = (): Observable<Film[]> => {
-      return this.http.get<WrapDTO<FilmDTO>[]>(url.toString()).pipe(
-        map((dataWrapArray) =>
-          dataWrapArray.map(
-            (row, idx) =>
-              new Film(
-                {
-                  name: row.fields.title,
-                  director: row.fields.director,
-                  description: row.fields.opening_crawl,
-                  episode_id: row.fields.episode_id,
-                  releaseDate: new Date(row.fields.release_date),
-                  created: new Date(row.fields.created),
-                  edited: new Date(row.fields.edited)
-                },
-                idx
-              )
-          )
-        ),
-        this.handleExpiredToken(buildObservable)
-      );
-    };
-    return buildObservable();
+    return this.http.get<WrapDTO<FilmDTO>[]>(url.toString()).pipe(
+      map((dataWrapArray) =>
+        dataWrapArray.map(
+          (film, idx) =>
+            new Film(
+              {
+                name: film.fields.title,
+                director: film.fields.director,
+                description: film.fields.opening_crawl,
+                episodeId: film.fields.episode_id,
+                releaseDate: new Date(film.fields.release_date),
+                created: new Date(film.fields.created),
+                edited: new Date(film.fields.edited)
+              },
+              idx
+            )
+        )
+      ),
+      this.handleExpiredToken(this.getFilms)
+    );
   }
 
   /**
@@ -79,28 +76,37 @@ export class DataService {
    * @param id number of episode
    */
   public getFilmById(id: number): Observable<Film> {
-    const url = new URL(`${this.config.filmsURL}/${id}.json`);
-    url.searchParams.append('auth', localStorage.idToken);
-    const buildObservable = (): Observable<Film> => {
-      return this.http.get<WrapDTO<FilmDTO>>(url.toString()).pipe(
-        map((result) => {
-          if (result.fields) {
-            const film = result.fields;
-            return new Film({
+    const url = this.getUrlWithAuthToken(`${this.config.filmsURL}/${id}.json`);
+
+    return this.http.get<WrapDTO<FilmDTO>>(url.toString()).pipe(
+      map((result) => {
+        if (result.fields) {
+          const film = result.fields;
+          return new Film(
+            {
               name: film.title,
               director: film.director,
               description: film.opening_crawl,
-              episode_id: film.episode_id,
+              episodeId: film.episode_id,
               releaseDate: new Date(film.release_date),
               created: new Date(film.created),
               edited: new Date(film.edited)
-            });
-          }
-          return null;
-        }),
-        this.handleExpiredToken(buildObservable)
-      );
-    };
-    return buildObservable();
+            },
+            id
+          );
+        }
+        return null;
+      }),
+      this.handleExpiredToken(() => this.getFilmById(id))
+    );
+  }
+
+  /**
+   * Interceptor for auth key
+   */
+  private getUrlWithAuthToken(urlString: string): URL {
+    const url = new URL(urlString);
+    url.searchParams.append('auth', localStorage.idToken);
+    return url;
   }
 }
