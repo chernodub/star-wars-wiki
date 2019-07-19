@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, of, OperatorFunction, throwError } from 'rxjs';
-import { catchError, map, retry, switchMapTo, tap } from 'rxjs/operators';
+import { EMPTY, Observable, OperatorFunction } from 'rxjs';
+import { catchError, concatMapTo, map, switchMapTo, tap } from 'rxjs/operators';
 import { AppConfig } from '../../../environments/environment';
 import { Film } from '../models/film';
 import { AppStateService } from './app-state.service';
@@ -38,7 +38,7 @@ export class DataService {
       ) {
         return this.authorizationService
           .refreshToken()
-          .pipe(switchMapTo(buildObservable()));
+          .pipe(concatMapTo(buildObservable()));
       }
 
       return EMPTY;
