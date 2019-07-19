@@ -1,30 +1,31 @@
-import { FilmDTO } from '../services/dto/film-dto';
-
 /**
  * Model for Film
  */
 export class Film {
   /** Name */
-  name: string;
+  public name: string;
   /** Director */
-  director: string;
+  public director: string;
   /** Short description*/
-  description: string;
+  public description: string;
 
   /** Release date */
-  releaseDate: Date;
+  public releaseDate: Date;
 
   /** Edited */
-  edited: Date;
+  public edited: Date;
 
   /** Release date */
-  created: Date;
+  public created: Date;
 
   /** Id */
-  episodeId: number;
+  public episodeId: number;
 
   /** Number in db */
-  number: number;
+  public number: number;
+
+  /** Name of producer */
+  public producedBy: string;
 
   public constructor(film: Partial<Film>, idx?: number) {
     this.name = film.name;
@@ -32,6 +33,7 @@ export class Film {
     this.description = film.description;
     this.episodeId = film.episodeId;
     this.releaseDate = film.releaseDate;
+    this.producedBy = film.producedBy;
     this.created = film.created;
     this.edited = film.edited;
     this.number = idx;

@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, switchMapTo, retry } from 'rxjs/operators';
-import { Film } from '../models/film';
-import { Observable, EMPTY, OperatorFunction, throwError, of } from 'rxjs';
-import { AuthorizationService } from './authorization.service';
+import { Injectable } from '@angular/core';
+import { EMPTY, Observable, of, OperatorFunction, throwError } from 'rxjs';
+import { catchError, map, retry, switchMapTo } from 'rxjs/operators';
 import { AppConfig } from '../../../environments/environment';
-import { WrapDTO } from './dto/wrap-dto';
+import { Film } from '../models/film';
+import { AuthorizationService } from './authorization.service';
 import { FilmDTO } from './dto/film-dto';
+import { WrapDTO } from './dto/wrap-dto';
 
 /**
  * Used to get data about films and other things
@@ -61,7 +61,8 @@ export class DataService {
                 episodeId: film.fields.episode_id,
                 releaseDate: new Date(film.fields.release_date),
                 created: new Date(film.fields.created),
-                edited: new Date(film.fields.edited)
+                edited: new Date(film.fields.edited),
+                producedBy: film.fields.producer
               },
               idx
             )
@@ -77,7 +78,6 @@ export class DataService {
    */
   public getFilmById(id: number): Observable<Film> {
     const url = this.getUrlWithAuthToken(`${this.config.filmsURL}/${id}.json`);
-
     return this.http.get<WrapDTO<FilmDTO>>(url.toString()).pipe(
       map((result) => {
         if (result.fields) {
@@ -90,7 +90,8 @@ export class DataService {
               episodeId: film.episode_id,
               releaseDate: new Date(film.release_date),
               created: new Date(film.created),
-              edited: new Date(film.edited)
+              edited: new Date(film.edited),
+              producedBy: film.producer
             },
             id
           );

@@ -1,20 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'films',
     pathMatch: 'full',
+    loadChildren: () =>
+      import('./client/client.module').then((m) => m.ClientModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./client/login-page/login-page.module').then(
-        (m) => m.LoginPageModule
-      ),
+      import('./login-page/login-page.module').then((m) => m.LoginPageModule),
     canActivate: [AuthGuard]
   }
 ];

@@ -1,20 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
-import { FilmsListComponent } from './film-page/films-list/films-list.component';
-import { FilmDescriptionComponent } from './film-page/film-description/film-description.component';
-import { AuthGuard } from '../../core/guard/auth.guard';
+import { NgModule } from '@angular/core';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatGridListModule
+} from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { MatButtonModule } from '@angular/material';
+import { RouterModule } from '@angular/router';
+import { FilmDescriptionComponent } from './film-page/film-description/film-description.component';
+import { FilmsListComponent } from './film-page/films-list/films-list.component';
 
-const mainPageRoutes: Routes = [
-  { path: 'films', component: FilmsListComponent, canActivate: [AuthGuard] },
-  {
-    path: 'films/:id',
-    component: FilmDescriptionComponent,
-    canActivate: [AuthGuard]
-  }
-];
 /**
  * Module for the main user page
  */
@@ -24,8 +19,10 @@ const mainPageRoutes: Routes = [
     CommonModule,
     MatExpansionModule,
     MatButtonModule,
-    RouterModule.forChild(mainPageRoutes)
+    MatCardModule,
+    MatGridListModule,
+    RouterModule
   ],
-  exports: [RouterModule]
+  exports: [RouterModule, FilmDescriptionComponent, FilmsListComponent]
 })
 export class MainPageModule {}

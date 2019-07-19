@@ -1,0 +1,22 @@
+.box {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.card {
+  width: 50em;
+}
+.image-box {
+  width: 20em;
+  height: 30em;
+}
+.detail-table td {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.detail-table-td-title {
+  text-align: right;
+}
+.detail-table-td-text {
+  padding-left: 2em;
+}

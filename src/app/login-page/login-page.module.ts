@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  MatInputModule,
-  MatButtonModule,
-  MatCardModule
-} from '@angular/material';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
-import { LoginFormComponent } from './login-form.component';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatInputModule
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
+import { LoginFormComponent } from './login-form.component';
 
 /**
  * Login page module

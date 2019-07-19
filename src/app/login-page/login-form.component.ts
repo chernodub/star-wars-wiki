@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthorizationService } from '../../core/services/authorization.service';
+import { AuthorizationService } from '../core/services/authorization.service';
 
 /**
  * Login form

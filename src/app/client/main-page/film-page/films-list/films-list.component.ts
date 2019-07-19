@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../../../core/services/data.service';
-import { AppStateService } from '../../../../core/services/app-state.service';
-import { Film } from '../../../../core/models/film';
-import { tap } from 'rxjs/operators';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Film } from '../../../../core/models/film';
+import { AppStateService } from '../../../../core/services/app-state.service';
+import { DataService } from '../../../../core/services/data.service';
 
 /**
  * List of films
@@ -17,7 +17,7 @@ export class FilmsListComponent {
   /**
    * table data
    */
-  films$: Observable<Film[]>;
+  public films$: Observable<Film[]>;
   public constructor(
     private dataService: DataService,
     private appStateService: AppStateService
@@ -30,7 +30,7 @@ export class FilmsListComponent {
   /**
    * Opens the window with film description
    */
-  public open(id: number): void {
-    console.log(id);
+  public open(): void {
+    this.appStateService.startLoading();
   }
 }
