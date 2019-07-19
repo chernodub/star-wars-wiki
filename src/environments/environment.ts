@@ -31,7 +31,7 @@ export class AppConfig {
   /**
    * API URL
    */
-  private apiUrl = 'https://starwarswiki.firebaseio.com/';
+  public apiUrl = 'https://starwarswiki.firebaseio.com/';
 
   /**
    * URL for getting films table

@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, OperatorFunction } from 'rxjs';
+import { EMPTY, Observable, OperatorFunction, throwError } from 'rxjs';
 import { catchError, concatMapTo, map, switchMapTo, tap } from 'rxjs/operators';
 import { AppConfig } from '../../../environments/environment';
 import { Film } from '../models/film';
@@ -19,40 +19,15 @@ export class DataService {
   public constructor(
     private http: HttpClient,
     private config: AppConfig,
-    private authorizationService: AuthorizationService,
     private appStateService: AppStateService
   ) {}
-
-  /**
-   * Retries request if there is a expired token
-   * @param buildObservable function that builds proper observable to retry request with refreshing of token
-   */
-  public handleExpiredToken<T>(
-    buildObservable: () => Observable<T>
-  ): OperatorFunction<T, T> {
-    return catchError((error) => {
-      // TODO: find out what is the status code of token expiration and the fix this thing here
-      if (
-        error.status === 401 &&
-        error.error.error === 'Auth token is expired'
-      ) {
-        return this.authorizationService
-          .refreshToken()
-          .pipe(concatMapTo(buildObservable()));
-      }
-
-      return EMPTY;
-    });
-  }
 
   /**
    * Used to get Film[]
    */
   public getFilms(): Observable<Film[]> {
     return this.http
-      .get<WrapDTO<FilmDTO>[]>(this.config.filmsURL + '.json', {
-        params: this.getDefaultParams()
-      })
+      .get<WrapDTO<FilmDTO>[]>(this.config.filmsURL + '.json')
       .pipe(
         tap(() => this.appStateService.startLoading()),
         map((dataWrapArray) =>
@@ -72,8 +47,7 @@ export class DataService {
                 idx
               )
           )
-        ),
-        this.handleExpiredToken(this.getFilms)
+        )
       );
   }
 
@@ -83,9 +57,7 @@ export class DataService {
    */
   public getFilmById(id: number): Observable<Film> {
     return this.http
-      .get<WrapDTO<FilmDTO>>(`${this.config.filmsURL}/${id}.json`, {
-        params: this.getDefaultParams()
-      })
+      .get<WrapDTO<FilmDTO>>(`${this.config.filmsURL}/${id}.json`)
       .pipe(
         tap(() => this.appStateService.startLoading()),
         map((result) => {
@@ -106,15 +78,7 @@ export class DataService {
             );
           }
           return null;
-        }),
-        this.handleExpiredToken(() => this.getFilmById(id))
+        })
       );
-  }
-
-  /**
-   * Interceptor for auth key
-   */
-  private getDefaultParams(): HttpParams {
-    return new HttpParams().set('auth', localStorage.idToken);
   }
 }
