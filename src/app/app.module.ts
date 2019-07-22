@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ClientModule } from './client/client.module';
 import { AuthTokenInterceptor } from './core/http-interceptors/auth-token.interceptor';
 import { ExpiredTokenInterceptor } from './core/http-interceptors/expired-token.interceptor';
+import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-remover.interceptor';
 import { SharedModule } from './shared/shared.module';
 
 /**
@@ -32,6 +33,11 @@ import { SharedModule } from './shared/shared.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthTokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WrappingRemoverInterceptor,
       multi: true,
     },
   ],
