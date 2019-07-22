@@ -3,11 +3,12 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, OperatorFunction } from 'rxjs';
-import { catchError, concatMapTo } from 'rxjs/operators';
+import { catchError, switchMapTo, concatMap } from 'rxjs/operators';
+
 import { AuthorizationService } from '../services/authorization.service';
 
 /**
@@ -21,7 +22,7 @@ export class ExpiredTokenInterceptor implements HttpInterceptor {
    */
   public intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     return next
       .handle(req)
@@ -33,16 +34,16 @@ export class ExpiredTokenInterceptor implements HttpInterceptor {
    * @param buildObservable function that builds proper observable to retry request with refreshing of token
    */
   public handleExpiredToken<T>(
-    buildObservable: () => Observable<T>
+    buildObservable: () => Observable<T>,
   ): OperatorFunction<T, T> {
     return catchError((error: HttpErrorResponse) => {
       if (
-        error.status === 401 &&
-        error.error.error === 'Auth token is expired'
+        error.status === 401
+        // Error.error.error === 'Auth token is expired'
       ) {
         return this.authorizationService
           .refreshToken()
-          .pipe(concatMapTo(buildObservable()));
+          .pipe(concatMap(buildObservable));
       }
       return EMPTY;
     });

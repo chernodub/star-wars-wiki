@@ -5,53 +5,49 @@
       <mat-card-subtitle>Episode {{ film.episodeId }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-grid-list cols="2">
-        <mat-grid-tile
-          ><section>
-            <div class="image-box">
-              <!-- Image mock -->
-              <div
-                style="background-color: black; width: 100%; height: 100%; opacity: 0.3;"
-              ></div>
-            </div></section
-        ></mat-grid-tile>
-        <mat-grid-tile>
-          <section>
-            <table class="detail-table">
-              <tbody>
-                <tr>
-                  <td class="detail-table-td-title">
-                    <b>Released:</b>
-                  </td>
-                  <td class="detail-table-td-text">
-                    {{ film.releaseDate | date: 'mediumDate' }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="detail-table-td-title">
-                    <b>Produced by:</b>
-                  </td>
-                  <td class="detail-table-td-text">{{ film.producedBy }}</td>
-                </tr>
-                <tr>
-                  <td class="detail-table-td-title">
-                    <b>Directed by:</b>
-                  </td>
-                  <td class="detail-table-td-text">
-                    {{ film.director }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section></mat-grid-tile
-        >
+      <mat-grid-list cols="3">
+        <mat-grid-tile class="image-tile">
+          <div class="image-box">
+            <!-- Image mock -->
+            <div class="image-mock"></div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+          <table class="detail-table">
+            <tbody>
+              <tr>
+                <td class="detail-table-td-title">
+                  Released:
+                </td>
+                <td class="detail-table-td-text">
+                  {{ film.releaseDate | date: 'mediumDate' }}
+                </td>
+              </tr>
+              <tr>
+                <td class="detail-table-td-title">
+                  Produced by:
+                </td>
+                <td class="detail-table-td-text">{{ film.producedBy }}</td>
+              </tr>
+              <tr>
+                <td class="detail-table-td-title">
+                  Directed by:
+                </td>
+                <td class="detail-table-td-text">
+                  {{ film.director }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <p>
+                    {{ film.description }}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-grid-tile>
       </mat-grid-list>
-
-      <section style="padding: 0 2.5em">
-        <p>
-          {{ film.description }}
-        </p>
-      </section>
     </mat-card-content>
   </mat-card>
 </div>

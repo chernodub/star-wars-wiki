@@ -3,10 +3,11 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpParams,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { AppConfig } from '../../../environments/environment';
 
 /**
@@ -21,11 +22,11 @@ export class AuthTokenInterceptor implements HttpInterceptor {
    */
   public intercept(
     req: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (req.url.includes(this.config.apiUrl)) {
       const clone = req.clone({
-        params: new HttpParams().set('auth', localStorage.idToken)
+        params: new HttpParams().set('auth', localStorage.idToken),
       });
       return next.handle(clone);
     }

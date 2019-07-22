@@ -2,8 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EMPTY, Observable, OperatorFunction, throwError } from 'rxjs';
 import { catchError, concatMapTo, map, switchMapTo, tap } from 'rxjs/operators';
+
 import { AppConfig } from '../../../environments/environment';
 import { Film } from '../models/film';
+
 import { AppStateService } from './app-state.service';
 import { AuthorizationService } from './authorization.service';
 import { FilmDTO } from './dto/film-dto';
@@ -13,13 +15,13 @@ import { WrapDTO } from './dto/wrap-dto';
  * Used to get data about films and other things
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class DataService {
+export class FilmsService {
   public constructor(
     private http: HttpClient,
     private config: AppConfig,
-    private appStateService: AppStateService
+    private appStateService: AppStateService,
   ) {}
 
   /**
@@ -42,12 +44,12 @@ export class DataService {
                   releaseDate: new Date(film.fields.release_date),
                   created: new Date(film.fields.created),
                   edited: new Date(film.fields.edited),
-                  producedBy: film.fields.producer
+                  producedBy: film.fields.producer,
                 },
-                idx
-              )
-          )
-        )
+                idx,
+              ),
+          ),
+        ),
       );
   }
 
@@ -72,13 +74,13 @@ export class DataService {
                 releaseDate: new Date(film.release_date),
                 created: new Date(film.created),
                 edited: new Date(film.edited),
-                producedBy: film.producer
+                producedBy: film.producer,
               },
-              id
+              id,
             );
           }
           return null;
-        })
+        }),
       );
   }
 }

@@ -7,8 +7,8 @@
   width: 50em;
 }
 .image-box {
-  width: 20em;
-  height: 30em;
+  width: 100%;
+  height: 100%;
 }
 .detail-table td {
   padding-top: 1em;
@@ -16,7 +16,13 @@
 }
 .detail-table-td-title {
   text-align: right;
+  font-weight: bold;
 }
 .detail-table-td-text {
   padding-left: 2em;
+}
+.image-mock {
+  background-color: rgba(0, 0, 0, 0.54);
+  width: 100%;
+  height: 100%;
 }

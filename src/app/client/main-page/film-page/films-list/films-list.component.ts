@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { Film } from '../../../../core/models/film';
 import { AppStateService } from '../../../../core/services/app-state.service';
-import { DataService } from '../../../../core/services/data.service';
+import { FilmsService } from '../../../../core/services/films.service';
 
 /**
  * List of films
@@ -11,7 +12,7 @@ import { DataService } from '../../../../core/services/data.service';
 @Component({
   selector: 'app-films-list',
   templateUrl: './films-list.component.html',
-  styleUrls: ['./films-list.component.css']
+  styleUrls: ['./films-list.component.css'],
 })
 export class FilmsListComponent {
   /**
@@ -19,10 +20,10 @@ export class FilmsListComponent {
    */
   public films$: Observable<Film[]>;
   public constructor(
-    private dataService: DataService,
-    private appStateService: AppStateService
+    private filmsService: FilmsService,
+    private appStateService: AppStateService,
   ) {
-    this.films$ = this.dataService
+    this.films$ = this.filmsService
       .getFilms()
       .pipe(tap(() => this.appStateService.stopLoading()));
   }
