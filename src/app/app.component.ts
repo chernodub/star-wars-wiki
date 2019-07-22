@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Router, ActivationStart } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
 
 import { AppStateService } from './core/services/app-state.service';
@@ -22,20 +23,23 @@ import { AppStateService } from './core/services/app-state.service';
     ]),
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   /**
    * Is application paused
    */
   public loading$ = this.appStateService.isLoading$;
+  private loadingSubscription: Subscription;
   public constructor(
     private appStateService: AppStateService,
     private router: Router,
   ) {
-    this.router.events
-      .pipe(
-        filter((event) => event instanceof ActivationStart),
-        tap(() => this.appStateService.startLoading()),
-      )
-      .subscribe();
+    this.loadingSubscription = this.router.events
+      .pipe(filter((event) => event instanceof ActivationStart))
+      .subscribe(() => this.appStateService.startLoading());
+  }
+
+  /** Unsubscribe form router events */
+  public ngOnDestroy(): void {
+    this.loadingSubscription.unsubscribe();
   }
 }
