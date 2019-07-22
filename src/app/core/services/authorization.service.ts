@@ -1,24 +1,26 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LoginDTO } from './dto/login-dto';
-import { AppStateService } from './app-state.service';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap, mapTo } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { tap, mapTo } from 'rxjs/operators';
+
 import { AppConfig } from '../../../environments/environment';
+
+import { AppStateService } from './app-state.service';
+import { LoginDTO } from './dto/login-dto';
 
 /**
  * Used for authorization needs
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthorizationService {
   public constructor(
     private http: HttpClient,
     private appStateService: AppStateService,
     private router: Router,
-    private config: AppConfig
+    private config: AppConfig,
   ) {}
   /**
    * loginWithEmail
@@ -31,7 +33,7 @@ export class AuthorizationService {
       .post<LoginDTO>(url.toString(), {
         email: email,
         password: password,
-        returnSecureToken: true
+        returnSecureToken: true,
       })
       .pipe(
         tap(
@@ -43,8 +45,8 @@ export class AuthorizationService {
           (error) => {
             console.log(error);
             this.appStateService.stopLoading();
-          }
-        )
+          },
+        ),
       );
   }
 
@@ -57,14 +59,14 @@ export class AuthorizationService {
     return this.http
       .post(url.toString(), {
         grant_type: 'refresh_token',
-        refresh_token: localStorage.refreshToken
+        refresh_token: localStorage.refreshToken,
       })
       .pipe(
         tap((result) => {
           localStorage.idToken = result['id_token'];
           localStorage.refreshToken = result['refresh_token'];
         }),
-        mapTo(null)
+        mapTo(null),
       );
   }
 }

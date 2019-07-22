@@ -1,13 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable, OperatorFunction, throwError } from 'rxjs';
-import { catchError, concatMapTo, map, switchMapTo, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { AppConfig } from '../../../environments/environment';
 import { Film } from '../models/film';
 
 import { AppStateService } from './app-state.service';
-import { AuthorizationService } from './authorization.service';
 import { FilmDTO } from './dto/film-dto';
 import { WrapDTO } from './dto/wrap-dto';
 
