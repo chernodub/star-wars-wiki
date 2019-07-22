@@ -3,15 +3,14 @@ import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   CanActivate,
-  Router
+  Router,
 } from '@angular/router';
-import { AppStateService } from '../services/app-state.service';
 
 /**
  * Checks if user is authorized
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   public constructor(private router: Router) {}
@@ -23,20 +22,12 @@ export class AuthGuard implements CanActivate {
    */
   public canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    state: RouterStateSnapshot,
   ): boolean {
-    if (next.routeConfig.path !== 'login') {
-      if (localStorage.idToken) {
-        return true;
-      }
-      this.router.navigate(['login']);
-      return false;
-    } else {
-      if (localStorage.idToken) {
-        this.router.navigate(['films']);
-        return false;
-      }
+    if (localStorage.idToken) {
       return true;
     }
+    this.router.navigate(['login']);
+    return false;
   }
 }

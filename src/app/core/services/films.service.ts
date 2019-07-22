@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { AppConfig } from '../../../environments/environment';
 import { Film } from '../models/film';
 
+import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
 import { FilmDTO } from './dto/film-dto';
 import { WrapDTO } from './dto/wrap-dto';
@@ -27,10 +27,11 @@ export class FilmsService {
    * Used to get Film[]
    */
   public getFilms(): Observable<Film[]> {
+    this.appStateService.startLoading();
     return this.http
       .get<WrapDTO<FilmDTO>[]>(this.config.filmsURL + '.json')
       .pipe(
-        tap(() => this.appStateService.startLoading()),
+        tap(() => this.appStateService.stopLoading()),
         map((dataWrapArray) =>
           dataWrapArray.map(
             (film, idx) =>
@@ -57,10 +58,11 @@ export class FilmsService {
    * @param id number of episode
    */
   public getFilmById(id: number): Observable<Film> {
+    this.appStateService.startLoading();
     return this.http
       .get<WrapDTO<FilmDTO>>(`${this.config.filmsURL}/${id}.json`)
       .pipe(
-        tap(() => this.appStateService.startLoading()),
+        tap(() => this.appStateService.stopLoading()),
         map((result) => {
           if (result.fields) {
             const film = result.fields;

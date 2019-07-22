@@ -33,13 +33,13 @@ export class ExpiredTokenInterceptor implements HttpInterceptor {
    * Retries request if there is a expired token
    * @param buildObservable function that builds proper observable to retry request with refreshing of token
    */
-  public handleExpiredToken<T>(
+  private handleExpiredToken<T>(
     buildObservable: () => Observable<T>,
   ): OperatorFunction<T, T> {
     return catchError((error: HttpErrorResponse) => {
       if (
-        error.status === 401
-        // Error.error.error === 'Auth token is expired'
+        error.status === 401 &&
+        error.error.error === 'Auth token is expired'
       ) {
         return this.authorizationService
           .refreshToken()

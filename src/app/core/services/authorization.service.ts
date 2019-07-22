@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap, mapTo } from 'rxjs/operators';
 
-import { AppConfig } from '../../../environments/environment';
-
+import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
 import { LoginDTO } from './dto/login-dto';
 

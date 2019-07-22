@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { AppConfig } from '../../../environments/environment';
+import { AppConfig } from '../services/app-config';
 
 /**
  * Adds the auth key to url

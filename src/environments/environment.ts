@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  apiUrl: 'https://starwarswiki.firebaseio.com/',
+  apiKey: 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4',
 };
 
 /*
@@ -14,43 +16,3 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // Import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-import { Injectable } from '@angular/core';
-
-/**
- * Application configurations
- */
-@Injectable({
-  providedIn: 'root',
-})
-export class AppConfig {
-  /**
-   * APP KEY for api
-   */
-  private apiKey = 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4';
-
-  /**
-   * API URL
-   */
-  public apiUrl = 'https://starwarswiki.firebaseio.com/';
-
-  /**
-   * URL for getting films table
-   */
-  get filmsURL(): string {
-    return this.apiUrl + 'swapi/films';
-  }
-
-  /** URL for refreshing an id token */
-  get refreshTokenURL(): string {
-    return 'https://securetoken.googleapis.com/v1/token?key=' + this.apiKey;
-  }
-  /**
-   * Login URL
-   */
-  get loginURL(): string {
-    return (
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' +
-      this.apiKey
-    );
-  }
-}
