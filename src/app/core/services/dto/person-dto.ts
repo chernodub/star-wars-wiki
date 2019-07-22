@@ -1,0 +1,4 @@
+/**
+ * person
+ */
+// Export interface PersonDTO {}

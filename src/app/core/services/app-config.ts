@@ -1,0 +1,30 @@
+import { Injectable } from '@angular/core';
+
+import { environment } from '../../../environments/environment';
+/**
+ * Application configurations
+ */
+@Injectable({
+  providedIn: 'root',
+})
+export class AppConfig {
+  /**
+   * API URL
+   */
+  public apiUrl = environment.apiUrl;
+
+  /**
+   * Login URL
+   */
+  public loginURL =
+    'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' +
+    environment.apiKey;
+  /** URL for refreshing an id token */
+
+  public refreshTokenURL =
+    'https://securetoken.googleapis.com/v1/token?key=' + environment.apiKey;
+  /**
+   * URL for getting films table
+   */
+  public filmsURL = this.apiUrl + 'swapi/films';
+}

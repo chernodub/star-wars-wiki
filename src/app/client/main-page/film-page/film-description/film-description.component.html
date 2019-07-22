@@ -1,0 +1,53 @@
+<div class="box">
+  <mat-card *ngIf="film$ | async as film" class="card">
+    <mat-card-header>
+      <mat-card-title>{{ film.name }}</mat-card-title>
+      <mat-card-subtitle>Episode {{ film.episodeId }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-grid-list cols="3">
+        <mat-grid-tile class="image-tile">
+          <div class="image-box">
+            <!-- Image mock -->
+            <div class="image-mock"></div>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+          <table class="detail-table">
+            <tbody>
+              <tr>
+                <td class="detail-table-td-title">
+                  Released:
+                </td>
+                <td class="detail-table-td-text">
+                  {{ film.releaseDate | date: 'mediumDate' }}
+                </td>
+              </tr>
+              <tr>
+                <td class="detail-table-td-title">
+                  Produced by:
+                </td>
+                <td class="detail-table-td-text">{{ film.producedBy }}</td>
+              </tr>
+              <tr>
+                <td class="detail-table-td-title">
+                  Directed by:
+                </td>
+                <td class="detail-table-td-text">
+                  {{ film.director }}
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <p>
+                    {{ film.description }}
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+  </mat-card>
+</div>
