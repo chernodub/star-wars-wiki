@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
 
 import { Film } from '../../../../core/models/film';
 import { AppStateService } from '../../../../core/services/app-state.service';
@@ -26,12 +26,5 @@ export class FilmsListComponent {
     this.films$ = this.filmsService
       .getFilms()
       .pipe(tap(() => this.appStateService.stopLoading()));
-  }
-
-  /**
-   * Opens the window with film description
-   */
-  public open(): void {
-    this.appStateService.startLoading();
   }
 }
