@@ -1,7 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component, OnDestroy } from '@angular/core';
-import { Router, ActivationStart, ActivationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router, ActivationStart } from '@angular/router';
 
 import { AppStateService } from './core/services/app-state.service';
 
@@ -22,19 +21,18 @@ import { AppStateService } from './core/services/app-state.service';
     ]),
   ],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   /** Is current page /login */
   public isLoginPage: boolean;
   /**
    * Is application paused
    */
   public loading$ = this.appStateService.isLoading$;
-  private loadingSubscription: Subscription;
   public constructor(
     private appStateService: AppStateService,
     private router: Router,
   ) {
-    this.loadingSubscription = this.router.events.subscribe((event) => {
+    this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';
 
       if (event instanceof ActivationStart) {
@@ -43,11 +41,6 @@ export class AppComponent implements OnDestroy {
         this.appStateService.stopLoading();
       }
     });
-  }
-
-  /** Unsubscribe form router events */
-  public ngOnDestroy(): void {
-    this.loadingSubscription.unsubscribe();
   }
 
   /** Log out current session */

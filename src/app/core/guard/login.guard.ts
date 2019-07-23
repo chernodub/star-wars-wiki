@@ -3,6 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 
 import { AppStateService } from '../services/app-state.service';
 
+/** Checks whether a user can open the login window */
 @Injectable({
   providedIn: 'root',
 })

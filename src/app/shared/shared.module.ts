@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoadingComponent } from './loading/loading.component';
+import { NgModule } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material';
+
+import { LoadingComponent } from './loading/loading.component';
 
 /**
  * Module for components shared across all the project
@@ -9,6 +10,6 @@ import { MatProgressSpinnerModule } from '@angular/material';
 @NgModule({
   declarations: [LoadingComponent],
   imports: [CommonModule, MatProgressSpinnerModule],
-  exports: [LoadingComponent]
+  exports: [LoadingComponent],
 })
 export class SharedModule {}
