@@ -27,4 +27,9 @@ export class AppConfig {
    * URL for getting films table
    */
   public filmsURL = this.apiUrl + 'swapi/films';
+  /** URL for getting characters */
+  public charactersURL = this.apiUrl + 'swapi/people';
+
+  /** URL for getting planets */
+  public planetURL = this.apiUrl + 'swapi/planets';
 }

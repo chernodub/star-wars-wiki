@@ -1,4 +1,0 @@
-/**
- * planet
- */
-// Export interface PlanetDTO {}

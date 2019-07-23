@@ -1,7 +1,16 @@
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
 
-body {
+* {
+  font-size: 1rem !important;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif !important;
+}
+body {
+  background-color: rgba(0, 0, 0, 0.45);
+}
+
+.mat-card,
+.mat-accordion {
+  filter: drop-shadow(0px 0px 3px #c2185b);
 }

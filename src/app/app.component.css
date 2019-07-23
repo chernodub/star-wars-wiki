@@ -4,3 +4,25 @@
   left: 0;
   z-index: 1;
 }
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem 1rem 1rem;
+}
+.logo svg {
+  width: 3em;
+  height: 3em;
+  transition: 100ms;
+}
+.logo svg:focus,
+.logo svg:hover {
+  filter: drop-shadow(0 0 0.2em #c2185b);
+}
+.logo svg:active {
+  filter: none;
+}
