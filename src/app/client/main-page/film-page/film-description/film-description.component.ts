@@ -9,7 +9,7 @@ import { CharactersService } from '../../../../core/services/characters.service'
 import { FilmsService } from '../../../../core/services/films.service';
 import { PlanetsService } from '../../../../core/services/planets.service';
 
-import { AdditionalInfo } from './additional-info-model';
+import { AdditionalInfo, ObjectWithName } from './additional-info-model';
 
 /**
  * Film description page
@@ -68,7 +68,7 @@ export class FilmDescriptionComponent {
   /**
    * TrackBy function
    */
-  public trackByDataIdx(index: number): number {
-    return index;
+  public trackByDataIdx(index: number, item: ObjectWithName): number {
+    return item.number;
   }
 }

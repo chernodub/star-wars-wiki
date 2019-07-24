@@ -22,17 +22,17 @@ export class CharactersService {
     private appStateService: AppStateService,
   ) {}
 
-  private mapCharacter(char: CharacterDTO, idx: number): Character {
+  private mapCharacter(character: CharacterDTO, idx: number): Character {
     return new Character(
       {
-        birthYear: char.birth_year,
-        eyeColor: char.eye_color,
-        gender: char.gender,
-        height: char.height,
-        homeworldId: char.homeworld,
-        mass: char.mass,
-        name: char.name,
-        skinColor: char.skin_color,
+        birthYear: character.birth_year,
+        eyeColor: character.eye_color,
+        gender: character.gender,
+        height: character.height,
+        homeworldId: character.homeworld,
+        mass: character.mass,
+        name: character.name,
+        skinColor: character.skin_color,
       },
       idx,
     );
@@ -48,11 +48,13 @@ export class CharactersService {
       .get<CharacterDTO[]>(`${this.config.charactersURL}.json`)
       .pipe(
         map((result) => {
-          const chars = result.map(this.mapCharacter);
+          const characters = result.map(this.mapCharacter);
           if (!ids.length) {
-            return chars;
+            return characters;
           }
-          return chars.filter((char) => char.number in ids);
+          return characters.filter(
+            (character) => ids.findIndex((id) => id === character.number) + 1,
+          );
         }),
       );
   }

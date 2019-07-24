@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, find, findIndex } from 'rxjs/operators';
 
 import { Planet } from '../models/planet';
 
@@ -30,9 +30,9 @@ export class PlanetsService {
         diameter: planet.diameter,
         gravity: planet.gravity,
         name: planet.name,
-        orbital_period: planet.orbital_period,
-        rotation_period: planet.rotation_period,
-        surface_water: planet.surface_water,
+        orbitalPeriod: planet.orbital_period,
+        rotationPeriod: planet.rotation_period,
+        surfaceWater: planet.surface_water,
         terrain: planet.terrain,
       },
       idx,
@@ -52,7 +52,9 @@ export class PlanetsService {
         if (!ids.length) {
           return planets;
         }
-        return planets.filter((planet) => planet.number in ids);
+        return planets.filter(
+          (planet) => ids.findIndex((id) => id === planet.number) + 1,
+        );
       }),
     );
   }

@@ -9,13 +9,13 @@ export class Planet {
   /** Name */
   public name: string;
   /** Orbital period */
-  public orbital_period: string;
+  public orbitalPeriod: string;
   /** Population */
   public population: string;
   /** Rotation period */
-  public rotation_period: string;
+  public rotationPeriod: string;
   /** Surface water */
-  public surface_water: string;
+  public surfaceWater: string;
   /** Terrain type */
   public terrain: string;
   /** Number */
@@ -26,10 +26,10 @@ export class Planet {
     this.climate = planet.climate;
     this.diameter = planet.diameter;
     this.gravity = planet.gravity;
-    this.orbital_period = planet.orbital_period;
+    this.orbitalPeriod = planet.orbitalPeriod;
     this.population = planet.population;
-    this.rotation_period = planet.rotation_period;
-    this.surface_water = planet.surface_water;
+    this.rotationPeriod = planet.rotationPeriod;
+    this.surfaceWater = planet.surfaceWater;
     this.terrain = planet.terrain;
     this.number = idx;
   }
