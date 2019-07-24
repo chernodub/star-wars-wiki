@@ -1,3 +1,4 @@
+
 .above-all {
   z-index: 1;
 }
@@ -16,15 +17,15 @@ a {
   justify-content: space-between;
   padding: 1rem 1rem 1rem 1rem;
 }
-.logo svg {
+.logo img {
   width: 3em;
   height: 3em;
   transition: 300ms;
 }
-.logo svg:focus,
-.logo svg:hover {
+.logo img:focus,
+.logo img:hover {
   filter: drop-shadow(0 0 0.2em #c2185b);
 }
-.logo svg:active {
+.logo img:active {
   filter: none;
 }

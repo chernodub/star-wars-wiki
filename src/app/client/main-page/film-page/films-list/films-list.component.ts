@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 
@@ -13,6 +13,7 @@ import { FilmsService } from '../../../../core/services/films.service';
   selector: 'app-films-list',
   templateUrl: './films-list.component.html',
   styleUrls: ['./films-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilmsListComponent {
   /**

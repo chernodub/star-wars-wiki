@@ -1,6 +1,7 @@
 import { animate, style, transition, trigger } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivationStart } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { AppStateService } from './core/services/app-state.service';
 
@@ -11,6 +12,7 @@ import { AppStateService } from './core/services/app-state.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('enterAnimation', [
       transition('void => *', [
@@ -21,7 +23,8 @@ import { AppStateService } from './core/services/app-state.service';
     ]),
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
+  private routerEventSubscription: Subscription;
   /** Is current page /login */
   public isLoginPage: boolean;
   /**
@@ -32,7 +35,7 @@ export class AppComponent {
     private appStateService: AppStateService,
     private router: Router,
   ) {
-    this.router.events.subscribe((event) => {
+    this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';
 
       if (event instanceof ActivationStart) {
@@ -47,5 +50,10 @@ export class AppComponent {
   public logOut(): void {
     localStorage.clear();
     this.router.navigate(['/login']);
+  }
+
+  /** @inheritdoc */
+  public ngOnDestroy(): void {
+    this.routerEventSubscription.unsubscribe();
   }
 }

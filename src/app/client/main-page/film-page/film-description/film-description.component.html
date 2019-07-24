@@ -57,7 +57,11 @@
           <mat-tab [label]="data.title">
             <div class="tab-content">
               <ng-container
-                *ngFor="let item of data.data$ | async; let isLast = last"
+                *ngFor="
+                  let item of data.data$ | async;
+                  trackBy: trackByDataIdx;
+                  let isLast = last
+                "
               >
                 <a [routerLink]="[data.routerLink, item.number]">
                   {{ item.name }}</a

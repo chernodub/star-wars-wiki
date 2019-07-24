@@ -1,11 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap, shareReplay } from 'rxjs/operators';
 
 import { Film } from '../../../../core/models/film';
 import { AppStateService } from '../../../../core/services/app-state.service';
+import { CharactersService } from '../../../../core/services/characters.service';
 import { FilmsService } from '../../../../core/services/films.service';
+import { PlanetsService } from '../../../../core/services/planets.service';
 
 import { AdditionalInfo } from './additional-info-model';
 
@@ -16,6 +18,7 @@ import { AdditionalInfo } from './additional-info-model';
   selector: 'app-film-description',
   templateUrl: './film-description.component.html',
   styleUrls: ['./film-description.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilmDescriptionComponent {
   /**
@@ -32,26 +35,40 @@ export class FilmDescriptionComponent {
     private filmsService: FilmsService,
     private route: ActivatedRoute,
     private appStateService: AppStateService,
+    private planetsService: PlanetsService,
+    private charactersService: CharactersService,
   ) {
     this.film$ = this.filmsService
       .getFilmById(+this.route.snapshot.paramMap.get('id'))
-      .pipe(
-        tap((film) => {
-          this.additionalInfoArray.push({
-            title: 'Characters',
-            data$: this.filmsService
-              .getCharacters(film.characters)
-              .pipe(tap(() => this.appStateService.stopLoading())),
-            routerLink: '/character/',
-          });
-          this.additionalInfoArray.push({
-            title: 'Planets',
-            data$: this.filmsService
-              .getPlanets(film.planets)
-              .pipe(tap(() => this.appStateService.stopLoading())),
-            routerLink: '/planets/',
-          });
-        }),
-      );
+      .pipe(shareReplay(1));
+    this.additionalInfoArray.push({
+      title: 'Characters',
+      data$: this.film$.pipe(
+        switchMap((film) =>
+          this.charactersService
+            .getCharacters(film.characters)
+            .pipe(tap(() => this.appStateService.stopLoading())),
+        ),
+      ),
+      routerLink: '/character/',
+    });
+    this.additionalInfoArray.push({
+      title: 'Planets',
+      data$: this.film$.pipe(
+        switchMap((film) =>
+          this.planetsService
+            .getPlanets(film.planets)
+            .pipe(tap(() => this.appStateService.stopLoading())),
+        ),
+      ),
+      routerLink: '/planets/',
+    });
+  }
+
+  /**
+   * TrackBy function
+   */
+  public trackByDataIdx(index: number): number {
+    return index;
   }
 }
