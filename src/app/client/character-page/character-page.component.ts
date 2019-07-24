@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 
 import { Character } from '../../core/models/character';
 import { Planet } from '../../core/models/planet';
@@ -27,18 +27,15 @@ export class CharacterPageComponent {
     private route: ActivatedRoute,
     private appStateService: AppStateService,
   ) {
-    this.character$ = this.filmsService
-      .getCharacterById(+this.route.snapshot.paramMap.get('id'))
-      .pipe(
-        tap((character) => {
-          this.planet$ = this.filmsService
-            .getPlanetById(character.homeworldId)
-            .pipe(
-              tap(() => {
-                this.appStateService.stopLoading();
-              }),
-            );
-        }),
-      );
+    this.character$ = this.filmsService.getCharacterById(
+      +this.route.snapshot.paramMap.get('id'),
+    );
+    this.planet$ = this.character$.pipe(
+      switchMap((character) =>
+        this.filmsService
+          .getPlanetById(character.homeworldId)
+          .pipe(tap(() => this.appStateService.stopLoading())),
+      ),
+    );
   }
 }

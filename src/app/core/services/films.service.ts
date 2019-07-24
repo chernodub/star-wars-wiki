@@ -9,7 +9,9 @@ import { Planet } from '../models/planet';
 
 import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
-import { FilmDTO, CharacterDTO, PlanetDTO } from './dto/film-dto';
+import { CharacterDTO } from './dto/character-dto';
+import { FilmDTO } from './dto/film-dto';
+import { PlanetDTO } from './dto/planet-dto';
 
 /**
  * Used to get data about films and other things
@@ -47,10 +49,9 @@ export class FilmsService {
    */
   public getFilms(): Observable<Film[]> {
     this.appStateService.startLoading();
-    return this.http.get<FilmDTO[]>(this.config.filmsURL + '.json').pipe(
-      tap(() => this.appStateService.stopLoading()),
-      map((dataWrapArray) => dataWrapArray.map(this.mapFilm)),
-    );
+    return this.http
+      .get<FilmDTO[]>(this.config.filmsURL + '.json')
+      .pipe(map((filmsDto) => filmsDto.map(this.mapFilm)));
   }
 
   /**
@@ -59,10 +60,9 @@ export class FilmsService {
    */
   public getFilmById(id: number): Observable<Film> {
     this.appStateService.startLoading();
-    return this.http.get<FilmDTO>(`${this.config.filmsURL}/${id}.json`).pipe(
-      tap(() => this.appStateService.stopLoading()),
-      map(this.mapFilm),
-    );
+    return this.http
+      .get<FilmDTO>(`${this.config.filmsURL}/${id}.json`)
+      .pipe(map(this.mapFilm));
   }
 
   private mapCharacter(char: CharacterDTO, idx: number): Character {
@@ -90,7 +90,6 @@ export class FilmsService {
     return this.http
       .get<CharacterDTO[]>(`${this.config.charactersURL}.json`)
       .pipe(
-        tap(() => this.appStateService.stopLoading()),
         map((result) => {
           const chars = result.map(this.mapCharacter);
           if (!ids.length) {
@@ -108,10 +107,7 @@ export class FilmsService {
     this.appStateService.startLoading();
     return this.http
       .get<CharacterDTO>(`${this.config.charactersURL}/${id}.json`)
-      .pipe(
-        tap(() => this.appStateService.stopLoading()),
-        map(this.mapCharacter),
-      );
+      .pipe(map(this.mapCharacter));
   }
 
   private mapPlanet(planet: PlanetDTO, idx: number): Planet {
@@ -139,7 +135,6 @@ export class FilmsService {
     this.appStateService.startLoading();
 
     return this.http.get<PlanetDTO[]>(`${this.config.planetURL}.json`).pipe(
-      tap(() => this.appStateService.stopLoading()),
       map((result) => {
         const planets = result.map(this.mapPlanet);
         if (!ids.length) {
@@ -155,9 +150,8 @@ export class FilmsService {
    */
   public getPlanetById(id: number): Observable<Planet> {
     this.appStateService.startLoading();
-    return this.http.get<PlanetDTO>(`${this.config.planetURL}/${id}.json`).pipe(
-      tap(() => this.appStateService.stopLoading()),
-      map(this.mapPlanet),
-    );
+    return this.http
+      .get<PlanetDTO>(`${this.config.planetURL}/${id}.json`)
+      .pipe(map(this.mapPlanet));
   }
 }

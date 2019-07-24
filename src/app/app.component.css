@@ -19,7 +19,7 @@ a {
 .logo svg {
   width: 3em;
   height: 3em;
-  transition: 100ms;
+  transition: 300ms;
 }
 .logo svg:focus,
 .logo svg:hover {
