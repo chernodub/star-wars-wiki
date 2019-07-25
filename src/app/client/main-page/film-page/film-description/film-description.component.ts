@@ -9,7 +9,8 @@ import { CharactersService } from '../../../../core/services/characters.service'
 import { FilmsService } from '../../../../core/services/films.service';
 import { PlanetsService } from '../../../../core/services/planets.service';
 
-import { AdditionalInfo, ObjectWithName } from './additional-info-model';
+import { AdditionalInfo } from './additional-info-model';
+import { ObjectWithName } from './object-with-name-model';
 
 /**
  * Film description page
@@ -40,7 +41,12 @@ export class FilmDescriptionComponent {
   ) {
     this.film$ = this.filmsService
       .getFilmById(+this.route.snapshot.paramMap.get('id'))
-      .pipe(shareReplay(1));
+      .pipe(
+        shareReplay({
+          bufferSize: 1,
+          refCount: true,
+        }),
+      );
     this.additionalInfoArray.push({
       title: 'Characters',
       data$: this.film$.pipe(

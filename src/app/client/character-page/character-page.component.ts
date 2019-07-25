@@ -34,7 +34,12 @@ export class CharacterPageComponent {
   ) {
     this.character$ = this.charactersService
       .getCharacterById(+this.route.snapshot.paramMap.get('id'))
-      .pipe(shareReplay(1));
+      .pipe(
+        shareReplay({
+          bufferSize: 1,
+          refCount: true,
+        }),
+      );
     this.planet$ = this.character$.pipe(
       switchMap((character) =>
         this.planetsService

@@ -16,7 +16,7 @@
 .table-box {
   width: 70%;
 }
-.detail-table td {
+td {
   padding: 0.5em;
 }
 .detail-table-td-title {
@@ -37,14 +37,14 @@
 .tab-content {
   padding: 2em;
 }
-.tab-content a {
+.data-link {
   text-decoration: none;
   color: white;
 }
-.tab-content a:focus,
-.tab-content a:hover {
+.data-link:focus,
+.data-link:hover {
   filter: drop-shadow(0 0 0.2em #c2185b);
 }
-.tab-content a:active {
+.data-link:active {
   color: rgba(0, 0, 0, 0.54);
 }

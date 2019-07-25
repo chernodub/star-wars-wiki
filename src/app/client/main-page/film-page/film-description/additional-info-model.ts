@@ -1,15 +1,7 @@
 import { Observable } from 'rxjs';
 
-/**
- * Used to describe any object with name field
- */
-export interface ObjectWithName {
-  /** Name */
-  name: string;
+import { ObjectWithName } from './object-with-name-model';
 
-  /** Number */
-  number: number;
-}
 /** Model for describing a tab in the film description page */
 export interface AdditionalInfo {
   /** Tab title */

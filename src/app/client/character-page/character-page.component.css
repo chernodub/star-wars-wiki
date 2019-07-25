@@ -16,7 +16,7 @@
 .detail-table {
   table-layout: fixed;
 }
-.detail-table td {
+td {
   padding: 0.5em;
 }
 .detail-table-td-title {

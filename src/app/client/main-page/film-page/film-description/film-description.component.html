@@ -63,7 +63,10 @@
                   let isLast = last
                 "
               >
-                <a [routerLink]="[data.routerLink, item.number]">
+                <a
+                  [routerLink]="[data.routerLink, item.number]"
+                  class="data-link"
+                >
                   {{ item.name }}</a
                 >{{ isLast ? '' : ', ' }}
               </ng-container>
