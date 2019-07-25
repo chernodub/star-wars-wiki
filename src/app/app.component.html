@@ -1,6 +1,20 @@
+<nav class="nav" *ngIf="!isLoginPage">
+  <a class="logo" [routerLink]="['']">
+    <img src="assets/Vector.svg" alt="" srcset="" />
+  </a>
+  <a [routerLink]="['/login']" (click)="logOut()">
+    <mat-icon
+      aria-hidden="false"
+      aria-label="Log out icon"
+      class="nav-button large"
+    >
+      exit_to_app
+    </mat-icon>
+  </a>
+</nav>
 <app-loading
   *ngIf="loading$ | async"
   [@enterAnimation]
-  class="loading"
+  class="background above-all"
 ></app-loading>
 <router-outlet></router-outlet>

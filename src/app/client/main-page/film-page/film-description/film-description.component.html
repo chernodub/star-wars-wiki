@@ -5,14 +5,18 @@
       <mat-card-subtitle>Episode {{ film.episodeId }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <mat-grid-list cols="3">
-        <mat-grid-tile class="image-tile">
-          <div class="image-box">
-            <!-- Image mock -->
-            <div class="image-mock"></div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile [colspan]="2">
+      <div class="content-wrap">
+        <div class="image-box">
+          <!-- Image mock -->
+          <!-- <div class="image-mock"></div> -->
+          <img
+            src="../../../../assets/film-covers/{{ film.episodeId }}.jpg"
+            alt="Cover image"
+            srcset=""
+            class="image-mock"
+          />
+        </div>
+        <div class="table-box">
           <table class="detail-table">
             <tbody>
               <tr>
@@ -38,7 +42,7 @@
                 </td>
               </tr>
               <tr>
-                <td colspan="2">
+                <td colspan="2" class="description">
                   <p>
                     {{ film.description }}
                   </p>
@@ -46,8 +50,30 @@
               </tr>
             </tbody>
           </table>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
+      </div>
+      <mat-tab-group dynamicHeight>
+        <ng-container *ngFor="let data of additionalInfoArray">
+          <mat-tab [label]="data.title">
+            <div class="tab-content">
+              <ng-container
+                *ngFor="
+                  let item of data.data$ | async;
+                  trackBy: trackByDataIdx;
+                  let isLast = last
+                "
+              >
+                <a
+                  [routerLink]="[data.routerLink, item.number]"
+                  class="data-link"
+                >
+                  {{ item.name }}</a
+                >{{ isLast ? '' : ', ' }}
+              </ng-container>
+            </div>
+          </mat-tab>
+        </ng-container>
+      </mat-tab-group>
     </mat-card-content>
   </mat-card>
 </div>

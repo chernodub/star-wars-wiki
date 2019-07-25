@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import {
   MatButtonModule,
   MatCardModule,
-  MatGridListModule
+  MatGridListModule,
+  MatTabsModule,
 } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
+
 import { FilmDescriptionComponent } from './film-page/film-description/film-description.component';
 import { FilmsListComponent } from './film-page/films-list/films-list.component';
 
@@ -21,8 +23,9 @@ import { FilmsListComponent } from './film-page/films-list/films-list.component'
     MatButtonModule,
     MatCardModule,
     MatGridListModule,
-    RouterModule
+    RouterModule,
+    MatTabsModule,
   ],
-  exports: [RouterModule, FilmDescriptionComponent, FilmsListComponent]
+  exports: [RouterModule, FilmDescriptionComponent, FilmsListComponent],
 })
 export class MainPageModule {}

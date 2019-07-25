@@ -1,5 +1,6 @@
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -8,6 +9,7 @@ import { AppComponent } from './app.component';
 import { ClientModule } from './client/client.module';
 import { AuthTokenInterceptor } from './core/http-interceptors/auth-token.interceptor';
 import { ExpiredTokenInterceptor } from './core/http-interceptors/expired-token.interceptor';
+import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-remover.interceptor';
 import { SharedModule } from './shared/shared.module';
 
 /**
@@ -22,6 +24,7 @@ import { SharedModule } from './shared/shared.module';
     SharedModule,
     ClientModule,
     BrowserAnimationsModule,
+    MatIconModule,
   ],
   providers: [
     {
@@ -32,6 +35,11 @@ import { SharedModule } from './shared/shared.module';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthTokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: WrappingRemoverInterceptor,
       multi: true,
     },
   ],

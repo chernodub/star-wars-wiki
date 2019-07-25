@@ -6,6 +6,8 @@ import {
   Router,
 } from '@angular/router';
 
+import { AppStateService } from '../services/app-state.service';
+
 /**
  * Checks if user is authorized
  */
@@ -13,7 +15,10 @@ import {
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  public constructor(private router: Router) {}
+  public constructor(
+    private router: Router,
+    private appStateService: AppStateService,
+  ) {}
 
   /**
    * Used for allowing or not allowing to get into the main and login pages
@@ -24,6 +29,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): boolean {
+    this.appStateService.stopLoading();
     if (localStorage.idToken) {
       return true;
     }

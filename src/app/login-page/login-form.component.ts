@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { AuthorizationService } from '../core/services/authorization.service';
 
 /**
@@ -7,7 +8,7 @@ import { AuthorizationService } from '../core/services/authorization.service';
 @Component({
   selector: 'app-login-window',
   templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.css']
+  styleUrls: ['./login-form.component.css'],
 })
 export class LoginFormComponent {
   // TODO: remove default credentials

@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
  * State of application service
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppStateService {
   /**

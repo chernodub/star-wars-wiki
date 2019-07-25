@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Film } from '../models/film';
 
 import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
 import { FilmDTO } from './dto/film-dto';
-import { WrapDTO } from './dto/wrap-dto';
 
 /**
  * Used to get data about films and other things
@@ -23,34 +22,32 @@ export class FilmsService {
     private appStateService: AppStateService,
   ) {}
 
+  private mapFilm(film: FilmDTO, idx: number): Film {
+    return new Film(
+      {
+        name: film.title,
+        director: film.director,
+        description: film.opening_crawl,
+        episodeId: film.episode_id,
+        releaseDate: new Date(film.release_date),
+        producedBy: film.producer,
+        characters: film.characters,
+        starships: film.starships,
+        vehicles: film.vehicles,
+        species: film.species,
+        planets: film.planets,
+      },
+      idx,
+    );
+  }
   /**
    * Used to get Film[]
    */
   public getFilms(): Observable<Film[]> {
     this.appStateService.startLoading();
     return this.http
-      .get<WrapDTO<FilmDTO>[]>(this.config.filmsURL + '.json')
-      .pipe(
-        tap(() => this.appStateService.stopLoading()),
-        map((dataWrapArray) =>
-          dataWrapArray.map(
-            (film, idx) =>
-              new Film(
-                {
-                  name: film.fields.title,
-                  director: film.fields.director,
-                  description: film.fields.opening_crawl,
-                  episodeId: film.fields.episode_id,
-                  releaseDate: new Date(film.fields.release_date),
-                  created: new Date(film.fields.created),
-                  edited: new Date(film.fields.edited),
-                  producedBy: film.fields.producer,
-                },
-                idx,
-              ),
-          ),
-        ),
-      );
+      .get<FilmDTO[]>(this.config.filmsURL + '.json')
+      .pipe(map((filmsDto) => filmsDto.map(this.mapFilm)));
   }
 
   /**
@@ -60,28 +57,7 @@ export class FilmsService {
   public getFilmById(id: number): Observable<Film> {
     this.appStateService.startLoading();
     return this.http
-      .get<WrapDTO<FilmDTO>>(`${this.config.filmsURL}/${id}.json`)
-      .pipe(
-        tap(() => this.appStateService.stopLoading()),
-        map((result) => {
-          if (result.fields) {
-            const film = result.fields;
-            return new Film(
-              {
-                name: film.title,
-                director: film.director,
-                description: film.opening_crawl,
-                episodeId: film.episode_id,
-                releaseDate: new Date(film.release_date),
-                created: new Date(film.created),
-                edited: new Date(film.edited),
-                producedBy: film.producer,
-              },
-              id,
-            );
-          }
-          return null;
-        }),
-      );
+      .get<FilmDTO>(`${this.config.filmsURL}/${id}.json`)
+      .pipe(map(this.mapFilm));
   }
 }
