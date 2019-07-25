@@ -20,8 +20,8 @@
           </mat-expansion-panel-header>
           <p>{{ film.description }}</p>
           <div class="button-panel">
-            <a mat-button [routerLink]="['/films/', film.number]">
-              Open
+            <a mat-button [routerLink]="[filmLink, film.number]">
+              {{ buttonText }}
             </a>
           </div>
         </mat-expansion-panel>

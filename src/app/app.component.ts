@@ -1,9 +1,10 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivationStart } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Router, ActivationStart, ActivatedRoute } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
 
 import { AppStateService } from './core/services/app-state.service';
+import { RouteData } from './shared/films-list/route-data-model';
 
 /**
  * Core component
@@ -27,6 +28,9 @@ export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
   /** Is current page /login */
   public isLoginPage: boolean;
+
+  /** Data about current route */
+  public routeData$: Observable<RouteData>;
   /**
    * Is application paused
    */
@@ -34,6 +38,7 @@ export class AppComponent implements OnDestroy {
   public constructor(
     private appStateService: AppStateService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';

@@ -4,10 +4,12 @@ import { FormsModule } from '@angular/forms';
 import {
   MatButtonModule,
   MatCardModule,
-  MatInputModule
+  MatInputModule,
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+
 import { SharedModule } from '../shared/shared.module';
+
 import { LoginFormComponent } from './login-form.component';
 
 /**
@@ -26,10 +28,10 @@ import { LoginFormComponent } from './login-form.component';
       {
         path: '',
         pathMatch: 'full',
-        component: LoginFormComponent
-      }
-    ])
+        component: LoginFormComponent,
+      },
+    ]),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class LoginPageModule {}

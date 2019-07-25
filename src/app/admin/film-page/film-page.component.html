@@ -1,0 +1,159 @@
+<div class="box">
+  <mat-card *ngIf="film$ | async as film" class="card">
+    <mat-card-header>
+      <mat-card-title aria-label="Film title">{{ film.name }}</mat-card-title>
+      <mat-card-subtitle>Episode {{ film.episodeId }}</mat-card-subtitle>
+      <mat-card-actions>
+        <ng-container *ngIf="!isEditing; else editButtons">
+          <button
+            mat-icon-button
+            (click)="startEditing(film)"
+            aria-label="Start editing button"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #editButtons>
+          <button
+            mat-icon-button
+            (click)="save(film)"
+            aria-label="Save editing button"
+          >
+            <mat-icon>save</mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            (click)="film = stopEditing()"
+            aria-label="Cancel editing button"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+        </ng-template>
+      </mat-card-actions>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="content-wrap">
+        <div class="image-box">
+          <img
+            src="../../../../assets/film-covers/{{ film.episodeId }}.jpg"
+            aria-label="Cover image"
+            alt="Cover image"
+            class="image-mock"
+          />
+        </div>
+        <div class="table-box">
+          <form>
+            <table class="detail-table full-width">
+              <tbody>
+                <tr>
+                  <td class="detail-table-td-title">
+                    Released:
+                  </td>
+                  <td class="detail-table-td-text">
+                    <ng-container *ngIf="!isEditing; else editRelease">
+                      {{ film.releaseDate | date: 'mediumDate' }}
+                    </ng-container>
+                    <ng-template #editRelease>
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          [matDatepicker]="picker"
+                          placeholder="Choose a date"
+                          [(ngModel)]="film.releaseDate"
+                          name="releaseDate"
+                        />
+                        <mat-datepicker-toggle
+                          matSuffix
+                          [for]="picker"
+                        ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                      </mat-form-field>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="detail-table-td-title">
+                    Produced by:
+                  </td>
+                  <td class="detail-table-td-text">
+                    <ng-container *ngIf="!isEditing; else editProducer">
+                      {{ film.producedBy }}
+                    </ng-container>
+                    <ng-template #editProducer>
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          [(ngModel)]="film.producedBy"
+                          name="producedBy"
+                        />
+                      </mat-form-field>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="detail-table-td-title">
+                    Directed by:
+                  </td>
+                  <td class="detail-table-td-text">
+                    <ng-container *ngIf="!isEditing; else editDirector">
+                      {{ film.director }}
+                    </ng-container>
+                    <ng-template #editDirector>
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          [(ngModel)]="film.director"
+                          name="director"
+                        />
+                      </mat-form-field>
+                    </ng-template>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="description">
+                    <ng-container *ngIf="!isEditing; else editDescription">
+                      {{ film.description }}
+                    </ng-container>
+                    <ng-template #editDescription>
+                      <mat-form-field class="full-width">
+                        <textarea
+                          class="full-width"
+                          matInput
+                          name="description"
+                          [(ngModel)]="film.description"
+                          placeholder="Description"
+                        ></textarea>
+                      </mat-form-field>
+                    </ng-template>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+      <mat-tab-group dynamicHeight>
+        <ng-container *ngFor="let data of additionalInfoArray">
+          <mat-tab [label]="data.title">
+            <div class="tab-content">
+              <ng-container
+                *ngFor="
+                  let item of data.data$ | async;
+                  trackBy: trackByDataIdx;
+                  let isLast = last
+                "
+              >
+                <a
+                  [routerLink]="[data.routerLink, item.number]"
+                  class="data-link"
+                >
+                  {{ item.name }}</a
+                >{{ isLast ? '' : ', ' }}
+              </ng-container>
+            </div>
+          </mat-tab>
+        </ng-container>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>

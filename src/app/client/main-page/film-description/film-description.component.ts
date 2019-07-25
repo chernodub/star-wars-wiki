@@ -3,11 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap, switchMap, shareReplay } from 'rxjs/operators';
 
-import { Film } from '../../../../core/models/film';
-import { AppStateService } from '../../../../core/services/app-state.service';
-import { CharactersService } from '../../../../core/services/characters.service';
-import { FilmsService } from '../../../../core/services/films.service';
-import { PlanetsService } from '../../../../core/services/planets.service';
+import { Film } from '../../../core/models/film';
+import { AppStateService } from '../../../core/services/app-state.service';
+import { CharactersService } from '../../../core/services/characters.service';
+import { FilmsService } from '../../../core/services/films.service';
+import { PlanetsService } from '../../../core/services/planets.service';
 
 import { AdditionalInfo } from './additional-info-model';
 import { ObjectWithName } from './object-with-name-model';
@@ -33,9 +33,9 @@ export class FilmDescriptionComponent {
   public additionalInfoArray: AdditionalInfo[] = [];
 
   public constructor(
-    private filmsService: FilmsService,
+    protected filmsService: FilmsService,
     private route: ActivatedRoute,
-    private appStateService: AppStateService,
+    protected appStateService: AppStateService,
     private planetsService: PlanetsService,
     private charactersService: CharactersService,
   ) {
