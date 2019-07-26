@@ -14,25 +14,25 @@ export class FilmPageComponent extends FilmDescriptionComponent {
   /** Is editing template activated */
   public isEditing: boolean;
 
-  /** Copy of film (needed for cancel editing) */
-  public filmCopy: Film = new Film({});
+  /** Copy of film (needed for cancel editing and restoring default data) */
+  public filmCopy: Film;
 
   /** Activate editing of film */
   public startEditing(initialFilm: Film): void {
     this.filmCopy = new Film(initialFilm, initialFilm.number);
-    this.toggleEditing();
+    this.toggleEditing(true);
   }
 
   /** Stops editing */
   public stopEditing(film: Film): void {
-    this.toggleEditing();
+    this.toggleEditing(false);
     Object.assign(film, this.filmCopy);
   }
-  private toggleEditing = () => (this.isEditing = !this.isEditing);
+  private toggleEditing = (value: boolean) => (this.isEditing = value);
 
   /** Saves new film data */
   public save(film: Film): void {
-    this.toggleEditing();
+    this.toggleEditing(false);
     this.filmsService
       .saveFilm(film)
       .pipe(tap(() => this.appStateService.stopLoading()))

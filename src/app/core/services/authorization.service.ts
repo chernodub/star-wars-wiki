@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap, mapTo } from 'rxjs/operators';
 
+import { User } from '../models/user';
+
 import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
 import { LoginDTO } from './dto/login-dto';
@@ -21,6 +23,18 @@ export class AuthorizationService {
     private router: Router,
     private config: AppConfig,
   ) {}
+
+  private mapUser(user: LoginDTO): User {
+    return new User({
+      displayName: user.displayName,
+      email: user.email,
+      expiresIn: user.expiresIn,
+      idToken: user.idToken,
+      localId: user.localId,
+      refreshToken: user.refreshToken,
+      registered: user.registered,
+    });
+  }
   /**
    * loginWithEmail
    * Gets the authorization token from the server
@@ -37,6 +51,8 @@ export class AuthorizationService {
       .pipe(
         tap(
           (result) => {
+            localStorage.uid = result.localId;
+            localStorage.email = result.email;
             localStorage.idToken = result.idToken;
             localStorage.refreshToken = result.refreshToken;
             this.router.navigateByUrl('');

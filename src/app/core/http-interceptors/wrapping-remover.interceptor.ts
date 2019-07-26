@@ -14,7 +14,7 @@ import { map } from 'rxjs/operators';
  */
 @Injectable()
 export class WrappingRemoverInterceptor implements HttpInterceptor {
-  private mapFields = (x): Object => (x['fields'] ? x['fields'] : x);
+  private mapFields = (x): Object => (x ? (x['fields'] ? x['fields'] : x) : x);
   /** @inheritdoc */
   public intercept(
     req: HttpRequest<any>,
