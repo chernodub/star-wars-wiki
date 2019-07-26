@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { tap, mapTo } from 'rxjs/operators';
+import { tap, mapTo, first } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
+import { UsersService } from './admin/users.service';
 import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
 import { LoginDTO } from './dto/login-dto';
@@ -20,20 +21,13 @@ export class AuthorizationService {
   public constructor(
     private http: HttpClient,
     private appStateService: AppStateService,
-    private router: Router,
+    private usersService: UsersService,
     private config: AppConfig,
+    private router: Router,
   ) {}
 
   private mapUser(user: LoginDTO): User {
-    return new User({
-      displayName: user.displayName,
-      email: user.email,
-      expiresIn: user.expiresIn,
-      idToken: user.idToken,
-      localId: user.localId,
-      refreshToken: user.refreshToken,
-      registered: user.registered,
-    });
+    return new User(user);
   }
   /**
    * loginWithEmail
@@ -55,6 +49,12 @@ export class AuthorizationService {
             localStorage.email = result.email;
             localStorage.idToken = result.idToken;
             localStorage.refreshToken = result.refreshToken;
+            this.usersService
+              .isUserAdmin()
+              .pipe(first())
+              .subscribe(
+                (isUserAdmin) => (localStorage.isAdmin = !!isUserAdmin),
+              );
             this.router.navigateByUrl('');
           },
           (error) => {

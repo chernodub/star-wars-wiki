@@ -50,8 +50,8 @@ export class FilmsListComponent {
   /** Link for film concerning user status */
   get filmLink(): string {
     if (this.routeData) {
-      return this.routeData.isAdminModule ? '/admin/films/' : '/films/';
+      return this.routeData.isAdminModule ? '/admin/films/' : '/user/films/';
     }
-    return '/films/';
+    return '/user/films/';
   }
 }

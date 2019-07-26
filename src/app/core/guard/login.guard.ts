@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { Router, CanLoad } from '@angular/router';
 
 import { AppStateService } from '../services/app-state.service';
 
@@ -7,7 +7,7 @@ import { AppStateService } from '../services/app-state.service';
 @Injectable({
   providedIn: 'root',
 })
-export class LoginGuard implements CanActivate {
+export class LoginGuard implements CanLoad {
   public constructor(
     private router: Router,
     private appStateService: AppStateService,
@@ -15,10 +15,10 @@ export class LoginGuard implements CanActivate {
   /**
    * @inheritdoc
    */
-  public canActivate(): boolean {
+  public canLoad(): boolean {
     this.appStateService.stopLoading();
     if (localStorage.idToken) {
-      this.router.navigate(['films']);
+      this.router.navigate(['']);
       return false;
     }
     return true;

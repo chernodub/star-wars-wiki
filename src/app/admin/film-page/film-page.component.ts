@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { tap } from 'rxjs/operators';
 
-import { FilmDescriptionComponent } from '../../client/main-page/film-description/film-description.component';
+import { FilmDescriptionComponent } from '../../client/film-page/film-description/film-description.component';
 import { Film } from '../../core/models/film';
 
 /** Page for editing film */

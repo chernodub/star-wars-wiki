@@ -6,24 +6,29 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { LoginGuard } from './core/guard/login.guard';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'user' },
   {
-    path: '',
-    pathMatch: 'full',
+    path: 'user',
     loadChildren: () =>
       import('./client/client.module').then((m) => m.ClientModule),
-    canActivate: [AuthGuard],
+    canLoad: [AuthGuard],
   },
   {
     path: 'login',
     loadChildren: () =>
       import('./login-page/login-page.module').then((m) => m.LoginPageModule),
-    canActivate: [LoginGuard],
+    canLoad: [LoginGuard],
   },
   {
     path: 'admin',
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
-    canActivate: [AuthGuard, AdminGuard],
+    canLoad: [AuthGuard, AdminGuard],
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: 'user',
   },
 ];
 

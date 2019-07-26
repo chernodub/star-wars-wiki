@@ -15,6 +15,10 @@ import { AppStateService } from './core/services/app-state.service';
 })
 export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
+  /** Is user admin */
+  public get isAdmin(): boolean {
+    return localStorage.isAdmin === 'true';
+  }
   /** Is current page /login */
   public isLoginPage: boolean;
   /**
@@ -27,7 +31,6 @@ export class AppComponent implements OnDestroy {
   ) {
     this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';
-
       if (event instanceof ActivationStart) {
         this.appStateService.startLoading();
       } else if (this.isLoginPage) {

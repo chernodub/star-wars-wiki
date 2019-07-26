@@ -19,6 +19,7 @@ a {
 .nav-button,
 .logo img {
   transition: 300ms;
+  color: rgba(255, 255, 255, 0.7);
 }
 .logo img {
   width: 3em;
@@ -29,6 +30,9 @@ a {
 .nav-button:focus,
 .nav-button:hover {
   filter: drop-shadow(0 0 0.2em #c2185b);
+}
+.activated > .nav-button {
+  color: #c2185b !important;
 }
 .logo img:active,
 .nav-button:active {

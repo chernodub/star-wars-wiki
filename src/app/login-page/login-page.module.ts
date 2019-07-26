@@ -32,6 +32,5 @@ import { LoginFormComponent } from './login-form.component';
       },
     ]),
   ],
-  exports: [RouterModule],
 })
 export class LoginPageModule {}
