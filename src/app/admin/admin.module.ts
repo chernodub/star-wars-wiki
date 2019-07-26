@@ -22,12 +22,12 @@ const adminRoutes: Routes = [
   {
     path: 'films',
     component: FilmsListComponent,
-    data: { isAdmin: true },
+    data: { isAdminModule: true },
   },
   {
     path: 'films/:id',
     component: FilmPageComponent,
-    data: { isAdmin: true },
+    data: { isAdminModule: true },
   },
 ];
 

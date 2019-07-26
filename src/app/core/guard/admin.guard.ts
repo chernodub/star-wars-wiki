@@ -24,8 +24,8 @@ export class AdminGuard implements CanActivate {
   /** @inheritdoc */
   public canActivate(): Observable<boolean> {
     return this.usersService.isUserAdmin().pipe(
-      tap((isAdmin) => {
-        if (!isAdmin) {
+      tap((isAdminModule) => {
+        if (!isAdminModule) {
           this.router.navigate(['']);
         }
         this.appStateService.stopLoading();
