@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivationStart, ActivatedRoute } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
@@ -14,15 +13,6 @@ import { RouteData } from './shared/films-list/route-data-model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('enterAnimation', [
-      transition('void => *', [
-        style({ opacity: 0 }),
-        animate(200, style({ opacity: 1 })),
-      ]),
-      transition('* => void', [animate(200, style({ opacity: 0 }))]),
-    ]),
-  ],
 })
 export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
@@ -38,7 +28,6 @@ export class AppComponent implements OnDestroy {
   public constructor(
     private appStateService: AppStateService,
     private router: Router,
-    private route: ActivatedRoute,
   ) {
     this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';

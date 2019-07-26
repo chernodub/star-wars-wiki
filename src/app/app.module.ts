@@ -19,11 +19,11 @@ import { SharedModule } from './shared/shared.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
     ClientModule,
-    BrowserAnimationsModule,
     MatIconModule,
   ],
   providers: [

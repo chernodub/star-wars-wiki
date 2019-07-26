@@ -4,7 +4,7 @@
       <mat-card-title aria-label="Film title">{{ film.name }}</mat-card-title>
       <mat-card-subtitle>Episode {{ film.episodeId }}</mat-card-subtitle>
       <mat-card-actions>
-        <ng-container *ngIf="!isEditing; else editButtons">
+        <ng-container *ngIf="!isEditing; else editPanel">
           <button
             mat-icon-button
             (click)="startEditing(film)"
@@ -13,19 +13,11 @@
             <mat-icon>edit</mat-icon>
           </button>
         </ng-container>
-        <ng-template #editButtons>
-          <button
-            mat-icon-button
-            (click)="save(film)"
-            aria-label="Save editing button"
-          >
+        <ng-template #editPanel>
+          <button mat-icon-button (click)="save(film)">
             <mat-icon>save</mat-icon>
           </button>
-          <button
-            mat-icon-button
-            (click)="film = stopEditing()"
-            aria-label="Cancel editing button"
-          >
+          <button mat-icon-button (click)="stopEditing(film)">
             <mat-icon>close</mat-icon>
           </button>
         </ng-template>

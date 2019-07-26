@@ -24,9 +24,9 @@ export class FilmPageComponent extends FilmDescriptionComponent {
   }
 
   /** Stops editing */
-  public stopEditing(): Film {
+  public stopEditing(film: Film): void {
     this.toggleEditing();
-    return new Film(this.filmCopy, this.filmCopy.number);
+    Object.assign(film, this.filmCopy);
   }
   private toggleEditing = () => (this.isEditing = !this.isEditing);
 
