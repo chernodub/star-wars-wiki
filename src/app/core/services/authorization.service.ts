@@ -45,10 +45,10 @@ export class AuthorizationService {
       .pipe(
         tap(
           (result) => {
-            localStorage.uid = result.localId;
-            localStorage.email = result.email;
-            localStorage.idToken = result.idToken;
-            localStorage.refreshToken = result.refreshToken;
+            localStorage.setItem('uid', result.localId);
+            localStorage.setItem('email', result.email);
+            localStorage.setItem('idToken', result.idToken);
+            localStorage.setItem('refreshToken', result.refreshToken);
             this.router.navigateByUrl('');
           },
           (error) => {
@@ -59,7 +59,9 @@ export class AuthorizationService {
         switchMap(() =>
           this.usersService.isUserAdmin().pipe(
             first(),
-            tap((isUserAdmin) => (localStorage.isAdmin = !!isUserAdmin)),
+            tap((isUserAdmin) =>
+              localStorage.setItem('isAdmin', '' + !!isUserAdmin),
+            ),
           ),
         ),
         switchMap(() => EMPTY),
@@ -75,12 +77,12 @@ export class AuthorizationService {
     return this.http
       .post(url.toString(), {
         grant_type: 'refresh_token',
-        refresh_token: localStorage.refreshToken,
+        refresh_token: localStorage.getItem('refreshToken'),
       })
       .pipe(
         tap((result) => {
-          localStorage.idToken = result['id_token'];
-          localStorage.refreshToken = result['refresh_token'];
+          localStorage.setItem('idToken', result['id_token']);
+          localStorage.setItem('refreshToken', result['refresh_token']);
         }),
         mapTo(null),
       );

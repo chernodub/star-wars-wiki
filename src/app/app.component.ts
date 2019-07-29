@@ -17,7 +17,7 @@ export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
   /** Is user admin */
   public get isAdmin(): boolean {
-    return localStorage.isAdmin === 'true';
+    return localStorage.getItem('isAdmin') === 'true';
   }
   /** Is current page /login */
   public isLoginPage: boolean;

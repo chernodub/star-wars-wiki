@@ -17,7 +17,7 @@ export class LoginGuard implements CanLoad {
    */
   public canLoad(): boolean {
     this.appStateService.stopLoading();
-    if (localStorage.idToken) {
+    if (localStorage.getItem('idToken')) {
       this.router.navigate(['']);
       return false;
     }

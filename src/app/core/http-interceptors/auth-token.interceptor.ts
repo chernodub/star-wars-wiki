@@ -26,7 +26,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (req.url.includes(this.config.apiUrl)) {
       const clone = req.clone({
-        params: new HttpParams().set('auth', localStorage.idToken),
+        params: new HttpParams().set('auth', localStorage.getItem('idToken')),
       });
       return next.handle(clone);
     }

@@ -4,23 +4,27 @@
       <ng-container *ngFor="let film of films$ | async">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title>
+            <mat-panel-title aria-label="Film name">
               {{ film.name }}
             </mat-panel-title>
             <mat-panel-description>
-              <i>
+              <i aria-label="Director name">
                 {{ film.director }}
               </i>
             </mat-panel-description>
             <mat-panel-description>
-              <i>
+              <i aria-label="Release date">
                 {{ film.releaseDate | date: 'mediumDate' }}
               </i>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>{{ film.description }}</p>
+          <p aria-label="Film description">{{ film.description }}</p>
           <div class="button-panel">
-            <a mat-button [routerLink]="[filmLink, film.number]">
+            <a
+              mat-button
+              [routerLink]="[filmLink, film.number]"
+              aria-label="Open film button"
+            >
               {{ buttonText }}
             </a>
           </div>

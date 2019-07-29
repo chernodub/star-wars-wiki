@@ -7,6 +7,11 @@ import { AppConfig } from '../app-config';
 import { AppStateService } from '../app-state.service';
 import { SpecialUser } from '../dto/special-user-dto';
 
+/** User roles */
+enum Roles {
+  /** Admin */
+  Admin = 'admin',
+}
 /** Users service */
 @Injectable({
   providedIn: 'root',
@@ -20,10 +25,10 @@ export class UsersService {
 
   /** Checks if user is admin */
   public isUserAdmin(): Observable<boolean> {
-    const uid = localStorage.uid;
+    const uid = localStorage.getItem('uid');
     this.appStateService.startLoading();
     return this.http
       .get<SpecialUser>(`${this.config.usersURL}/${uid}.json`)
-      .pipe(map((user) => user && user.role === 'admin'));
+      .pipe(map((user) => user && user.role === Roles.Admin));
   }
 }

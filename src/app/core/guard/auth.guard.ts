@@ -27,7 +27,7 @@ export class AuthGuard implements CanLoad {
    */
   public canLoad(): boolean {
     this.appStateService.stopLoading();
-    if (localStorage.idToken) {
+    if (localStorage.getItem('idToken')) {
       return true;
     }
     this.router.navigate(['login']);
