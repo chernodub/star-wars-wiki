@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap, mapTo, first } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { tap, mapTo, first, switchMap } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
@@ -33,7 +33,7 @@ export class AuthorizationService {
    * loginWithEmail
    * Gets the authorization token from the server
    */
-  public loginWithEmail(email: string, password: string): Observable<LoginDTO> {
+  public loginWithEmail(email: string, password: string): Observable<void> {
     this.appStateService.startLoading();
     const url = new URL(this.config.loginURL);
     return this.http
@@ -49,12 +49,6 @@ export class AuthorizationService {
             localStorage.email = result.email;
             localStorage.idToken = result.idToken;
             localStorage.refreshToken = result.refreshToken;
-            this.usersService
-              .isUserAdmin()
-              .pipe(first())
-              .subscribe(
-                (isUserAdmin) => (localStorage.isAdmin = !!isUserAdmin),
-              );
             this.router.navigateByUrl('');
           },
           (error) => {
@@ -62,6 +56,13 @@ export class AuthorizationService {
             this.appStateService.stopLoading();
           },
         ),
+        switchMap(() =>
+          this.usersService.isUserAdmin().pipe(
+            first(),
+            tap((isUserAdmin) => (localStorage.isAdmin = !!isUserAdmin)),
+          ),
+        ),
+        switchMap(() => EMPTY),
       );
   }
 
