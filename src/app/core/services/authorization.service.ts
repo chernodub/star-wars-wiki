@@ -9,6 +9,7 @@ import { User } from '../models/user';
 import { UsersService } from './admin/users.service';
 import { AppConfig } from './app-config';
 import { AppStateService } from './app-state.service';
+import { BrowserStorageService } from './browser-storage.service';
 import { LoginDTO } from './dto/login-dto';
 
 /**
@@ -24,6 +25,7 @@ export class AuthorizationService {
     private usersService: UsersService,
     private config: AppConfig,
     private router: Router,
+    private storage: BrowserStorageService,
   ) {}
 
   private mapUser(user: LoginDTO): User {
@@ -45,10 +47,10 @@ export class AuthorizationService {
       .pipe(
         tap(
           (result) => {
-            localStorage.setItem('uid', result.localId);
-            localStorage.setItem('email', result.email);
-            localStorage.setItem('idToken', result.idToken);
-            localStorage.setItem('refreshToken', result.refreshToken);
+            this.storage.setItem('uid', result.localId);
+            this.storage.setItem('email', result.email);
+            this.storage.setItem('idToken', result.idToken);
+            this.storage.setItem('refreshToken', result.refreshToken);
             this.router.navigateByUrl('');
           },
           (error) => {
@@ -60,7 +62,7 @@ export class AuthorizationService {
           this.usersService.isUserAdmin().pipe(
             first(),
             tap((isUserAdmin) =>
-              localStorage.setItem('isAdmin', '' + !!isUserAdmin),
+              this.storage.setItem('isAdmin', '' + !!isUserAdmin),
             ),
           ),
         ),
@@ -77,12 +79,12 @@ export class AuthorizationService {
     return this.http
       .post(url.toString(), {
         grant_type: 'refresh_token',
-        refresh_token: localStorage.getItem('refreshToken'),
+        refresh_token: this.storage.getItem('refreshToken'),
       })
       .pipe(
         tap((result) => {
-          localStorage.setItem('idToken', result['id_token']);
-          localStorage.setItem('refreshToken', result['refresh_token']);
+          this.storage.setItem('idToken', result['id_token']);
+          this.storage.setItem('refreshToken', result['refresh_token']);
         }),
         mapTo(null),
       );
