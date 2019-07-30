@@ -3,6 +3,7 @@ import { Router, ActivationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AppStateService } from './core/services/app-state.service';
+import { BrowserStorageService } from './core/services/browser-storage.service';
 
 /**
  * Core component
@@ -15,10 +16,7 @@ import { AppStateService } from './core/services/app-state.service';
 })
 export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
-  /** Is user admin */
-  public get isAdmin(): boolean {
-    return localStorage.getItem('isAdmin') === 'true';
-  }
+
   /** Is current page /login */
   public isLoginPage: boolean;
   /**
@@ -28,6 +26,7 @@ export class AppComponent implements OnDestroy {
   public constructor(
     private appStateService: AppStateService,
     private router: Router,
+    private storage: BrowserStorageService,
   ) {
     this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';
@@ -41,8 +40,13 @@ export class AppComponent implements OnDestroy {
 
   /** Log out current session */
   public logOut(): void {
-    localStorage.clear();
+    this.storage.clear();
     this.router.navigate(['/login']);
+  }
+
+  /** Is user admin */
+  public get isAdmin(): boolean {
+    return this.storage.getItem('isAdmin') === 'true';
   }
 
   /** @inheritdoc */
