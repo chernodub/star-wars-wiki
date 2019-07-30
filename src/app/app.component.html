@@ -1,20 +1,23 @@
 <nav class="nav" *ngIf="!isLoginPage">
-  <a class="logo" [routerLink]="['']">
-    <img src="assets/Vector.svg" alt="" srcset="" />
-  </a>
+  <div>
+    <a class="logo" [routerLink]="['']">
+      <img src="assets/Vector.svg" alt="" srcset="" />
+    </a>
+
+    <a [routerLink]="['/admin']" *ngIf="isAdmin" routerLinkActive="activated">
+      <mat-icon aria-hidden="false" aria-label="Admin" class="nav-button">
+        face
+      </mat-icon>
+    </a>
+  </div>
   <a [routerLink]="['/login']" (click)="logOut()">
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Log out icon"
-      class="nav-button large"
-    >
+    <mat-icon aria-hidden="false" aria-label="Log out icon" class="nav-button">
       exit_to_app
     </mat-icon>
   </a>
 </nav>
 <app-loading
   *ngIf="loading$ | async"
-  [@enterAnimation]
   class="background above-all"
 ></app-loading>
 <router-outlet></router-outlet>

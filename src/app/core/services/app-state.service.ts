@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { User } from '../models/user';
+
 /**
  * State of application service
  */
@@ -8,6 +10,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AppStateService {
+  /** Current logged user */
+  public currentUser: User;
   /**
    * Shows whether the app has to be paused
    */

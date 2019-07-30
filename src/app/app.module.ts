@@ -6,7 +6,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ClientModule } from './client/client.module';
 import { AuthTokenInterceptor } from './core/http-interceptors/auth-token.interceptor';
 import { ExpiredTokenInterceptor } from './core/http-interceptors/expired-token.interceptor';
 import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-remover.interceptor';
@@ -19,11 +18,10 @@ import { SharedModule } from './shared/shared.module';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    ClientModule,
-    BrowserAnimationsModule,
     MatIconModule,
   ],
   providers: [

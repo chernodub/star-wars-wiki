@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, EMPTY } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Film } from '../models/film';
 
@@ -58,6 +58,32 @@ export class FilmsService {
     this.appStateService.startLoading();
     return this.http
       .get<FilmDTO>(`${this.config.filmsURL}/${id}.json`)
-      .pipe(map(this.mapFilm));
+      .pipe(map((result) => this.mapFilm(result, id)));
+  }
+
+  private formatDate = (date: Date): string =>
+    date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+
+  /** Saves film */
+  public saveFilm(film: Film): Observable<FilmDTO> {
+    this.appStateService.startLoading();
+    return this.http.patch<FilmDTO>(
+      `${this.config.filmsURL}/${film.number}/fields.json`,
+      <FilmDTO>{
+        characters: film.characters,
+        director: film.director,
+        episode_id: film.episodeId,
+        opening_crawl: film.description,
+        planets: film.planets,
+        producer: film.producedBy,
+        release_date: this.formatDate(film.releaseDate),
+        species: film.species,
+        starships: film.starships,
+        title: film.name,
+        vehicles: film.vehicles,
+        edited: '',
+        created: '',
+      },
+    );
   }
 }

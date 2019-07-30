@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  CanActivate,
   Router,
+  CanLoad,
 } from '@angular/router';
 
 import { AppStateService } from '../services/app-state.service';
@@ -14,7 +14,7 @@ import { AppStateService } from '../services/app-state.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanLoad {
   public constructor(
     private router: Router,
     private appStateService: AppStateService,
@@ -25,12 +25,9 @@ export class AuthGuard implements CanActivate {
    * @param next next route
    * @param state current route
    */
-  public canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): boolean {
+  public canLoad(): boolean {
     this.appStateService.stopLoading();
-    if (localStorage.idToken) {
+    if (localStorage.getItem('idToken')) {
       return true;
     }
     this.router.navigate(['login']);

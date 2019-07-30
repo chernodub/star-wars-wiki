@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -13,18 +12,13 @@ import { AppStateService } from './core/services/app-state.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('enterAnimation', [
-      transition('void => *', [
-        style({ opacity: 0 }),
-        animate(200, style({ opacity: 1 })),
-      ]),
-      transition('* => void', [animate(200, style({ opacity: 0 }))]),
-    ]),
-  ],
 })
 export class AppComponent implements OnDestroy {
   private routerEventSubscription: Subscription;
+  /** Is user admin */
+  public get isAdmin(): boolean {
+    return localStorage.getItem('isAdmin') === 'true';
+  }
   /** Is current page /login */
   public isLoginPage: boolean;
   /**
@@ -37,7 +31,6 @@ export class AppComponent implements OnDestroy {
   ) {
     this.routerEventSubscription = this.router.events.subscribe((event) => {
       this.isLoginPage = this.router.url === '/login';
-
       if (event instanceof ActivationStart) {
         this.appStateService.startLoading();
       } else if (this.isLoginPage) {

@@ -7,7 +7,6 @@ import { Character } from '../../core/models/character';
 import { Planet } from '../../core/models/planet';
 import { AppStateService } from '../../core/services/app-state.service';
 import { CharactersService } from '../../core/services/characters.service';
-import { FilmsService } from '../../core/services/films.service';
 import { PlanetsService } from '../../core/services/planets.service';
 
 /**
@@ -26,7 +25,6 @@ export class CharacterPageComponent {
   /** Planet where the character lives on */
   public planet$: Observable<Planet>;
   public constructor(
-    private filmsService: FilmsService,
     private route: ActivatedRoute,
     private appStateService: AppStateService,
     private charactersService: CharactersService,

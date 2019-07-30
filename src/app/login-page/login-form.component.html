@@ -8,6 +8,7 @@
           type="email"
           placeholder="Email"
           [(ngModel)]="email"
+          aria-label="Email field"
         />
       </mat-form-field>
 
@@ -18,9 +19,12 @@
           placeholder="Password"
           name="password"
           [(ngModel)]="password"
+          aria-label="Password field"
         />
       </mat-form-field>
-      <button mat-button (click)="login()">Log in</button>
+      <button mat-button (click)="login()" aria-label="Log in button">
+        Log in
+      </button>
     </form>
   </mat-card>
 </div>

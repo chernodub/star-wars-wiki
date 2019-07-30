@@ -32,4 +32,7 @@ export class AppConfig {
 
   /** URL for getting planets */
   public planetURL = this.apiUrl + 'swapi/planets';
+
+  /** URL for checking user */
+  public usersURL = this.apiUrl + 'special_users';
 }
