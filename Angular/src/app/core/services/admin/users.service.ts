@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AppConfig } from '../app-config';
 import { AppStateService } from '../app-state.service';
+import { BrowserStorageService } from '../browser-storage.service';
 import { SpecialUser } from '../dto/special-user-dto';
 
 /** User roles */
@@ -21,11 +22,12 @@ export class UsersService {
     private http: HttpClient,
     private appStateService: AppStateService,
     private config: AppConfig,
+    private storage: BrowserStorageService,
   ) {}
 
   /** Checks if user is admin */
   public isUserAdmin(): Observable<boolean> {
-    const uid = localStorage.getItem('uid');
+    const uid = this.storage.getItem('uid');
     this.appStateService.startLoading();
     return this.http
       .get<SpecialUser>(`${this.config.usersURL}/${uid}.json`)

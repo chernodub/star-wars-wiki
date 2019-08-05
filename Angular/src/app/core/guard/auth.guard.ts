@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  Router,
-  CanLoad,
-} from '@angular/router';
+import { Router, CanLoad } from '@angular/router';
 
 import { AppStateService } from '../services/app-state.service';
+import { BrowserStorageService } from '../services/browser-storage.service';
 
 /**
  * Checks if user is authorized
@@ -18,6 +14,7 @@ export class AuthGuard implements CanLoad {
   public constructor(
     private router: Router,
     private appStateService: AppStateService,
+    private storage: BrowserStorageService,
   ) {}
 
   /**
@@ -27,7 +24,7 @@ export class AuthGuard implements CanLoad {
    */
   public canLoad(): boolean {
     this.appStateService.stopLoading();
-    if (localStorage.getItem('idToken')) {
+    if (this.storage.getItem('idToken')) {
       return true;
     }
     this.router.navigate(['login']);
