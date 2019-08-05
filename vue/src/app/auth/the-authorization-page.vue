@@ -9,6 +9,8 @@
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import {mapActions} from 'vuex';
+import {CHANGE_USER} from '../store';
+import {mapUser} from '../core/map-model-service';
 
 export default {
   name: 'the-authorization-page',
@@ -20,7 +22,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      setNewUserInfo: 'changeUser',
+      setNewUserInfo: CHANGE_USER,
     }),
 
     onSubmit(event) {
@@ -48,7 +50,6 @@ export default {
     },
   },
   created() {
-    watchUserChanging(this.setNewUserInfo);
   },
 };
 
@@ -62,31 +63,6 @@ export default {
  * ... and more
  */
 
-/** Maps userDto to User
- * @param {UserDto} userDto
- * @return {User}
- */
-function mapUser(userDto) {
-  if (!userDto) return null;
-  return {
-    email: userDto.email,
-  };
-}
-
-/**
- * watchUserChanging
- * @argument {Function} saveUserCallback - function which
- * saves user into the store
- */
-function watchUserChanging(saveUserCallback) {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      saveUserCallback(mapUser(user));
-    } else {
-      saveUserCallback(null);
-    }
-  });
-}
 
 /**
  * signIn

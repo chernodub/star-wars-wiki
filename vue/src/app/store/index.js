@@ -1,18 +1,21 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
+
+export const CHANGE_USER = 'CHANGE_USER';
+
 const store = new Vuex.Store({
   state: {
     user: null,
   },
   mutations: {
-    changeUser(state, user) {
+    [CHANGE_USER]: (state, user) => {
       state.user = user;
     },
   },
   actions: {
-    changeUser({commit}, user) {
-      commit('changeUser', user);
+    [CHANGE_USER]: ({commit}, user) => {
+      commit(CHANGE_USER, user);
     },
   },
   getters: {

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="nav" v-if="user">
-      <router-link class="logo" to="films">
+      <router-link class="logo" :to="{ name: 'films' }">
         <img src="./assets/Vector.svg" alt="Logo SW" />
       </router-link>
       <button class="exit-button" @click="logOut" aria-label="Log out button">
@@ -17,40 +17,31 @@
 <script>
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import {mapMutations, mapGetters} from 'vuex';
-import {FIREBASE_CONFIG} from './core/config';
-
+import {mapMutations, mapGetters, mapActions} from 'vuex';
+import {CHANGE_USER} from './store/index';
 
 export default {
   name: 'app',
   components: {},
-  created() {
-    initializeFirebase();
-  },
   methods: {
     logOut() {
       firebaseLogOut().then(() => {
         this.$router.push({name: 'login'});
       });
     },
-    ...mapMutations({setNewUserInfo: 'changeUser'}),
+    ...mapActions({changeUser: CHANGE_USER}),
+    ...mapMutations({setNewUserInfo: CHANGE_USER}),
   },
   computed: {
     ...mapGetters(['user']),
+  },
+  created() {
+    console.log('created');
   },
   destroyed() {
   },
 };
 
-/**
- * initializeFirebase
- */
-function initializeFirebase() {
-  // Initialize Firebase
-  if (!firebase.apps.length) {
-    firebase.initializeApp(FIREBASE_CONFIG);
-  }
-}
 
 /**
  * firebaseLogOut

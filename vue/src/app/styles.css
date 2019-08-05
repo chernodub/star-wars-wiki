@@ -16,21 +16,6 @@ button {
   background-color: inherit;
   padding: 1em;
 }
-/* button:focus,
-a:focus {
-  outline: none;
-}
-input:focus {
-  outline-color: red;
-}
-a:focus,
-button:focus span {
-  filter: drop-shadow(0 0 0.05em red);
-}
-a:hover,
-button:hover span {
-  filter: drop-shadow(0 0 0.3em red);
-} */
 .authorization-page {
   display: flex;
   align-items: center;
