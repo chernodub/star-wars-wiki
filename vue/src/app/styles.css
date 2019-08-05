@@ -1,0 +1,48 @@
+* {
+  transition: 300ms;
+}
+button {
+  cursor: pointer;
+  font-size: 1rem;
+}
+a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.9rem;
+}
+input,
+button {
+  border: none;
+  background-color: inherit;
+  padding: 1em;
+}
+/* button:focus,
+a:focus {
+  outline: none;
+}
+input:focus {
+  outline-color: red;
+}
+a:focus,
+button:focus span {
+  filter: drop-shadow(0 0 0.05em red);
+}
+a:hover,
+button:hover span {
+  filter: drop-shadow(0 0 0.3em red);
+} */
+.authorization-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+.auth-component {
+  width: 30%;
+}
+.auth-component__auth-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
