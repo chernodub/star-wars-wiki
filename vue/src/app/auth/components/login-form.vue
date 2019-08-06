@@ -52,10 +52,4 @@ export default {
   },
 };
 </script>
-<style scoped>
-h3,
-.additional {
-  text-align: center;
-}
-</style>
 

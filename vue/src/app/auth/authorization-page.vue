@@ -20,15 +20,7 @@ import {mapUser} from '../core/map-model-service';
 
 /** Authorization page component */
 export default {
-  name: 'the-authorization-page',
-  data() {
-    return {
-      /** Email */
-      email: '',
-      /** Password */
-      password: '',
-    };
-  },
+  name: 'authorization-page',
   methods: {
     ...mapActions({
       /** Replace user with new user object */

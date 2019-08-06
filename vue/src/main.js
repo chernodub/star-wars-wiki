@@ -19,7 +19,7 @@ const router = new VueRouter({
     {path: '/login',
       component: () => import(
           /* webpackChunkName: "auth" */
-          './app/auth/the-authorization-page.vue'
+          './app/auth/authorization-page.vue'
       ),
       children: [
         {name: 'login',

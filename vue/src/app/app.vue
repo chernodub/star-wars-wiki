@@ -76,13 +76,6 @@ function firebaseLogOut() {
   width: 3em;
   height: 3em;
 }
-.logo:focus {
-  outline: none;
-}
-.logo img:hover,
-.logo:focus img {
-  filter: drop-shadow(0 0 0.15em red);
-}
 .logo img:active {
   filter: none;
 }

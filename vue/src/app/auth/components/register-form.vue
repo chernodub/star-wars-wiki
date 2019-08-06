@@ -27,10 +27,10 @@
         v-model="repeatPassword"
         placeholder="Repeat password"
       />
-      <button type="submit"><span>Register</span></button>
+      <button type="submit"><span>Sign up</span></button>
     </form>
     <div class="additional">
-      <router-link :to="{ name: 'login' }">Login</router-link>
+      <router-link :to="{ name: 'login' }">I have an account</router-link>
     </div>
   </div>
 </template>
@@ -68,9 +68,3 @@ export default {
   },
 };
 </script>
-<style>
-h3,
-.additional {
-  text-align: center;
-}
-</style>

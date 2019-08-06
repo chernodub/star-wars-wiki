@@ -1,5 +1,13 @@
 * {
   transition: 300ms;
+  margin: 0;
+  color: #f2a7a7;
+}
+*:focus {
+  outline-color: #ff4c4c;
+}
+body {
+  background-color: #7c6a6a;
 }
 button {
   cursor: pointer;
@@ -7,14 +15,32 @@ button {
 }
 a {
   text-decoration: none;
-  color: black;
+  color: #ff4c4c;
   font-size: 0.9rem;
+}
+a:active {
+  color: #f2a7a7;
+}
+input {
+  background-color: #aa6363;
+}
+button {
+  background-color: inherit;
 }
 input,
 button {
   border: none;
-  background-color: inherit;
+  border-radius: 1em;
   padding: 1em;
+  margin: 1em;
+}
+input:focus,
+button:focus,
+.logo img:hover,
+.logo img:active,
+.logo:focus {
+  outline: none;
+  filter: drop-shadow(0 0 0.2em #ff4c4c);
 }
 .authorization-page {
   display: flex;
@@ -30,4 +56,8 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+h3,
+.additional {
+  text-align: center;
 }
