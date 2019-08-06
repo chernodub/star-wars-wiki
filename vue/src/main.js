@@ -13,24 +13,37 @@ Vue.use(VueRouter);
 
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     {path: '/', redirect: '/films'},
     {path: '/login',
-      component: () => import('./app/auth/the-authorization-page.vue'),
+      component: () => import(
+          /* webpackChunkName: "auth" */
+          './app/auth/the-authorization-page.vue'
+      ),
       children: [
         {name: 'login',
           path: '',
-          component: () => import('./app/auth/components/login-form.vue'),
+          component: () => import(
+              /* webpackChunkName: "auth-login" */
+              './app/auth/components/login-form.vue'
+          ),
         },
         {name: 'register',
           path: 'new',
-          component: () => import('./app/auth/components/register-form.vue'),
+          component: () => import(
+              /* webpackChunkName: "auth-registration" */
+              './app/auth/components/register-form.vue'
+          ),
         },
       ],
     },
     {name: 'films',
       path: '/films',
-      component: () => import('./app/shared/films-list.vue'),
+      component: () => import(
+          /* webpackChunkName: "films" */
+          './app/shared/films-list.vue'
+      ),
       beforeEnter: authGuard,
     },
     {path: '*', redirect: 'login'},

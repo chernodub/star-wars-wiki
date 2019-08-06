@@ -12,19 +12,32 @@ import {mapActions} from 'vuex';
 import {CHANGE_USER} from '../store';
 import {mapUser} from '../core/map-model-service';
 
+/** @typedef {Object} CustomEvent
+ * @property {'login' | 'register'} type
+ * @property {string} email
+ * @property {string} password
+ */
+
+/** Authorization page component */
 export default {
   name: 'the-authorization-page',
   data() {
     return {
+      /** Email */
       email: '',
+      /** Password */
       password: '',
     };
   },
   methods: {
     ...mapActions({
+      /** Replace user with new user object */
       setNewUserInfo: CHANGE_USER,
     }),
 
+    /** Send request to sign in/up
+     * @param {CustomEvent} event
+     */
     onSubmit(event) {
       let resultPromise;
 
@@ -49,19 +62,7 @@ export default {
       }
     },
   },
-  created() {
-  },
 };
-
-/**
- * @typedef {Object} User
- * @property {string} email
- */
-/**
- * @typedef {Object} UserDto
- * @property {string} email
- * ... and more
- */
 
 
 /**

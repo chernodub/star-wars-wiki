@@ -36,16 +36,21 @@
 </template>
 
 <script>
+/** Registration form component */
 export default {
   name: 'register-form',
   data() {
     return {
+      /** Email */
       email: '',
+      /** Password */
       password: '',
+      /** Repeated password */
       repeatPassword: '',
     };
   },
   methods: {
+    /** Emits event with CustomEvent type */
     onSubmit() {
       if (this.password !== this.repeatPassword) {
         // TODO: better notification

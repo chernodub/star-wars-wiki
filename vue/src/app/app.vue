@@ -35,11 +35,6 @@ export default {
   computed: {
     ...mapGetters(['user']),
   },
-  created() {
-    console.log('created');
-  },
-  destroyed() {
-  },
 };
 
 

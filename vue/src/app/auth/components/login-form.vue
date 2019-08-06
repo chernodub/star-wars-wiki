@@ -25,15 +25,21 @@
 </template>
 
 <script>
+/** Login form component */
 export default {
   name: 'login-form',
   data() {
     return {
+      /** Email */
       email: '',
+      /** Password */
       password: '',
     };
   },
   methods: {
+    /**
+     * Emits event with CustomEvent type
+     */
     onSubmit() {
       this.$emit('submit',
           {

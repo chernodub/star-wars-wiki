@@ -1,8 +1,14 @@
+/**
+ * API config
+ */
 export const API = Object.freeze({
   URL: 'https://starwarswiki.firebaseio.com/',
   KEY: 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4',
 });
 
+/**
+ * Firebase config
+ */
 export const FIREBASE_CONFIG = Object.freeze({
   apiKey: 'AIzaSyD95xTCEn5PZT5G2SuGG_p5wL8-z8y6bS4',
   authDomain: 'starwarswiki.firebaseapp.com',

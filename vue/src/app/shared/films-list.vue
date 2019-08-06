@@ -19,8 +19,6 @@ export default {
       films: [],
     };
   },
-  methods: {
-  },
   async created() {
     this.films = await getFilms();
   },
