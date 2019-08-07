@@ -5,7 +5,7 @@
       :class="$style.authForm"
       aria-label="Register form"
     >
-      <h3 class="sw-h3">New account</h3>
+      <h3 :class="$style.authFormHeader">New account</h3>
       <input
         :class="['sw-input', $style.authFormInput]"
         type="email"

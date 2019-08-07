@@ -6,6 +6,11 @@
   flex-direction: column;
   justify-content: center;
 }
+@media screen and (max-width: 1000px) {
+  .auth {
+    width: 100%;
+  }
+}
 .authFormButton,
 .authFormInput {
   margin: 1em;

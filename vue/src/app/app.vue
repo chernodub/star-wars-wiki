@@ -1,23 +1,24 @@
 <template>
   <div id="app">
-    <nav :class="[$style.nav]" v-if="user">
-      <router-link :class="$style.logoLink" :to="{ name: 'films' }">
-        <img
-          :class="[$style.logoImage]"
-          src="./assets/Vector.svg"
-          alt="Logo SW"
-        />
-      </router-link>
-      <button class="sw-button" @click="logOut" aria-label="Log out button">
-        <span>Log out</span>
-      </button>
-    </nav>
+    <transition name="slide" mode="in-out">
+      <nav :class="[$style.nav]" v-if="showNavbar">
+        <router-link :class="$style.logoLink" :to="{ name: 'films' }">
+          <img
+            :class="[$style.logoImage]"
+            src="./assets/Vector.svg"
+            alt="Logo SW"
+          />
+        </router-link>
+        <button class="sw-button" @click="logOut" aria-label="Log out button">
+          <span>Log out</span>
+        </button>
+      </nav>
+    </transition>
     <transition name="fade" mode="out-in">
-      <router-view></router-view>
+      <router-view :class="$style.viewPadding"></router-view>
     </transition>
   </div>
 </template>
-
 <script>
 import firebase from 'firebase/app';
 import 'firebase/auth';
@@ -38,6 +39,10 @@ export default {
   },
   computed: {
     ...mapGetters(['user']),
+    showNavbar() {
+      return this.$route.name !== 'login' &&
+       this.$route.name !== 'register' && this.user;
+    },
   },
 };
 
@@ -51,11 +56,15 @@ function firebaseLogOut() {
 }
 </script>
 
+
 <style module>
 .nav {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  position: absolute;
 }
 .logoImage {
   width: 5em;
@@ -69,6 +78,14 @@ function firebaseLogOut() {
   outline: none;
   filter: drop-shadow(0 0 0.2em #ff4c4c);
 }
+.viewPadding {
+  padding-top: 11.25rem !important;
+}
+@media screen and (max-width: 1000px) {
+  .viewPadding {
+    padding-top: 8rem !important;
+  }
+}
 </style>
 
 <style>
@@ -78,5 +95,22 @@ function firebaseLogOut() {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+</style>
+
+<style scoped>
+/** Transition animation styles */
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: translateY(-3rem);
+}
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-3rem);
 }
 </style>
