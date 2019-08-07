@@ -56,23 +56,21 @@
     </div>
   </div>
 </template>
-<style scoped>
-table td {
-  padding: 0.5rem;
-}
-</style>
 
 <script>
 import {GET_FILMS} from '../../store';
+import {mapGetters} from 'vuex';
 export default {
   name: 'film-description',
   computed: {
+    ...mapGetters(['films']),
     film() {
-      return this.$store.getters.films.find((film) => film.episodeId === +this.$route.params.id);
+      return this.films.find((film) =>
+        film.episodeId === +this.$route.params.id);
     },
   },
   mounted() {
-    if (!this.$store.getters.films.length) {
+    if (!this.films.length) {
       this.$store.dispatch(GET_FILMS);
     }
   },
@@ -87,12 +85,21 @@ export default {
 };
 </script>
 
+<style scoped>
+table td {
+  padding: 0.5rem;
+}
+</style>
+
 <style module>
 .filmDescription {
   margin: 0 auto;
   padding: 3rem;
   display: flex;
   width: 60%;
+}
+.textInfoAlternativeName {
+  padding-left: 0.5rem;
 }
 .image {
   height: 25em;
