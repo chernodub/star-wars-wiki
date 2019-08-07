@@ -1,8 +1,9 @@
 <template>
-  <div class="auth-component">
-    <form @submit.prevent="onSubmit" class="auth-component__auth-form">
-      <h3>Reveal yourself</h3>
+  <div :class="$style.auth">
+    <form @submit.prevent="onSubmit" :class="$style.authForm">
+      <h3 :class="$style.authFormHeader">Reveal yourself</h3>
       <input
+        :class="['sw-input', $style.authFormInput]"
         type="email"
         name="email"
         required
@@ -10,16 +11,19 @@
         placeholder="Login"
       />
       <input
+        :class="['sw-input', $style.authFormInput]"
         type="password"
         name="password"
         required
         v-model="password"
         placeholder="Password"
       />
-      <button type="submit"><span>Log in</span></button>
+      <button :class="['sw-button', $style.authFormButton]" type="submit">
+        <span>Log in</span>
+      </button>
     </form>
-    <div class="additional">
-      <router-link :to="{ name: 'register' }">I'm new</router-link>
+    <div :class="$style.authFormAdditional">
+      <router-link class="sw-a" :to="{ name: 'register' }">I'm new</router-link>
     </div>
   </div>
 </template>
@@ -52,4 +56,7 @@ export default {
   },
 };
 </script>
+<style module src="../form-styles.css">
+</style>
+
 

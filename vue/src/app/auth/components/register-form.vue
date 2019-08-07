@@ -1,12 +1,13 @@
 <template>
-  <div class="auth-component">
+  <div :class="$style.auth">
     <form
       @submit.prevent="onSubmit"
-      class="auth-component__auth-form"
+      :class="$style.authForm"
       aria-label="Register form"
     >
-      <h3>New account</h3>
+      <h3 class="sw-h3">New account</h3>
       <input
+        :class="['sw-input', $style.authFormInput]"
         type="email"
         name="email"
         required
@@ -14,6 +15,7 @@
         placeholder="Login"
       />
       <input
+        :class="['sw-input', $style.authFormInput]"
         type="password"
         name="password"
         required
@@ -21,16 +23,21 @@
         placeholder="Password"
       />
       <input
+        :class="['sw-input', $style.authFormInput]"
         type="password"
         name="repeatPassword"
         required
         v-model="repeatPassword"
         placeholder="Repeat password"
       />
-      <button type="submit"><span>Sign up</span></button>
+      <button :class="['sw-button', $style.authFormButton]" type="submit">
+        <span>Sign up</span>
+      </button>
     </form>
-    <div class="additional">
-      <router-link :to="{ name: 'login' }">I have an account</router-link>
+    <div :class="$style.authFormAdditional">
+      <router-link class="sw-a" :to="{ name: 'login' }"
+        >I have an account</router-link
+      >
     </div>
   </div>
 </template>
@@ -54,7 +61,7 @@ export default {
     onSubmit() {
       if (this.password !== this.repeatPassword) {
         // TODO: better notification
-        console.log('Please repeat password correctly!');
+        alert('Please repeat password correctly!');
       } else {
         this.$emit('submit',
             {
@@ -68,3 +75,6 @@ export default {
   },
 };
 </script>
+
+<style module src="../form-styles.css">
+</style>

@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <nav class="nav" v-if="user">
-      <router-link class="logo" :to="{ name: 'films' }">
-        <img src="./assets/Vector.svg" alt="Logo SW" />
+    <nav :class="[$style.nav]" v-if="user">
+      <router-link :class="$style.logoLink" :to="{ name: 'films' }">
+        <img
+          :class="[$style.logoImage]"
+          src="./assets/Vector.svg"
+          alt="Logo SW"
+        />
       </router-link>
-      <button class="exit-button" @click="logOut" aria-label="Log out button">
+      <button class="sw-button" @click="logOut" aria-label="Log out button">
         <span>Log out</span>
       </button>
     </nav>
@@ -47,6 +51,26 @@ function firebaseLogOut() {
 }
 </script>
 
+<style module>
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+}
+.logoImage {
+  width: 5em;
+  height: 5em;
+}
+.logoLink:active {
+  filter: none;
+}
+.logoImage:hover,
+.logoLink:focus {
+  outline: none;
+  filter: drop-shadow(0 0 0.2em #ff4c4c);
+}
+</style>
+
 <style>
 @import "./styles.css";
 #app {
@@ -54,29 +78,5 @@ function firebaseLogOut() {
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-/** Transition animation styles */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>
-<style scoped>
-.nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 1rem 1rem 1rem 1rem;
-}
-.logo img {
-  width: 3em;
-  height: 3em;
-}
-.logo img:active {
-  filter: none;
 }
 </style>

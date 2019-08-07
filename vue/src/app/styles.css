@@ -7,57 +7,48 @@
   outline-color: #ff4c4c;
 }
 body {
-  background-color: #7c6a6a;
+  background-color: #545454;
 }
-button {
+.sw-button {
   cursor: pointer;
   font-size: 1rem;
 }
-a {
+.sw-a {
   text-decoration: none;
   color: #ff4c4c;
   font-size: 0.9rem;
 }
-a:active {
+.sw-a:active {
   color: #f2a7a7;
 }
-input {
+.sw-input {
   background-color: #aa6363;
+  font-size: 1.3rem;
 }
-button {
+.sw-input::placeholder {
+  color: #545454;
+}
+.sw-button {
   background-color: inherit;
 }
-input,
-button {
+.sw-input,
+.sw-button {
   border: none;
   border-radius: 1em;
   padding: 1em;
-  margin: 1em;
 }
-input:focus,
-button:focus,
-.logo img:hover,
-.logo img:active,
-.logo:focus {
+.sw-input:focus,
+.sw-button:focus {
   outline: none;
-  filter: drop-shadow(0 0 0.2em #ff4c4c);
+  filter: drop-shadow(0 0 0.3em #ff4c4c);
 }
-.authorization-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100vh;
+
+/** Transition animation styles */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
 }
-.auth-component {
-  width: 30%;
-}
-.auth-component__auth-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-h3,
-.additional {
-  text-align: center;
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }

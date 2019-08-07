@@ -1,0 +1,17 @@
+.auth {
+  width: 30%;
+}
+.authForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.authFormButton,
+.authFormInput {
+  margin: 1em;
+}
+
+.authFormAdditional,
+.authFormHeader {
+  text-align: center;
+}

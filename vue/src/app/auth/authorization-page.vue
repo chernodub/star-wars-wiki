@@ -67,7 +67,7 @@ function signIn(email, password) {
   return firebase.auth().signInWithEmailAndPassword(email, password)
       .catch(({message}) => {
         // TODO: better notification
-        console.log(message);
+        alert(message);
       });
 }
 
@@ -82,7 +82,16 @@ function signUp(email, password) {
   return firebase.auth().createUserWithEmailAndPassword(email, password)
       .catch(({message}) => {
         // TODO: better notification
-        console.log(message);
+        alert(message);
       });
 }
 </script>
+<style scoped>
+.authorization-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+</style>
