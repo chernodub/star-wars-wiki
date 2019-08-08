@@ -75,16 +75,18 @@
 </template>
 
 <script>
-import { GET_FILMS, GET_CHARACTERS } from '../../store';
 import { mapGetters } from 'vuex';
+import { GET_FILMS, GET_CHARACTERS } from '../../store';
 
 export default {
   name: 'film-description',
   computed: {
     ...mapGetters(['films', 'getFilmById', 'characters', 'getCharactersById']),
+    /** Selected film */
     film() {
       return this.getFilmById(this.$route.params.id);
     },
+    /** Characters in film */
     filmCharacters() {
       return this.getCharactersById(this.film.characters);
     },

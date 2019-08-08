@@ -29,19 +29,19 @@
       <div :class="$style.filmsPageDescription" v-if="focusedId !== null">
         <img
           :class="[$style.filmsPageDescriptionImage]"
-          :src="selectedFilm.imageUrl"
+          :src="selectFilm.imageUrl"
           alt="Film poster image"
         />
         <p :class="[$style.filmsPageDescriptionP]">
-          {{ selectedFilm.description }}
+          {{ selectFilm.description }}
         </p>
       </div>
     </transition>
   </div>
 </template>
 <script>
-import { GET_FILMS } from '../../store';
 import { mapGetters } from 'vuex';
+import { GET_FILMS } from '../../store';
 /** Films list component */
 export default {
   name: 'films-list',
@@ -71,9 +71,11 @@ export default {
   },
   computed: {
     ...mapGetters(['films']),
-    selectedFilm() {
+    /** Select film */
+    selectFilm() {
       return this.films.find(film => film.episodeId === this.focusedId);
     },
+    /** Sorted by episode */
     sortedFilms() {
       return this.films.slice(0).sort((a, b) => a.episodeId - b.episodeId);
     },

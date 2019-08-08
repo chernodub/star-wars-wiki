@@ -30,3 +30,40 @@ export function mapFilm(film) {
     imageUrl: film.image_url,
   };
 }
+
+/** Maps characterDto to Character
+ * @param {CharacterDto} character
+ * @return {Character}
+ */
+export function mapCharacter(character, idx) {
+  return {
+    birthYear: character.birth_year,
+    eyeColor: character.eye_color,
+    gender: character.gender,
+    height: character.height,
+    homeworldId: character.homeworld,
+    mass: character.mass,
+    name: character.name,
+    skinColor: character.skin_color,
+    id: idx,
+  };
+}
+
+/** Maps planetDto to Planet
+ * @param {PlanetDto} planet
+ * @return {Planet}
+ */
+export function mapPlanet(planet, idx) {
+  return {
+    climate: planet.climate,
+    population: planet.population,
+    diameter: planet.diameter,
+    gravity: planet.gravity,
+    name: planet.name,
+    orbitalPeriod: planet.orbital_period,
+    rotationPeriod: planet.rotation_period,
+    surfaceWater: planet.surface_water,
+    terrain: planet.terrain,
+    id: idx,
+  };
+}

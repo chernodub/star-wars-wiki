@@ -1,12 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-
+import { removeWrap } from './utils-service';
 import { mapFilm } from './map-model-service';
-/** Removes wrapper
- * @return {Film} film
- * @param {Wrap} wrap
- */
-const removeWrap = wrap => wrap.fields;
 
 /** Gets films in wrappers
  * @return {Promise<Film[]>}
