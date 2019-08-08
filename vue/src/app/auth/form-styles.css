@@ -1,0 +1,22 @@
+.auth {
+  width: 30%;
+}
+.authForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+@media screen and (max-width: 1000px) {
+  .auth {
+    width: 100%;
+  }
+}
+.authFormButton,
+.authFormInput {
+  margin: 1em;
+}
+
+.authFormAdditional,
+.authFormHeader {
+  text-align: center;
+}
