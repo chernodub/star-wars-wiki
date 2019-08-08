@@ -1,5 +1,5 @@
 import VueRouter from 'vue-router';
-import {authGuard} from './app/core/guards/auth-guard';
+import { authGuard } from './app/core/guards/auth-guard';
 import Vue from 'vue';
 
 Vue.use(VueRouter);
@@ -7,44 +7,45 @@ Vue.use(VueRouter);
 export default new VueRouter({
   mode: 'history',
   routes: [
-    {path: '/', redirect: '/films'},
-    {path: '/login',
+    { path: '/', redirect: '/films' },
+    { path: '/login',
       component: () => import(
-          /* webpackChunkName: "auth" */
-          './app/auth/authorization-page.vue'
+        /* webpackChunkName: "auth" */
+        './app/auth/authorization-page.vue',
       ),
       children: [
-        {name: 'login',
+        { name: 'login',
           path: '',
           component: () => import(
-              /* webpackChunkName: "auth-login" */
-              './app/auth/components/login-form.vue'
+            /* webpackChunkName: "auth-login" */
+            './app/auth/components/login-form.vue',
           ),
         },
-        {name: 'register',
+        { name: 'register',
           path: 'new',
           component: () => import(
-              /* webpackChunkName: "auth-registration" */
-              './app/auth/components/register-form.vue'
+            /* webpackChunkName: "auth-registration" */
+            './app/auth/components/register-form.vue',
           ),
         },
       ],
     },
-    {name: 'films',
+    { name: 'films',
       path: '/films',
       component: () => import(
-          /* webpackChunkName: "films" */
-          './app/client/films/films-list.vue'
+        /* webpackChunkName: "films" */
+        './app/client/films/films-list.vue',
       ),
       beforeEnter: authGuard,
     },
-    {name: 'film-page', path: '/films/:id',
+    { name: 'film-page',
+      path: '/films/:id',
       component: () => import(
-          /* webpackChunkName: "film-page" */
-          './app/client/films/film-description.vue'
+        /* webpackChunkName: "film-page" */
+        './app/client/films/film-description.vue',
       ),
       beforeEnter: authGuard,
     },
-    {path: '*', redirect: 'films'},
+    { path: '*', redirect: 'films' },
   ],
 });
