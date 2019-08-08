@@ -10,7 +10,7 @@ export function authGuard(to, from, next) {
   if (!store.getters.user) {
     // TODO: better notification
     alert('Unauthorized user!');
-    next({name: 'login'});
+    next({ name: 'login' });
     return;
   }
   next();

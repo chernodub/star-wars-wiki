@@ -1,16 +1,13 @@
 <template>
-  <div class="authorization-page">
+  <div :class="$style.authorizationPage">
     <transition name="fade" mode="out-in">
       <router-view @submit="onSubmit"></router-view>
     </transition>
   </div>
 </template>
 <script>
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
-import {mapActions} from 'vuex';
-import {CHANGE_USER} from '../store';
-import {mapUser} from '../core/map-model-service';
+import { mapActions } from 'vuex';
+import { SIGN_IN, SIGN_UP } from '../store';
 
 /** @typedef {Object} CustomEvent
  * @property {'login' | 'register'} type
@@ -24,7 +21,8 @@ export default {
   methods: {
     ...mapActions({
       /** Replace user with new user object */
-      setNewUserInfo: CHANGE_USER,
+      signIn: SIGN_IN,
+      signUp: SIGN_UP,
     }),
 
     /** Send request to sign in/up
@@ -32,14 +30,15 @@ export default {
      */
     onSubmit(event) {
       let resultPromise;
-
+      const email = event.email;
+      const password = event.password;
       switch (event.type) {
         case 'login':
-          resultPromise = signIn(event.email, event.password);
+          resultPromise = this.signIn({ email, password });
           break;
 
         case 'register':
-          resultPromise = signUp(event.email, event.password);
+          resultPromise = this.signUp({ email, password });
           break;
 
         default:
@@ -47,47 +46,16 @@ export default {
       }
 
       if (resultPromise) {
-        resultPromise.then((user) => {
-          this.setNewUserInfo(mapUser(user));
-          this.$router.push({name: 'films'});
+        resultPromise.then(() => {
+          this.$router.push({ name: 'films' });
         });
       }
     },
   },
 };
-
-
-/**
- * signIn
- * @argument {string} email
- * @argument {string} password
- * @return {Promise}
- */
-function signIn(email, password) {
-  return firebase.auth().signInWithEmailAndPassword(email, password)
-      .catch(({message}) => {
-        // TODO: better notification
-        alert(message);
-      });
-}
-
-
-/**
- * signUp
- * @argument {string} email
- * @argument {string} password
- * @return {Promise}
- */
-function signUp(email, password) {
-  return firebase.auth().createUserWithEmailAndPassword(email, password)
-      .catch(({message}) => {
-        // TODO: better notification
-        alert(message);
-      });
-}
 </script>
-<style scoped>
-.authorization-page {
+<style module>
+.authorizationPage {
   display: flex;
   justify-content: center;
   width: 100%;

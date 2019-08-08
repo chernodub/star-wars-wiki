@@ -46,11 +46,11 @@ export default {
      */
     onSubmit() {
       this.$emit('submit',
-          {
-            type: 'login',
-            email: this.email,
-            password: this.password,
-          }
+        {
+          type: 'login',
+          email: this.email,
+          password: this.password,
+        },
       );
     },
   },
@@ -58,5 +58,4 @@ export default {
 </script>
 <style module src="../form-styles.css">
 </style>
-
 

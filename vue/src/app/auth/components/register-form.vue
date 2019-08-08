@@ -64,11 +64,11 @@ export default {
         alert('Please repeat password correctly!');
       } else {
         this.$emit('submit',
-            {
-              type: 'register',
-              email: this.email,
-              password: this.password,
-            }
+          {
+            type: 'register',
+            email: this.email,
+            password: this.password,
+          },
         );
       }
     },

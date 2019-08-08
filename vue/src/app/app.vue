@@ -22,8 +22,15 @@
 <script>
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import {mapMutations, mapGetters, mapActions} from 'vuex';
-import {CHANGE_USER} from './store/index';
+import { mapMutations, mapGetters, mapActions } from 'vuex';
+import { CHANGE_USER } from './store/index';
+/**
+ * firebaseLogOut
+ * @return {Promise}
+ */
+function firebaseLogOut() {
+  return firebase.auth().signOut();
+}
 
 export default {
   name: 'app',
@@ -31,11 +38,11 @@ export default {
   methods: {
     logOut() {
       firebaseLogOut().then(() => {
-        this.$router.push({name: 'login'});
+        this.$router.push({ name: 'login' });
       });
     },
-    ...mapActions({changeUser: CHANGE_USER}),
-    ...mapMutations({setNewUserInfo: CHANGE_USER}),
+    ...mapActions({ changeUser: CHANGE_USER }),
+    ...mapMutations({ setNewUserInfo: CHANGE_USER }),
   },
   computed: {
     ...mapGetters(['user']),
@@ -47,13 +54,6 @@ export default {
 };
 
 
-/**
- * firebaseLogOut
- * @return {Promise}
- */
-function firebaseLogOut() {
-  return firebase.auth().signOut();
-}
 </script>
 
 
