@@ -24,7 +24,7 @@
                 Released:
               </td>
               <td>
-                {{ formatDate(film.releaseDate) }}
+                {{ film.releaseDate | date }}
               </td>
             </tr>
             <tr :class="$style.textInfoTableRow">
@@ -103,11 +103,13 @@ export default {
   },
   methods: {
     ...mapActions({ getFilms: GET_FILMS, getCharacters: GET_CHARACTERS }),
+  },
+  filters: {
     /** Makes Date human readable
      * @param {Date} date
      * @return {string}
      */
-    formatDate: date =>
+    date: date =>
       `${date.getMonth() + 1}.${date.getDate()}.${date.getFullYear()}`,
   },
 };

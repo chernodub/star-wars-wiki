@@ -57,7 +57,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions({getFilms: GET_FILMS}),
+    ...mapActions({ getFilms: GET_FILMS }),
     /**
      * Selects film to show
      * @param {number} id
