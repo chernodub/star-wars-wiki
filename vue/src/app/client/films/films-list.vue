@@ -25,26 +25,29 @@
         </div>
       </li>
     </ul>
-    <transition name="slide" mode="out-in">
+    <sw-transition name="slide" mode="out-in">
       <div :class="$style.filmsPageDescription" v-if="focusedId !== null">
         <img
           :class="[$style.filmsPageDescriptionImage]"
-          :src="selectedFilm.imageUrl"
+          :src="selectFilm.imageUrl"
           alt="Film poster image"
         />
         <p :class="[$style.filmsPageDescriptionP]">
-          {{ selectedFilm.description }}
+          {{ selectFilm.description }}
         </p>
       </div>
-    </transition>
+    </sw-transition>
   </div>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import { GET_FILMS } from '../../store';
-import { mapGetters } from 'vuex';
+import SwTransition from '../sw-transition';
+
 /** Films list component */
 export default {
   name: 'films-list',
+  components: { 'sw-transition': SwTransition },
   data() {
     return {
       /** Id of the film user set focus on */
@@ -54,6 +57,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions({ getFilms: GET_FILMS }),
     /**
      * Selects film to show
      * @param {number} id
@@ -71,16 +75,18 @@ export default {
   },
   computed: {
     ...mapGetters(['films']),
-    selectedFilm() {
+    /** Select film */
+    selectFilm() {
       return this.films.find(film => film.episodeId === this.focusedId);
     },
+    /** Sorted by episode */
     sortedFilms() {
       return this.films.slice(0).sort((a, b) => a.episodeId - b.episodeId);
     },
   },
   mounted() {
     if (!this.films.length) {
-      this.$store.dispatch(GET_FILMS);
+      this.getFilms();
     }
   },
 };

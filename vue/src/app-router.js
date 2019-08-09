@@ -46,6 +46,14 @@ export default new VueRouter({
       ),
       beforeEnter: authGuard,
     },
+    { name: 'character-page',
+      path: '/characters/:id',
+      component: () => import(
+      /* webpackChunkName: "character-page" */
+        './app/client/character-description.vue',
+      ),
+      beforeEnter: authGuard,
+    },
     { path: '*', redirect: 'films' },
   ],
 });

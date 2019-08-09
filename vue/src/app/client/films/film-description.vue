@@ -24,7 +24,7 @@
                 Released:
               </td>
               <td>
-                {{ formatDate(film.releaseDate) }}
+                {{ film.releaseDate | date }}
               </td>
             </tr>
             <tr :class="$style.textInfoTableRow">
@@ -52,8 +52,8 @@
             </tr>
           </tbody>
         </table>
-        <transition name="fade"
-          ><div>
+        <sw-transition name="fade" appear>
+          <div>
             <span :class="$style.additionalTitle">Characters: </span>
             <ul :class="$style.charactersList">
               <li v-for="char in filmCharacters" :key="char.id">
@@ -68,41 +68,48 @@
               </li>
             </ul>
           </div>
-        </transition>
+        </sw-transition>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 import { GET_FILMS, GET_CHARACTERS } from '../../store';
-import { mapGetters } from 'vuex';
+import SwTransition from '../sw-transition';
 
 export default {
   name: 'film-description',
+  components: { 'sw-transition': SwTransition },
   computed: {
     ...mapGetters(['films', 'getFilmById', 'characters', 'getCharactersById']),
+    /** Selected film */
     film() {
       return this.getFilmById(this.$route.params.id);
     },
+    /** Characters in film */
     filmCharacters() {
       return this.getCharactersById(this.film.characters);
     },
   },
   mounted() {
     if (!this.films.length) {
-      this.$store.dispatch(GET_FILMS);
+      this.getFilms();
     }
     if (!this.characters.length) {
-      this.$store.dispatch(GET_CHARACTERS);
+      this.getCharacters();
     }
   },
   methods: {
+    ...mapActions({ getFilms: GET_FILMS, getCharacters: GET_CHARACTERS }),
+  },
+  filters: {
     /** Makes Date human readable
      * @param {Date} date
      * @return {string}
      */
-    formatDate: date =>
+    date: date =>
       `${date.getMonth() + 1}.${date.getDate()}.${date.getFullYear()}`,
   },
 };
