@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { GET_FILMS, GET_CHARACTERS } from '../../store';
 import SwTransition from '../sw-transition';
 
@@ -95,13 +95,14 @@ export default {
   },
   mounted() {
     if (!this.films.length) {
-      this.$store.dispatch(GET_FILMS);
+      this.getFilms();
     }
     if (!this.characters.length) {
-      this.$store.dispatch(GET_CHARACTERS);
+      this.getCharacters();
     }
   },
   methods: {
+    ...mapActions({ getFilms: GET_FILMS, getCharacters: GET_CHARACTERS }),
     /** Makes Date human readable
      * @param {Date} date
      * @return {string}

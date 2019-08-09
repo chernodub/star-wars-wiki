@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { GET_FILMS } from '../../store';
 import SwTransition from '../sw-transition';
 
@@ -57,6 +57,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions({getFilms: GET_FILMS}),
     /**
      * Selects film to show
      * @param {number} id
@@ -85,7 +86,7 @@ export default {
   },
   mounted() {
     if (!this.films.length) {
-      this.$store.dispatch(GET_FILMS);
+      this.getFilms();
     }
   },
 };

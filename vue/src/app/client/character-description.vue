@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import { GET_CHARACTERS, GET_PLANETS } from '../store';
 
 export default {
@@ -40,6 +40,9 @@ export default {
       },
     };
   },
+  methods: {
+    ...mapActions({ getCharacters: GET_CHARACTERS, getPlanets: GET_PLANETS }),
+  },
   computed: {
     ...mapGetters(['getCharactersById', 'characters', 'planets', 'getPlanetsById']),
     /** Selected character */
@@ -59,10 +62,10 @@ export default {
   },
   mounted() {
     if (!this.characters.length) {
-      this.$store.dispatch(GET_CHARACTERS);
+      this.getCharacters();
     }
     if (!this.planets.length) {
-      this.$store.dispatch(GET_PLANETS);
+      this.getPlanets();
     }
   },
 };
