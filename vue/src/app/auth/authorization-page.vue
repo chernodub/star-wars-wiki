@@ -1,13 +1,14 @@
 <template>
   <div :class="$style.authorizationPage">
-    <transition name="fade" mode="out-in">
+    <sw-transition name="fade" mode="out-in">
       <router-view @submit="onSubmit"></router-view>
-    </transition>
+    </sw-transition>
   </div>
 </template>
 <script>
 import { mapActions } from 'vuex';
 import { SIGN_IN, SIGN_UP } from '../store';
+import SwTransition from '../client/sw-transition';
 
 /** @typedef {Object} CustomEvent
  * @property {'login' | 'register'} type
@@ -18,6 +19,7 @@ import { SIGN_IN, SIGN_UP } from '../store';
 /** Authorization page component */
 export default {
   name: 'authorization-page',
+  components: { 'sw-transition': SwTransition },
   methods: {
     ...mapActions({
       /** Replace user with new user object */

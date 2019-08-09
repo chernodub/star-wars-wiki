@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide" mode="in-out">
+    <sw-transition name="slide" mode="in-out">
       <nav :class="[$style.nav]" v-if="showNavbar">
         <router-link :class="$style.logoLink" :to="{ name: 'films' }">
           <img
@@ -13,10 +13,10 @@
           <span>Log out</span>
         </button>
       </nav>
-    </transition>
-    <transition name="fade" mode="out-in">
+    </sw-transition>
+    <sw-transition name="fade" mode="out-in">
       <router-view :class="$style.viewPadding"></router-view>
-    </transition>
+    </sw-transition>
   </div>
 </template>
 <script>
@@ -24,6 +24,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
 import { CHANGE_USER } from './store/index';
+import SwTransition from './client/sw-transition';
 /**
  * firebaseLogOut
  * @return {Promise}
@@ -34,7 +35,7 @@ function firebaseLogOut() {
 
 export default {
   name: 'app',
-  components: {},
+  components: { 'sw-transition': SwTransition },
   methods: {
     logOut() {
       firebaseLogOut().then(() => {
@@ -99,18 +100,4 @@ export default {
 </style>
 
 <style scoped>
-/** Transition animation styles */
-.slide-enter-active,
-.slide-leave-active {
-  transition: all 0.3s ease;
-}
-
-.slide-enter {
-  opacity: 0;
-  transform: translateY(-3rem);
-}
-.slide-leave-to {
-  opacity: 0;
-  transform: translateY(-3rem);
-}
 </style>

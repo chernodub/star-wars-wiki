@@ -25,7 +25,7 @@
         </div>
       </li>
     </ul>
-    <transition name="slide" mode="out-in">
+    <sw-transition name="slide" mode="out-in">
       <div :class="$style.filmsPageDescription" v-if="focusedId !== null">
         <img
           :class="[$style.filmsPageDescriptionImage]"
@@ -36,15 +36,18 @@
           {{ selectFilm.description }}
         </p>
       </div>
-    </transition>
+    </sw-transition>
   </div>
 </template>
 <script>
 import { mapGetters } from 'vuex';
 import { GET_FILMS } from '../../store';
+import SwTransition from '../sw-transition';
+
 /** Films list component */
 export default {
   name: 'films-list',
+  components: { 'sw-transition': SwTransition },
   data() {
     return {
       /** Id of the film user set focus on */

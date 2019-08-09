@@ -52,8 +52,8 @@
             </tr>
           </tbody>
         </table>
-        <transition name="fade"
-          ><div>
+        <sw-transition name="fade" appear>
+          <div>
             <span :class="$style.additionalTitle">Characters: </span>
             <ul :class="$style.charactersList">
               <li v-for="char in filmCharacters" :key="char.id">
@@ -68,7 +68,7 @@
               </li>
             </ul>
           </div>
-        </transition>
+        </sw-transition>
       </div>
     </div>
   </div>
@@ -77,9 +77,11 @@
 <script>
 import { mapGetters } from 'vuex';
 import { GET_FILMS, GET_CHARACTERS } from '../../store';
+import SwTransition from '../sw-transition';
 
 export default {
   name: 'film-description',
+  components: { 'sw-transition': SwTransition },
   computed: {
     ...mapGetters(['films', 'getFilmById', 'characters', 'getCharactersById']),
     /** Selected film */

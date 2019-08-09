@@ -42,13 +42,3 @@ body {
   outline: none;
   filter: drop-shadow(0 0 0.3em #ff4c4c);
 }
-
-/** Transition animation styles */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
