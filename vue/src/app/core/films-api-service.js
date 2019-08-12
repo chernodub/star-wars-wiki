@@ -18,3 +18,25 @@ export async function getFilms() {
       return [];
     });
 }
+
+/** Saves new film
+ * @param {Film} film
+ * @return {Promise}
+ */
+export async function saveFilm(film) {
+  return firebase.database().ref(`swapi/films/${film.number}/fields`).update({
+    characters: film.characters,
+    director: film.director,
+    episode_id: film.episodeId,
+    opening_crawl: film.description,
+    planets: film.planets,
+    producer: film.producedBy,
+    release_date: `${film.releaseDate.getFullYear()}-${film.releaseDate.getMonth() + 1}-${film.releaseDate.getDate()}`,
+    species: film.species,
+    starships: film.starships,
+    title: film.name,
+    vehicles: film.vehicles,
+    edited: '',
+    created: '',
+  });
+}

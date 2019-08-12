@@ -6,15 +6,15 @@ export function mapUser(userDto) {
   if (!userDto) return null;
   return {
     email: userDto.email,
+    uid: userDto.uid,
   };
 }
-
 
 /** Maps filmDto to Film
  * @param {FilmDto} film
  * @return {Film}
 */
-export function mapFilm(film) {
+export function mapFilm(film, idx) {
   return {
     name: film.title,
     director: film.director,
@@ -28,6 +28,7 @@ export function mapFilm(film) {
     species: film.species,
     planets: film.planets,
     imageUrl: film.image_url,
+    number: idx,
   };
 }
 

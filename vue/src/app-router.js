@@ -34,7 +34,7 @@ export default new VueRouter({
       path: '/films',
       component: () => import(
         /* webpackChunkName: "films" */
-        './app/client/films/films-list.vue',
+        './app/views/films/films-list.vue',
       ),
       beforeEnter: authGuard,
     },
@@ -42,7 +42,7 @@ export default new VueRouter({
       path: '/films/:id',
       component: () => import(
         /* webpackChunkName: "film-page" */
-        './app/client/films/film-description.vue',
+        './app/views/films/film-description.vue',
       ),
       beforeEnter: authGuard,
     },
@@ -50,7 +50,7 @@ export default new VueRouter({
       path: '/characters/:id',
       component: () => import(
       /* webpackChunkName: "character-page" */
-        './app/client/character-description.vue',
+        './app/views/character-description.vue',
       ),
       beforeEnter: authGuard,
     },

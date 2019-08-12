@@ -2,10 +2,11 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getFilms } from '../core/films-api-service';
+import { getFilms, saveFilm } from '../core/films-api-service';
 import { mapUser } from '../core/map-model-service';
 import { getCharacters } from '../core/characters-api-service';
 import { getPlanets } from '../core/planets-api-service';
+import { checkAdminRights } from '../core/admin-service';
 
 
 Vue.use(Vuex);
@@ -16,6 +17,9 @@ export const SIGN_IN = 'SIGN_IN';
 export const SIGN_UP = 'SIGN_UP';
 export const GET_CHARACTERS = 'GET_CHARACTERS';
 export const GET_PLANETS = 'GET_PLANETS';
+export const CHECK_ADMIN = 'CHECK_ADMIN';
+export const TOGGLE_ADMIN_MODE = 'TOGGLE_ADMIN_MODE';
+export const SAVE_FILM = 'SAVE_FILM';
 
 
 const store = new Vuex.Store({
@@ -28,6 +32,8 @@ const store = new Vuex.Store({
     characters: [],
     /** Planets */
     planets: [],
+    /** Is admin mode */
+    isAdminMode: false,
   },
   mutations: {
     /** Replace user with new object or null value
@@ -46,6 +52,23 @@ const store = new Vuex.Store({
     setPlanets: (state, planets) => {
       state.planets = planets;
     },
+    /** Set admin status
+     * @param {boolean} value
+     */
+    setAdminStatus: (state, value) => {
+      if (state.user) {
+        state.user.isAdmin = value;
+      }
+    },
+    setFilm: (state, newFilm) => {
+      const idx = state.films.findIndex(film => film.episodeId === newFilm.episodeId);
+      if (idx + 1) {
+        state.films[idx] = newFilm;
+      }
+    },
+    toggleAdminMode: (state) => {
+      state.isAdminMode = !state.isAdminMode;
+    },
   },
   actions: {
     /** Replace user with new object or null value
@@ -55,19 +78,30 @@ const store = new Vuex.Store({
       commit(CHANGE_USER, user);
     },
 
-    [GET_FILMS]: async ({ commit }) => {
-      const films = await getFilms();
+    [GET_FILMS]: ({ commit }) => getFilms().then((films) => {
       commit('setFilms', films);
-    },
+    }),
 
-    [GET_CHARACTERS]: async ({ commit }) => {
-      const characters = await getCharacters();
+    [GET_CHARACTERS]: ({ commit }) => getCharacters().then((characters) => {
       commit('setCharacters', characters);
-    },
+    }),
 
-    [GET_PLANETS]: async ({ commit }) => {
-      const planets = await getPlanets();
+    [GET_PLANETS]: ({ commit }) => getPlanets().then((planets) => {
       commit('setPlanets', planets);
+    }),
+
+    [SAVE_FILM]: ({ commit }, film) => saveFilm(film).then(() => {
+      commit('toggleAdminMode');
+      commit('setFilm', film);
+    }),
+
+    [TOGGLE_ADMIN_MODE]: ({ commit }) => commit('toggleAdminMode'),
+
+    /** Checks if user is admin and sets it to the state.user */
+    [CHECK_ADMIN]({ commit }) {
+      return checkAdminRights(this.state.user.uid).then((isUserAdmin) => {
+        commit('setAdminStatus', isUserAdmin);
+      });
     },
 
     [SIGN_IN]: async ({ commit }, credentials) =>
@@ -101,6 +135,7 @@ const store = new Vuex.Store({
     films: state => state.films,
     planets: state => state.films,
     characters: state => state.characters,
+    isAdminMode: state => state.isAdminMode,
     getFilmById: state => id => state.films.find(
       film =>
         film.episodeId === +id),

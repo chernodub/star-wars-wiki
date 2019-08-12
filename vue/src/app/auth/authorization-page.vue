@@ -7,8 +7,8 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import { SIGN_IN, SIGN_UP } from '../store';
-import SwTransition from '../client/sw-transition';
+import { SIGN_IN, SIGN_UP, CHECK_ADMIN } from '../store';
+import SwTransition from '../views/sw-transition';
 
 /** @typedef {Object} CustomEvent
  * @property {'login' | 'register'} type
@@ -25,6 +25,7 @@ export default {
       /** Replace user with new user object */
       signIn: SIGN_IN,
       signUp: SIGN_UP,
+      checkAdmin: CHECK_ADMIN,
     }),
 
     /** Send request to sign in/up
@@ -48,7 +49,7 @@ export default {
       }
 
       if (resultPromise) {
-        resultPromise.then(() => {
+        resultPromise.then(() => this.checkAdmin()).then(() => {
           this.$router.push({ name: 'films' });
         });
       }

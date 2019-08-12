@@ -1,8 +1,7 @@
 <template>
-  <div class="films-page" :class="[$style.filmsPage]">
+  <div :class="[$style.filmsPage]">
     <ul
       aria-label="Films list"
-      class="films-list"
       :class="$style.filmsPageList"
     >
       <li
