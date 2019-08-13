@@ -17,6 +17,7 @@
               [$style.adminButtonActive]: isAdminMode
             }"
             @click="toggleAdminMode"
+            v-if="user.isAdmin"
           >
             admin
           </button>

@@ -182,7 +182,8 @@ export default {
     ...mapGetters(['films', 'getFilmById', 'characters', 'getCharactersById', 'isAdminMode']),
     /** Selected film */
     film() {
-      return { ...this.getFilmById(this.$route.params.id) };
+      const film = this.getFilmById(this.$route.params.id);
+      return film ? { ...film } : null;
     },
     /** Characters in film */
     filmCharacters() {
