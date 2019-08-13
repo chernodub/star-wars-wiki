@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router';
-import { authGuard } from './app/core/guards/auth-guard';
 import Vue from 'vue';
+import { authGuard } from './app/core/guards/auth-guard';
 
 Vue.use(VueRouter);
 

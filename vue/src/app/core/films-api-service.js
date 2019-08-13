@@ -3,7 +3,8 @@ import 'firebase/database';
 import { removeWrap } from './utils-service';
 import { mapFilm } from './map-model-service';
 
-/** Gets films in wrappers
+/**
+ * Gets films in wrappers
  * @return {Promise<Film[]>}
  */
 export async function getFilms() {
@@ -19,7 +20,10 @@ export async function getFilms() {
     });
 }
 
-/** Saves new film
+export const formatDate = date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+
+/**
+ * Saves new film
  * @param {Film} film
  * @return {Promise}
  */
@@ -31,7 +35,7 @@ export async function saveFilm(film) {
     opening_crawl: film.description,
     planets: film.planets,
     producer: film.producedBy,
-    release_date: `${film.releaseDate.getFullYear()}-${film.releaseDate.getMonth() + 1}-${film.releaseDate.getDate()}`,
+    release_date: formatDate(film.releaseDate),
     species: film.species,
     starships: film.starships,
     title: film.name,

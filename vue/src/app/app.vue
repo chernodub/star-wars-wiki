@@ -1,11 +1,11 @@
 <template>
   <div id="app">
     <sw-transition name="slide" mode="in-out">
-      <nav :class="[$style.nav]" v-if="showNavbar">
+      <nav :class="$style.nav" v-if="showNavbar">
         <div>
           <router-link :class="$style.logoLink" :to="{ name: 'films' }">
             <img
-              :class="[$style.logoImage]"
+              :class="$style.logoImage"
               src="./assets/Vector.svg"
               alt="Logo SW"
             />

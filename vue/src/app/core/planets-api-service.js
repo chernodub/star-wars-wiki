@@ -3,7 +3,8 @@ import 'firebase/database';
 import { removeWrap } from './utils-service';
 import { mapPlanet } from './map-model-service';
 
-/** Gets planets in wrappers
+/** 
+ * Gets planets in wrappers
  * @return {Promise<Character[]>}
  */
 export async function getPlanets() {

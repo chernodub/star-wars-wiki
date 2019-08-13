@@ -3,7 +3,8 @@ import 'firebase/database';
 import { removeWrap } from './utils-service';
 import { mapCharacter } from './map-model-service';
 
-/** Gets characters in wrappers
+/**
+ * Gets characters in wrappers
  * @return {Promise<Character[]>}
  */
 export async function getCharacters() {

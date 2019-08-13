@@ -8,7 +8,6 @@ import { mapUser } from './app/core/map-model-service';
 
 Vue.config.productionTip = false;
 
-
 /**
  * initializeFirebase
  * @param {Function} saveUserCallback

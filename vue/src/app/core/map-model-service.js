@@ -1,4 +1,5 @@
-/** Maps userDto to User
+/**
+ * Maps userDto to User
  * @param {UserDto} userDto
  * @return {User}
  */
@@ -10,7 +11,8 @@ export function mapUser(userDto) {
   };
 }
 
-/** Maps filmDto to Film
+/**
+ * Maps filmDto to Film
  * @param {FilmDto} film
  * @return {Film}
 */
@@ -32,7 +34,8 @@ export function mapFilm(film, idx) {
   };
 }
 
-/** Maps characterDto to Character
+/**
+ * Maps characterDto to Character
  * @param {CharacterDto} character
  * @return {Character}
  */
@@ -50,7 +53,8 @@ export function mapCharacter(character, idx) {
   };
 }
 
-/** Maps planetDto to Planet
+/** 
+ * Maps planetDto to Planet
  * @param {PlanetDto} planet
  * @return {Planet}
  */

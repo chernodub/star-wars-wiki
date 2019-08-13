@@ -36,7 +36,8 @@ const store = new Vuex.Store({
     isAdminMode: false,
   },
   mutations: {
-    /** Replace user with new object or null value
+    /** 
+     * Replace user with new object or null value
      * @param {State} state
      * @param {User} user
      */
@@ -52,7 +53,8 @@ const store = new Vuex.Store({
     setPlanets: (state, planets) => {
       state.planets = planets;
     },
-    /** Set admin status
+    /** 
+     * Set admin status
      * @param {boolean} value
      */
     setAdminStatus: (state, value) => {
@@ -62,7 +64,7 @@ const store = new Vuex.Store({
     },
     setFilm: (state, newFilm) => {
       const idx = state.films.findIndex(film => film.episodeId === newFilm.episodeId);
-      if (idx + 1) {
+      if (idx > 0) {
         state.films[idx] = newFilm;
       }
     },
@@ -71,7 +73,8 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    /** Replace user with new object or null value
+    /**
+     * Replace user with new object or null value
      * @param {User} user
      */
     [CHANGE_USER]: ({ commit }, user) => {

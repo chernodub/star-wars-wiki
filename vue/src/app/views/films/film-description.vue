@@ -1,11 +1,7 @@
 <template>
-  <div v-if="film" :class="[$style.filmDescription]">
+  <div v-if="film" :class="$style.filmDescription">
     <div :class="$style.imageInfoContainer">
-      <img
-        :class="[$style.image]"
-        :src="film.imageUrl"
-        alt="Film poster image"
-      />
+      <img :class="$style.image" :src="film.imageUrl" alt="Film poster image" />
     </div>
     <sw-transition name="fade" mode="out-in">
       <div
@@ -150,11 +146,10 @@
                   <router-link
                     :to="{ name: 'character-page', params: { id: char.id } }"
                     class="sw-a"
+                    v-trim
                   >
-                    <!-- router-link is in one line with {{}} because there is a space after char.name appearing
-                    when I move in under the {{}} -->
-                    {{ char.name }}</router-link
-                  >
+                    {{ char.name }}
+                  </router-link>
                 </li>
               </ul>
             </div>
@@ -172,6 +167,10 @@ import SwTransition from '../sw-transition';
 import SwDatepicker from '../components/sw-datepicker';
 import SwTextarea from '../components/sw-textarea';
 
+function trimInnerText(el) {
+  el.innerText = el.innerText.trim();
+}
+
 export default {
   name: 'film-description',
   components: {
@@ -182,7 +181,9 @@ export default {
   computed: {
     ...mapGetters(['films', 'getFilmById', 'characters', 'getCharactersById', 'isAdminMode']),
     /** Selected film */
-    film() { return Object.assign({}, this.getFilmById(this.$route.params.id)); },
+    film() {
+      return { ...this.getFilmById(this.$route.params.id) };
+    },
     /** Characters in film */
     filmCharacters() {
       return this.getCharactersById(this.film.characters);
@@ -200,12 +201,18 @@ export default {
     ...mapActions({ getFilms: GET_FILMS, getCharacters: GET_CHARACTERS, saveFilm: SAVE_FILM }),
   },
   filters: {
-    /** Makes Date human readable
+    /**
+     * Makes Date human readable
      * @param {Date} date
      * @return {string}
      */
     date: date =>
       (date ? `${date.getMonth() + 1}.${date.getDate()}.${date.getFullYear()}` : ''),
+  },
+  directives: {
+    trim: {
+      inserted: trimInnerText,
+    },
   },
 };
 </script>

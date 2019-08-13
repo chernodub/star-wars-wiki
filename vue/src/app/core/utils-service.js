@@ -1,4 +1,5 @@
-/** Removes wrapper
+/** 
+ * Removes wrapper
  * @return {Film} film
  * @param {Wrap} wrap
  */

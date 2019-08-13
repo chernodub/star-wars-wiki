@@ -1,13 +1,10 @@
 <template>
-  <div :class="[$style.filmsPage]">
-    <ul
-      aria-label="Films list"
-      :class="$style.filmsPageList"
-    >
+  <div :class="$style.filmsPage">
+    <ul aria-label="Films list" :class="$style.filmsPageList">
       <li
         v-for="film in sortedFilms"
         :key="film.episodeId"
-        :class="[$style.filmsPageListLi]"
+        :class="$style.filmsPageListLi"
       >
         <div @mouseover="chooseFilm(film.episodeId)">
           <router-link
@@ -27,11 +24,11 @@
     <sw-transition name="slide" mode="out-in">
       <div :class="$style.filmsPageDescription" v-if="focusedId !== null">
         <img
-          :class="[$style.filmsPageDescriptionImage]"
+          :class="$style.filmsPageDescriptionImage"
           :src="selectFilm.imageUrl"
           alt="Film poster image"
         />
-        <p :class="[$style.filmsPageDescriptionP]">
+        <p :class="$style.filmsPageDescriptionP">
           {{ selectFilm.description }}
         </p>
       </div>

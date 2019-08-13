@@ -10,7 +10,8 @@ import { mapActions } from 'vuex';
 import { SIGN_IN, SIGN_UP, CHECK_ADMIN } from '../store';
 import SwTransition from '../views/sw-transition';
 
-/** @typedef {Object} CustomEvent
+/** 
+ * @typedef {Object} CustomEvent
  * @property {'login' | 'register'} type
  * @property {string} email
  * @property {string} password
@@ -28,7 +29,8 @@ export default {
       checkAdmin: CHECK_ADMIN,
     }),
 
-    /** Send request to sign in/up
+    /** 
+     * Send request to sign in/up
      * @param {CustomEvent} event
      */
     onSubmit(event) {

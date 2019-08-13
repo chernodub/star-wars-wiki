@@ -12,7 +12,12 @@
 export default {
   name: 'sw-textarea',
   inheritAttrs: false,
-  props: ['value'],
+  props: {
+    value: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 
