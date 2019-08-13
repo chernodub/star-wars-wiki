@@ -12,14 +12,16 @@
 export default {
   props: {
     value: {
-      type: String,
+      type: Date,
       required: true,
-    }
+    },
   },
   inheritAttrs: false,
   name: 'sw-datepicker',
   computed: {
-    dateString: this.value && this.value.toISOString().split('T')[0],
+    dateString() {
+      return this.value && this.value.toISOString().split('T')[0];
+    },
   },
 };
 </script>

@@ -5,6 +5,7 @@ import App from '@/app/app';
 import store, { CHANGE_USER } from '@/app/store/index';
 import router from '@/app-router';
 import { mapUser } from '@/app/core/map-model-service';
+import { CHECK_ADMIN } from './app/store';
 
 Vue.config.productionTip = false;
 
@@ -21,6 +22,7 @@ function initializeFirebase(saveUserCallback) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           saveUserCallback(mapUser(user));
+          store.dispatch(CHECK_ADMIN);
         } else {
           saveUserCallback(null);
         }

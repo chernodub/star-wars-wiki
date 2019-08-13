@@ -34,6 +34,8 @@ const store = new Vuex.Store({
     planets: [],
     /** Is admin mode */
     isAdminMode: false,
+    /** Is user admin */
+    isUserAdmin: false,
   },
   mutations: {
     /** 
@@ -53,13 +55,13 @@ const store = new Vuex.Store({
     setPlanets: (state, planets) => {
       state.planets = planets;
     },
-    /** 
+    /**
      * Set admin status
      * @param {boolean} value
      */
     setAdminStatus: (state, value) => {
       if (state.user) {
-        state.user.isAdmin = value;
+        state.isUserAdmin = value;
       }
     },
     setFilm: (state, newFilm) => {
@@ -139,6 +141,7 @@ const store = new Vuex.Store({
     planets: state => state.films,
     characters: state => state.characters,
     isAdminMode: state => state.isAdminMode,
+    isUserAdmin: state => state.isUserAdmin,
     getFilmById: state => id => state.films.find(
       film =>
         film.episodeId === +id),

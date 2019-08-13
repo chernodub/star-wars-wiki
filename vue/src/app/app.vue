@@ -17,7 +17,7 @@
               [$style.adminButtonActive]: isAdminMode
             }"
             @click="toggleAdminMode"
-            v-if="user.isAdmin"
+            v-if="showAdminButton"
           >
             admin
           </button>
@@ -55,14 +55,20 @@ export default {
         this.$router.push({ name: 'login' });
       });
     },
-    ...mapActions({ changeUser: CHANGE_USER, toggleAdminMode: TOGGLE_ADMIN_MODE }),
+    ...mapActions({ 
+      changeUser: CHANGE_USER,
+      toggleAdminMode: TOGGLE_ADMIN_MODE,
+    }),
     ...mapMutations({ setNewUserInfo: CHANGE_USER }),
   },
   computed: {
-    ...mapGetters(['user', 'isAdminMode']),
+    ...mapGetters(['user', 'isAdminMode', 'isUserAdmin']),
     showNavbar() {
       return this.$route.name !== 'login' &&
        this.$route.name !== 'register' && this.user;
+    },
+    showAdminButton() {
+      return this.isUserAdmin;
     },
   },
 };

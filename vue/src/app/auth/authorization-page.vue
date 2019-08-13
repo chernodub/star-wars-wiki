@@ -29,7 +29,7 @@ export default {
       checkAdmin: CHECK_ADMIN,
     }),
 
-    /** 
+    /**
      * Send request to sign in/up
      * @param {CustomEvent} event
      */
