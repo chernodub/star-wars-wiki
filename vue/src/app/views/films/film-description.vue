@@ -162,10 +162,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_FILMS, GET_CHARACTERS, SAVE_FILM } from '../../store';
-import SwTransition from '../sw-transition';
-import SwDatepicker from '../components/sw-datepicker';
-import SwTextarea from '../components/sw-textarea';
+import SwTransition from '@/app/views/components/sw-transition';
+import SwDatepicker from '@/app/views/components/sw-datepicker';
+import SwTextarea from '@/app/views/components/sw-textarea';
+import { GET_FILMS, GET_CHARACTERS, SAVE_FILM } from '@/app/store';
 
 function trimInnerText(el) {
   el.innerText = el.innerText.trim();

@@ -1,6 +1,6 @@
 import VueRouter from 'vue-router';
 import Vue from 'vue';
-import { authGuard } from './app/core/guards/auth-guard';
+import { authGuard } from '@/app/core/guards/auth-guard';
 
 Vue.use(VueRouter);
 
@@ -11,21 +11,21 @@ export default new VueRouter({
     { path: '/login',
       component: () => import(
         /* webpackChunkName: "auth" */
-        './app/auth/authorization-page.vue',
+        '@/app/auth/authorization-page.vue',
       ),
       children: [
         { name: 'login',
           path: '',
           component: () => import(
             /* webpackChunkName: "auth-login" */
-            './app/auth/components/login-form.vue',
+            '@/app/auth/components/login-form.vue',
           ),
         },
         { name: 'register',
           path: 'new',
           component: () => import(
             /* webpackChunkName: "auth-registration" */
-            './app/auth/components/register-form.vue',
+            '@/app/auth/components/register-form.vue',
           ),
         },
       ],
@@ -34,7 +34,7 @@ export default new VueRouter({
       path: '/films',
       component: () => import(
         /* webpackChunkName: "films" */
-        './app/views/films/films-list.vue',
+        '@/app/views/films/films-list.vue',
       ),
       beforeEnter: authGuard,
     },
@@ -42,7 +42,7 @@ export default new VueRouter({
       path: '/films/:id',
       component: () => import(
         /* webpackChunkName: "film-page" */
-        './app/views/films/film-description.vue',
+        '@/app/views/films/film-description.vue',
       ),
       beforeEnter: authGuard,
     },
@@ -50,7 +50,7 @@ export default new VueRouter({
       path: '/characters/:id',
       component: () => import(
       /* webpackChunkName: "character-page" */
-        './app/views/character-description.vue',
+        '@/app/views/character-description.vue',
       ),
       beforeEnter: authGuard,
     },

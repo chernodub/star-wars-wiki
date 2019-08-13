@@ -7,8 +7,8 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import { SIGN_IN, SIGN_UP, CHECK_ADMIN } from '../store';
-import SwTransition from '../views/sw-transition';
+import { SIGN_IN, SIGN_UP, CHECK_ADMIN } from '@/app/store';
+import SwTransition from '@/app/views/components/sw-transition';
 
 /** 
  * @typedef {Object} CustomEvent

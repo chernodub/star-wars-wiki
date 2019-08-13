@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { removeWrap } from './utils-service';
-import { mapPlanet } from './map-model-service';
+import { removeWrap } from '@/app/core/utils-service';
+import { mapPlanet } from '@/app/core/map-model-service';
 
 /** 
  * Gets planets in wrappers

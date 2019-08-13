@@ -1,10 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import Vue from 'vue';
-import App from './app/app';
-import store, { CHANGE_USER } from './app/store/index';
-import router from './app-router';
-import { mapUser } from './app/core/map-model-service';
+import App from '@/app/app';
+import store, { CHANGE_USER } from '@/app/store/index';
+import router from '@/app-router';
+import { mapUser } from '@/app/core/map-model-service';
 
 Vue.config.productionTip = false;
 

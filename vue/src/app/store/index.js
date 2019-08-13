@@ -2,11 +2,11 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getFilms, saveFilm } from '../core/films-api-service';
-import { mapUser } from '../core/map-model-service';
-import { getCharacters } from '../core/characters-api-service';
-import { getPlanets } from '../core/planets-api-service';
-import { checkAdminRights } from '../core/admin-service';
+import { getFilms, saveFilm } from '@/app/core/films-api-service';
+import { mapUser } from '@/app/core/map-model-service';
+import { getCharacters } from '@/app/core/characters-api-service';
+import { getPlanets } from '@/app/core/planets-api-service';
+import { checkAdminRights } from '@/app/core/admin-service';
 
 
 Vue.use(Vuex);

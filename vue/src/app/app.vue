@@ -35,8 +35,8 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { mapMutations, mapGetters, mapActions } from 'vuex';
-import { CHANGE_USER, TOGGLE_ADMIN_MODE } from './store/index';
-import SwTransition from './views/sw-transition';
+import { CHANGE_USER, TOGGLE_ADMIN_MODE } from '@/app/store/index';
+import SwTransition from '@/app/views/components/sw-transition';
 /**
  * firebaseLogOut
  * @return {Promise}

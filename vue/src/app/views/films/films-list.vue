@@ -37,8 +37,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_FILMS } from '../../store';
-import SwTransition from '../sw-transition';
+import { GET_FILMS } from '@/app/store';
+import SwTransition from '@/app/views/components/sw-transition';
 
 /** Films list component */
 export default {

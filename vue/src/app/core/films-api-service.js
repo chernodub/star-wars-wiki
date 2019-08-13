@@ -1,7 +1,7 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { removeWrap } from './utils-service';
-import { mapFilm } from './map-model-service';
+import { removeWrap } from '@/app/core/utils-service';
+import { mapFilm } from '@/app/core/map-model-service';
 
 /**
  * Gets films in wrappers
