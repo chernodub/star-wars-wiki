@@ -1,4 +1,5 @@
-/** Maps userDto to User
+/**
+ * Maps userDto to User
  * @param {UserDto} userDto
  * @return {User}
  */
@@ -6,15 +7,16 @@ export function mapUser(userDto) {
   if (!userDto) return null;
   return {
     email: userDto.email,
+    uid: userDto.uid,
   };
 }
 
-
-/** Maps filmDto to Film
+/**
+ * Maps filmDto to Film
  * @param {FilmDto} film
  * @return {Film}
 */
-export function mapFilm(film) {
+export function mapFilm(film, idx) {
   return {
     name: film.title,
     director: film.director,
@@ -28,10 +30,12 @@ export function mapFilm(film) {
     species: film.species,
     planets: film.planets,
     imageUrl: film.image_url,
+    number: idx,
   };
 }
 
-/** Maps characterDto to Character
+/**
+ * Maps characterDto to Character
  * @param {CharacterDto} character
  * @return {Character}
  */
@@ -49,7 +53,8 @@ export function mapCharacter(character, idx) {
   };
 }
 
-/** Maps planetDto to Planet
+/** 
+ * Maps planetDto to Planet
  * @param {PlanetDto} planet
  * @return {Planet}
  */

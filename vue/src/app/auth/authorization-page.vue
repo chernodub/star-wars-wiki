@@ -1,16 +1,16 @@
 <template>
-  <div :class="$style.authorizationPage">
-    <sw-transition name="fade" mode="out-in">
-      <router-view @submit="onSubmit"></router-view>
-    </sw-transition>
-  </div>
+  <sw-transition name="fade" mode="out-in">
+    <router-view :class="$style.authorizationPage" @submit="onSubmit">
+    </router-view>
+  </sw-transition>
 </template>
 <script>
 import { mapActions } from 'vuex';
-import { SIGN_IN, SIGN_UP } from '../store';
-import SwTransition from '../client/sw-transition';
+import { SIGN_IN, SIGN_UP, CHECK_ADMIN } from '@/app/store';
+import SwTransition from '@/app/views/components/sw-transition';
 
-/** @typedef {Object} CustomEvent
+/** 
+ * @typedef {Object} CustomEvent
  * @property {'login' | 'register'} type
  * @property {string} email
  * @property {string} password
@@ -25,9 +25,11 @@ export default {
       /** Replace user with new user object */
       signIn: SIGN_IN,
       signUp: SIGN_UP,
+      checkAdmin: CHECK_ADMIN,
     }),
 
-    /** Send request to sign in/up
+    /**
+     * Send request to sign in/up
      * @param {CustomEvent} event
      */
     onSubmit(event) {
@@ -48,7 +50,7 @@ export default {
       }
 
       if (resultPromise) {
-        resultPromise.then(() => {
+        resultPromise.then(() => this.checkAdmin()).then(() => {
           this.$router.push({ name: 'films' });
         });
       }
@@ -58,8 +60,6 @@ export default {
 </script>
 <style module>
 .authorizationPage {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  margin: auto;
 }
 </style>

@@ -1,4 +1,4 @@
-import store from '../../store';
+import store from '@/app/store';
 
 /**
  * Checks if user is authorized

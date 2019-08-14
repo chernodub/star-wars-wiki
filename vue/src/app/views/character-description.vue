@@ -17,7 +17,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex';
-import { GET_CHARACTERS, GET_PLANETS } from '../store';
+import { GET_CHARACTERS, GET_PLANETS } from '@/app/store';
 
 export default {
   data() {

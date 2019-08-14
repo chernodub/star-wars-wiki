@@ -1,9 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { removeWrap } from './utils-service';
-import { mapFilm } from './map-model-service';
+import { removeWrap, formatDate } from '@/app/core/utils-service';
+import { mapFilm } from '@/app/core/map-model-service';
 
-/** Gets films in wrappers
+/**
+ * Gets films in wrappers
  * @return {Promise<Film[]>}
  */
 export async function getFilms() {
@@ -17,4 +18,28 @@ export async function getFilms() {
       alert('No films in DB');
       return [];
     });
+}
+
+
+/**
+ * Saves new film
+ * @param {Film} film
+ * @return {Promise}
+ */
+export async function saveFilm(film) {
+  return firebase.database().ref(`swapi/films/${film.number}/fields`).update({
+    characters: film.characters,
+    director: film.director,
+    episode_id: film.episodeId,
+    opening_crawl: film.description,
+    planets: film.planets,
+    producer: film.producedBy,
+    release_date: formatDate(film.releaseDate),
+    species: film.species,
+    starships: film.starships,
+    title: film.name,
+    vehicles: film.vehicles,
+    edited: '',
+    created: '',
+  });
 }
