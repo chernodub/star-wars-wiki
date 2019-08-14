@@ -1,9 +1,8 @@
 <template>
-  <div :class="$style.authorizationPage">
-    <sw-transition name="fade" mode="out-in">
-      <router-view @submit="onSubmit"></router-view>
-    </sw-transition>
-  </div>
+  <sw-transition name="fade" mode="out-in">
+    <router-view :class="$style.authorizationPage" @submit="onSubmit">
+    </router-view>
+  </sw-transition>
 </template>
 <script>
 import { mapActions } from 'vuex';
@@ -61,8 +60,6 @@ export default {
 </script>
 <style module>
 .authorizationPage {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  margin: auto;
 }
 </style>

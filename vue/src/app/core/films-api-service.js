@@ -1,6 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
-import { removeWrap } from '@/app/core/utils-service';
+import { removeWrap, formatDate } from '@/app/core/utils-service';
 import { mapFilm } from '@/app/core/map-model-service';
 
 /**
@@ -20,7 +20,6 @@ export async function getFilms() {
     });
 }
 
-export const formatDate = date => `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 
 /**
  * Saves new film

@@ -29,18 +29,18 @@ export default {
 }
 .textArea::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  border-radius: 1em;
+  border-radius: 1rem;
   background-color: inherit;
-  margin: 0.7em 0 0.7em 0;
+  margin: 0.7rem 0 0.7rem 0;
 }
 
 .textArea::-webkit-scrollbar {
-  width: 0.5em;
+  width: 0.5rem;
   background-color: none;
 }
 
 .textArea::-webkit-scrollbar-thumb {
-  border-radius: 1em;
+  border-radius: 1rem;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   background-color: #f2a7a7;
 }

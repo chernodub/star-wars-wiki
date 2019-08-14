@@ -34,11 +34,11 @@ body {
 .sw-input,
 .sw-button {
   border: none;
-  border-radius: 1em;
-  padding: 1em;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 .sw-input:focus,
 .sw-button:focus {
   outline: none;
-  filter: drop-shadow(0 0 0.3em #ff4c4c);
+  filter: drop-shadow(0 0 0.3rem #ff4c4c);
 }
