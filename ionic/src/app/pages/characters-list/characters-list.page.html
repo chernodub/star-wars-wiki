@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Characters</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="characters$ | async as characters">
+  <ion-virtual-scroll [items]="characters">
+    <ion-card *virtualItem="let character; let itemBounds = bounds">
+      <ion-card-header>
+        <ion-card-title>{{ character.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content></ion-card-content>
+    </ion-card>
+  </ion-virtual-scroll>
+</ion-content>

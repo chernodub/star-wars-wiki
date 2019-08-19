@@ -1,0 +1,7 @@
+{
+  "name": "swars",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

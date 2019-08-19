@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      {{ film.name }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <img [src]="film.imageUrl" alt="Film poster" />
+    <ion-card-header>
+      <ion-card-subtitle>Episode {{ film.episodeId }}</ion-card-subtitle>
+      <ion-card-subtitle> Directed by {{ film.director }}</ion-card-subtitle>
+      <ion-card-title></ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        {{ film.description }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-list lines="none">
+    <ion-list-header>
+      <ion-label>Characters</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let character of film.characters" class="list-item">
+      <ion-chip>
+        <ion-label>{{ character }}</ion-label>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+</ion-content>
