@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Observable, EMPTY, from } from 'rxjs';
 import { tap, mapTo, first, switchMap } from 'rxjs/operators';
@@ -22,6 +23,7 @@ export class AuthorizationService {
     private config: AppConfig,
     private router: Router,
     private storage: Storage,
+    public toastController: ToastController,
   ) {}
 
   private mapUser(user: LoginDTO): User {
@@ -58,8 +60,12 @@ export class AuthorizationService {
         }),
         tap(
           () => this.router.navigateByUrl(''),
-          error => {
-            console.log(error);
+          async error => {
+            const toast = await this.toastController.create({
+              message: error.error.error.message,
+              duration: 2000,
+            });
+            toast.present();
           },
         ),
         switchMap(() => EMPTY),

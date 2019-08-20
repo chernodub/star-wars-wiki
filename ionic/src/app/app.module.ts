@@ -10,6 +10,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthTokenInterceptor } from './http-interceptors/auth-token.interceptor';
+import { ExpiredTokenInterceptor } from './http-interceptors/expired-token.interceptor';
 import { WrappingRemoverInterceptor } from './http-interceptors/wrapping-remover.interceptor';
 
 /** App module */
@@ -34,6 +35,11 @@ import { WrappingRemoverInterceptor } from './http-interceptors/wrapping-remover
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthTokenInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ExpiredTokenInterceptor,
       multi: true,
     },
 
