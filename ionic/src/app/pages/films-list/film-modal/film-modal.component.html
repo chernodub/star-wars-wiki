@@ -25,13 +25,13 @@
       </p>
     </ion-card-content>
   </ion-card>
-  <ion-list lines="none">
+  <ion-list lines="none" *ngIf="characters$ | async as characters">
     <ion-list-header>
       <ion-label>Characters</ion-label>
     </ion-list-header>
-    <ion-item *ngFor="let character of film.characters" class="list-item">
+    <ion-item *ngFor="let character of characters" class="list-item">
       <ion-chip>
-        <ion-label>{{ character }}</ion-label>
+        <ion-label>{{ character.name }}</ion-label>
       </ion-chip>
     </ion-item>
   </ion-list>

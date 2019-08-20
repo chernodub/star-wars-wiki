@@ -13,6 +13,7 @@ const routes: Routes = [
   },
 ];
 
+/** Characters list page */
 @NgModule({
   imports: [
     CommonModule,

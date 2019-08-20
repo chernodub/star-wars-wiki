@@ -3,15 +3,21 @@
     <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-text slot="start">*USERNAME*</ion-text>
+          <ion-item>
+            <ion-text slot="start">{{ username$ | async }}</ion-text>
+          </ion-item>
           <ion-buttons slot="end">
-            <ion-icon slot="icon-only" name="exit"></ion-icon>
+            <ion-icon
+              slot="icon-only"
+              name="exit"
+              (click)="logOut()"
+            ></ion-icon>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
       <ion-content>
         <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+          <ion-menu-toggle auto-hide="true" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>

@@ -1,7 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 
+import { Character } from '../../../models/character';
 import { Film } from '../../../models/film';
+import { CacheStorageService } from '../../../services/cache-storage.service';
 
 /** Film modal */
 @Component({
@@ -12,7 +15,16 @@ import { Film } from '../../../models/film';
 export class FilmModalComponent {
   /** Film to present */
   @Input() public film: Film;
-  constructor(private modalCtrl: ModalController) {}
+
+  /** Characters */
+  public characters$: Observable<Character[]>;
+
+  constructor(
+    private modalCtrl: ModalController,
+    private storage: CacheStorageService,
+  ) {
+    this.characters$ = this.storage.getCharacters();
+  }
 
   /** Dismiss modal */
   public dismiss(): void {

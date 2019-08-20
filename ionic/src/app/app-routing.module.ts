@@ -1,23 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'films',
     pathMatch: 'full',
-  },
-  {
-    path: 'home',
-    loadChildren: () =>
-      import('./pages/films-list/films-list.module').then(
-        m => m.FilmsListPageModule,
-      ),
-  },
-  {
-    path: 'list',
-    loadChildren: () =>
-      import('./pages/list/list.module').then(m => m.ListPageModule),
   },
   {
     path: 'login',
@@ -30,6 +20,7 @@ const routes: Routes = [
       import('./pages/films-list/films-list.module').then(
         m => m.FilmsListPageModule,
       ),
+    canLoad: [AuthGuard],
   },
   {
     path: 'characters',
@@ -37,6 +28,7 @@ const routes: Routes = [
       import('./pages/characters-list/characters-list.module').then(
         m => m.CharactersListPageModule,
       ),
+    canLoad: [AuthGuard],
   },
 ];
 

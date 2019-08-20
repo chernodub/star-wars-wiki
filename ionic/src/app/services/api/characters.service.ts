@@ -35,20 +35,10 @@ export class CharactersService {
    * Gets all characters by their ids
    * @param ids Indexes of characters in db
    */
-  public getCharacters(ids?: number[]): Observable<Character[]> {
+  public getCharacters(): Observable<Character[]> {
     return this.http
       .get<CharacterDTO[]>(`${this.config.charactersURL}.json`)
-      .pipe(
-        map(result => {
-          const characters = result.map(this.mapCharacter);
-          if (!ids || !ids.length) {
-            return characters;
-          }
-          return characters.filter(
-            character => ids.findIndex(id => id === character.number) + 1,
-          );
-        }),
-      );
+      .pipe(map(result => result.map(this.mapCharacter)));
   }
 
   /**

@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>login</ion-title>
+    <ion-title>Authorization</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div class="form-wrapper">
+    <form (submit)="onSubmit($event)" class="form">
+      <div class="form-input-wrapper">
+        <ion-item>
+          <ion-input
+            placeholder="Email"
+            required
+            [(ngModel)]="email"
+            type="email"
+            autofocus
+            name="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            placeholder="Password"
+            name="password"
+            required
+            [(ngModel)]="password"
+            type="password"
+          ></ion-input>
+        </ion-item>
+      </div>
+      <ion-button expand="block" type="submit" class="form-submit-button">
+        Login
+      </ion-button>
+    </form>
+  </div>
 </ion-content>

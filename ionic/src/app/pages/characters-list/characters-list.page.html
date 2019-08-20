@@ -9,11 +9,17 @@
 
 <ion-content *ngIf="characters$ | async as characters">
   <ion-virtual-scroll [items]="characters">
-    <ion-card *virtualItem="let character; let itemBounds = bounds">
-      <ion-card-header>
-        <ion-card-title>{{ character.name }}</ion-card-title>
-      </ion-card-header>
-      <ion-card-content></ion-card-content>
-    </ion-card>
+    <ion-item *virtualItem="let character">
+      <ion-avatar slot="start">
+        <img
+          src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+        />
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ character.name }}</h3>
+        <p>{{ character.gender }}</p>
+        <p>{{ character.skinColor }}</p>
+      </ion-label>
+    </ion-item>
   </ion-virtual-scroll>
 </ion-content>
