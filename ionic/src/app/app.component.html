@@ -3,9 +3,9 @@
     <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-item>
-            <ion-text slot="start">{{ username$ | async }}</ion-text>
-          </ion-item>
+          <ion-label slot="start" class="ion-padding">
+            {{ username$ | async }}
+          </ion-label>
           <ion-buttons slot="end">
             <ion-icon
               slot="icon-only"
