@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
 import { AuthorizationService } from '../../services/authorization.service';
@@ -15,18 +15,25 @@ import { AuthorizationService } from '../../services/authorization.service';
 // tslint:disable-next-line: component-class-suffix
 export class LoginPage implements OnInit, OnDestroy {
   /** Email field value */
-  public email = 'test@test.test';
+  public email;
 
   /** Password field value */
-  public password = '123456';
+  public password;
 
   /** Exit button subscription */
-  public exitButtonSubscription$: Subscription;
+  private exitButtonSubscription$: Subscription;
+
+  private isExitButtonClickedOnce: boolean;
+
+  private readonly exitButtonEventTimeout = 1000;
 
   constructor(
     private authService: AuthorizationService,
     private platform: Platform,
-  ) {}
+    private toastController: ToastController,
+  ) {
+    this.authService.tryFingerprintAuth();
+  }
 
   /** Login event */
   public onSubmit(event: Event): void {
@@ -36,7 +43,21 @@ export class LoginPage implements OnInit, OnDestroy {
   /** @inheritdoc */
   public ngOnInit(): void {
     this.exitButtonSubscription$ = this.platform.backButton.subscribe(() => {
-      navigator['app'].exitApp();
+      if (this.isExitButtonClickedOnce) {
+        navigator['app'].exitApp();
+      } else {
+        this.isExitButtonClickedOnce = true;
+        this.toastController
+          .create({
+            message: 'Tap to back button again to exit app',
+            duration: this.exitButtonEventTimeout,
+          })
+          .then(toast => toast.present());
+        setTimeout(
+          () => (this.isExitButtonClickedOnce = false),
+          this.exitButtonEventTimeout,
+        );
+      }
     });
   }
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 
-export const USER = 'user';
+export const STORAGE_USER_KEY = 'user';
 /**
  * Application configurations
  */

@@ -11,7 +11,7 @@ import { Observable, from } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { User } from '../models/user';
-import { AppConfig, USER } from '../services/app-config';
+import { AppConfig, STORAGE_USER_KEY } from '../services/app-config';
 
 /**
  * Adds the auth key to url
@@ -28,7 +28,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     if (req.url.includes(this.config.apiUrl)) {
-      return from(this.storage.get(USER)).pipe(
+      return from(this.storage.get(STORAGE_USER_KEY)).pipe(
         switchMap((user: User) => {
           const clone = req.clone({
             params: new HttpParams().set('auth', user.idToken),

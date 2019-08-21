@@ -4,7 +4,7 @@ import { Storage } from '@ionic/storage';
 import { Observable, from } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { USER } from '../services/app-config';
+import { STORAGE_USER_KEY } from '../services/app-config';
 
 /**
  * Checks if user is authorized
@@ -19,7 +19,7 @@ export class AuthGuard implements CanLoad {
    * @inheritdoc
    */
   public canLoad(): Observable<boolean> {
-    return from(this.storage.get(USER)).pipe(
+    return from(this.storage.get(STORAGE_USER_KEY)).pipe(
       map(user => !!user),
       tap(isLogged => {
         if (!isLogged) {
