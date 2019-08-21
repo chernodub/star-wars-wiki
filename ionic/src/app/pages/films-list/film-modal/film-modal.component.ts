@@ -2,9 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
-import { Character } from '../../../models/character';
-import { Film } from '../../../models/film';
-import { CacheStorageService } from '../../../services/cache-storage.service';
+import { Character } from '../../../core/models/character';
+import { Film } from '../../../core/models/film';
+import { CacheStorageService } from '../../../core/services/cache-storage.service';
 
 /** Film modal */
 @Component({

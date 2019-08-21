@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { CoreModule } from '../../core/core.module';
+
 import { FilmModalComponent } from './film-modal/film-modal.component';
 import { FilmsListPage } from './films-list.page';
 

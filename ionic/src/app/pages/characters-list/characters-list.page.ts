@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Character } from '../../models/character';
-import { CacheStorageService } from '../../services/cache-storage.service';
+import { Character } from '../../core/models/character';
+import { CacheStorageService } from '../../core/services/cache-storage.service';
 
 /** Characters list */
 @Component({

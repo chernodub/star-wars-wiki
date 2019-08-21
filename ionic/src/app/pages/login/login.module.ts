@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+import { CoreModule } from '../../core/core.module';
+
 import { LoginPage } from './login.page';
 
 const routes: Routes = [
@@ -13,6 +15,7 @@ const routes: Routes = [
   },
 ];
 
+/** Login page module */
 @NgModule({
   imports: [
     CommonModule,

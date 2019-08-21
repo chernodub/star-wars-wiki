@@ -6,8 +6,8 @@ import { Storage } from '@ionic/storage';
 import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { STORAGE_USER_KEY } from './services/app-config';
-import { AuthorizationService } from './services/authorization.service';
+import { STORAGE_USER_KEY } from './core/services/app-config';
+import { AuthorizationService } from './core/services/authorization.service';
 
 /** App */
 @Component({
@@ -37,7 +37,6 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private storage: Storage,
     private authService: AuthorizationService,
     private menu: MenuController,
   ) {
@@ -47,14 +46,11 @@ export class AppComponent {
 
   /** Initialize app */
   public initializeApp(): void {
-    this.platform
-      .ready()
-      .then(() => {
-        this.statusBar.styleLightContent();
-        this.splashScreen.hide();
-        return this.storage.get(STORAGE_USER_KEY);
-      })
-      .then(() => this.menu.close());
+    this.platform.ready().then(() => {
+      this.statusBar.styleLightContent();
+      this.splashScreen.hide();
+      this.menu.close();
+    });
   }
 
   /** Log out  */

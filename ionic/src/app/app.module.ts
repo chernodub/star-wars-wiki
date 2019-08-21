@@ -2,7 +2,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
@@ -10,9 +9,10 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthTokenInterceptor } from './http-interceptors/auth-token.interceptor';
-import { ExpiredTokenInterceptor } from './http-interceptors/expired-token.interceptor';
-import { WrappingRemoverInterceptor } from './http-interceptors/wrapping-remover.interceptor';
+import { CoreModule } from './core/core.module';
+import { AuthTokenInterceptor } from './core/http-interceptors/auth-token.interceptor';
+import { ExpiredTokenInterceptor } from './core/http-interceptors/expired-token.interceptor';
+import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-remover.interceptor';
 
 /** App module */
 @NgModule({
@@ -24,6 +24,7 @@ import { WrappingRemoverInterceptor } from './http-interceptors/wrapping-remover
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    CoreModule,
   ],
   providers: [
     StatusBar,
@@ -43,7 +44,6 @@ import { WrappingRemoverInterceptor } from './http-interceptors/wrapping-remover
       useClass: ExpiredTokenInterceptor,
       multi: true,
     },
-    FingerprintAIO,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],

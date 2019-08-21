@@ -5,11 +5,12 @@
   height: 100%;
   width: 100%;
 }
-.form-input-wrapper {
-  margin: auto;
-}
 .form-submit-button {
   margin: auto;
   width: 40%;
   margin-top: 2rem;
+}
+.form {
+  width: 80%;
+  max-width: 30rem;
 }

@@ -1,9 +1,10 @@
 <ion-app>
-  <ion-split-pane>
+  <ion-split-pane when="false">
     <ion-menu type="overlay">
       <ion-header>
         <ion-toolbar>
-          <ion-label slot="start" class="ion-padding">
+          <ion-icon name="person" slot="start" class="ion-padding"></ion-icon>
+          <ion-label slot="start" class="hidden-overflow">
             {{ username$ | async }}
           </ion-label>
           <ion-buttons slot="end">

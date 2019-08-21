@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Platform, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 
-import { AuthorizationService } from '../../services/authorization.service';
+import { AuthorizationService } from '../../core/services/authorization.service';
 
 /**
  * Login page

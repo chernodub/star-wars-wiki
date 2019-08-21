@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Observable, EMPTY, from, Subject } from 'rxjs';
 import { tap, mapTo, first, switchMap } from 'rxjs/operators';
@@ -27,9 +27,9 @@ export class AuthorizationService {
   public constructor(
     private http: HttpClient,
     private config: AppConfig,
-    private router: Router,
     private storage: Storage,
     private toastController: ToastController,
+    private navController: NavController,
     private faio: FingerprintAIO,
   ) {}
 
@@ -68,7 +68,7 @@ export class AuthorizationService {
           );
         }),
         tap(
-          () => this.router.navigate(['films'], { replaceUrl: true }),
+          () => this.navController.navigateRoot('films'),
           async error => {
             const toast = await this.toastController.create({
               message: error.error.error.message,
@@ -137,7 +137,7 @@ export class AuthorizationService {
   public logOut(): Observable<void> {
     this.storage.remove(STORAGE_CREDENTIALS_KEY);
     return from(this.storage.remove(STORAGE_USER_KEY)).pipe(
-      tap(() => this.router.navigate(['login'], { replaceUrl: true })),
+      tap(() => this.navController.navigateRoot('login')),
     );
   }
 }

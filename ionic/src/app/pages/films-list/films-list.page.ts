@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
 
-import { Film } from '../../models/film';
-import { CacheStorageService } from '../../services/cache-storage.service';
+import { Film } from '../../core/models/film';
+import { CacheStorageService } from '../../core/services/cache-storage.service';
 
 import { FilmModalComponent } from './film-modal/film-modal.component';
 
