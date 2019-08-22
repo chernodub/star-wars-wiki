@@ -31,7 +31,11 @@ export class AuthorizationService {
     private navController: NavController,
     private faio: FingerprintAIO,
     private menu: MenuController,
-  ) {}
+  ) {
+    this.storage
+      .get(STORAGE_USER_KEY)
+      .then(user => this.username$.next(user ? user.email : ''));
+  }
 
   private mapUser(user: LoginDTO): User {
     return new User({
@@ -85,7 +89,7 @@ export class AuthorizationService {
   }
 
   /** Try to authorize with fingerprint, else send to login page */
-  public tryFingerprintAuth(): Promise<void> {
+  public async tryFingerprintAuth(): Promise<void> {
     return this.storage.get(STORAGE_CREDENTIALS_KEY).then(credentials => {
       if (credentials) {
         return this.faio.isAvailable().then(() =>

@@ -27,10 +27,10 @@ export class CacheStorageService {
    * Get films from storage if they are cached
    * or get them from API
    */
-  public getFilms(): Observable<Film[]> {
+  public getFilms(refresh?: boolean): Observable<Film[]> {
     return from(this.storage.get(FILMS)).pipe(
       switchMap((storageFilms: Film[]) => {
-        if (storageFilms) {
+        if (storageFilms && !refresh) {
           return of(storageFilms);
         }
         return this.filmsService.getFilms().pipe(
@@ -45,10 +45,13 @@ export class CacheStorageService {
   }
 
   /** Get characters */
-  public getCharacters(ids?: number[]): Observable<Character[]> {
+  public getCharacters(
+    ids?: number[],
+    refresh?: boolean,
+  ): Observable<Character[]> {
     return from(this.storage.get(CHARACTERS)).pipe(
       switchMap((storageCharacters: Character[]) => {
-        if (storageCharacters) {
+        if (storageCharacters && !refresh) {
           return of(storageCharacters);
         }
         return this.charactersService.getCharacters().pipe(

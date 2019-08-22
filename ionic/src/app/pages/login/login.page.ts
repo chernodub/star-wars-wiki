@@ -20,6 +20,9 @@ export class LoginPage implements OnInit, OnDestroy {
   /** Password field value */
   public password;
 
+  /** Is backdrop visible */
+  public isBackdropVisible = true;
+
   /** Exit button subscription */
   private exitButtonSubscription$: Subscription;
 
@@ -32,7 +35,9 @@ export class LoginPage implements OnInit, OnDestroy {
     private platform: Platform,
     private toastController: ToastController,
   ) {
-    this.authService.tryFingerprintAuth();
+    this.authService
+      .tryFingerprintAuth()
+      .finally(() => (this.isBackdropVisible = false));
   }
 
   /** Login event */

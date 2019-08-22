@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Film } from '../../core/models/film';
 import { CacheStorageService } from '../../core/services/cache-storage.service';
@@ -40,5 +41,14 @@ export class FilmsListPage {
   /** Track by film episode id */
   public trackByFilm(film: Film): number {
     return film.episodeId;
+  }
+
+  /** Refresh films
+   * @param event - ion-refreser's event has type CustomEvent
+   */
+  public refreshFilms(event): void {
+    this.films$ = this.storage
+      .getFilms(true)
+      .pipe(tap(() => event.target.complete()));
   }
 }

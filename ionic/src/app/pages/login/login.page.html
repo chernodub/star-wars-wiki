@@ -1,4 +1,5 @@
 <ion-content>
+  <div class="backdrop" *ngIf="isBackdropVisible"></div>
   <div class="form-wrapper">
     <form (submit)="onSubmit($event)" class="form">
       <ion-title class="ion-text-center">Reveal yourself</ion-title>

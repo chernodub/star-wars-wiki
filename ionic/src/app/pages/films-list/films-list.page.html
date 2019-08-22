@@ -7,11 +7,16 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+  <ion-refresher (ionRefresh)="refreshFilms($event)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
   <ion-list *ngIf="films$ | async as films">
     <ion-item
       *ngFor="let film of films; trackBy: trackByFilm"
       (click)="presentModal(film)"
+      button
     >
+      <ion-ripple-effect></ion-ripple-effect>
       <ion-label> Episode {{ film.episodeId }}: {{ film.name }} </ion-label>
     </ion-item>
   </ion-list>

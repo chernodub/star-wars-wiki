@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content *ngIf="characters$ | async as characters">
+  <ion-refresher (ionRefresh)="refreshCharacters($event)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
   <ion-virtual-scroll [items]="characters">
     <ion-item *virtualItem="let character">
       <ion-avatar slot="start">

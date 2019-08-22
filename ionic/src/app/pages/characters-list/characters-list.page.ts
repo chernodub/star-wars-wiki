@@ -18,4 +18,9 @@ export class CharactersListPage {
   constructor(private storage: CacheStorageService) {
     this.characters$ = this.storage.getCharacters();
   }
+
+  /** Refresh characters */
+  public refreshCharacters(): void {
+    this.characters$ = this.storage.getCharacters([], true);
+  }
 }
