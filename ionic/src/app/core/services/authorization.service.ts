@@ -1,18 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
-import { ToastController, NavController } from '@ionic/angular';
+import { ToastController, NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Observable, EMPTY, from, Subject } from 'rxjs';
-import { tap, mapTo, first, switchMap } from 'rxjs/operators';
+import { tap, mapTo, switchMap } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
 import { AppConfig, STORAGE_USER_KEY } from './app-config';
 import { LoginDTO } from './dto/login-dto';
 
-const STORAGE_CREDENTIALS_KEY = 'cridentials';
+const STORAGE_CREDENTIALS_KEY = 'credentials';
 
 /**
  * Used for authorization needs
@@ -31,6 +30,7 @@ export class AuthorizationService {
     private toastController: ToastController,
     private navController: NavController,
     private faio: FingerprintAIO,
+    private menu: MenuController,
   ) {}
 
   private mapUser(user: LoginDTO): User {
@@ -68,7 +68,10 @@ export class AuthorizationService {
           );
         }),
         tap(
-          () => this.navController.navigateRoot('films'),
+          () => {
+            this.navController.navigateRoot('films');
+            this.menu.enable(true);
+          },
           async error => {
             const toast = await this.toastController.create({
               message: error.error.error.message,
@@ -85,23 +88,25 @@ export class AuthorizationService {
   public tryFingerprintAuth(): Promise<void> {
     return this.storage.get(STORAGE_CREDENTIALS_KEY).then(credentials => {
       if (credentials) {
-        return this.faio
-          .show({
-            clientId: 'StarWars',
-            clientSecret: 'dimas-fucker',
-            disableBackup: true,
-            localizedFallbackTitle: 'Use Pin',
-            localizedReason: 'Please authenticate',
-          })
-          .then(() => {
-            return this.loginWithEmail(
-              credentials.email,
-              credentials.password,
-            ).toPromise();
-          })
-          .catch(() => {
-            this.storage.remove(STORAGE_CREDENTIALS_KEY);
-          });
+        return this.faio.isAvailable().then(() =>
+          this.faio
+            .show({
+              clientId: 'StarWars',
+              clientSecret: 'dimas-fucker',
+              disableBackup: true,
+              localizedFallbackTitle: 'Use Pin',
+              localizedReason: 'Please authenticate',
+            })
+            .then(() => {
+              return this.loginWithEmail(
+                credentials.email,
+                credentials.password,
+              ).toPromise();
+            })
+            .catch(() => {
+              this.storage.remove(STORAGE_CREDENTIALS_KEY);
+            }),
+        );
       }
       return Promise.resolve();
     });
@@ -137,7 +142,11 @@ export class AuthorizationService {
   public logOut(): Observable<void> {
     this.storage.remove(STORAGE_CREDENTIALS_KEY);
     return from(this.storage.remove(STORAGE_USER_KEY)).pipe(
-      tap(() => this.navController.navigateRoot('login')),
+      tap(() => {
+        this.navController.navigateRoot('login');
+        this.menu.close();
+        this.menu.enable(false);
+      }),
     );
   }
 }

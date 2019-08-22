@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AuthTokenInterceptor } from './core/http-interceptors/auth-token.interceptor';
 import { ExpiredTokenInterceptor } from './core/http-interceptors/expired-token.interceptor';
+import { LoadingInterceptor } from './core/http-interceptors/loading.interceptor';
 import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-remover.interceptor';
 
 /** App module */
@@ -32,6 +33,11 @@ import { WrappingRemoverInterceptor } from './core/http-interceptors/wrapping-re
     {
       provide: HTTP_INTERCEPTORS,
       useClass: WrappingRemoverInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
       multi: true,
     },
     {

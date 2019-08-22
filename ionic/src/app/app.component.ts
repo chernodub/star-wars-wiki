@@ -38,7 +38,6 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private authService: AuthorizationService,
-    private menu: MenuController,
   ) {
     this.initializeApp();
     this.username$ = this.authService.username$;
@@ -49,7 +48,6 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleLightContent();
       this.splashScreen.hide();
-      this.menu.close();
     });
   }
 
@@ -58,6 +56,6 @@ export class AppComponent {
     this.authService
       .logOut()
       .pipe(first())
-      .subscribe(() => this.menu.close());
+      .subscribe();
   }
 }
