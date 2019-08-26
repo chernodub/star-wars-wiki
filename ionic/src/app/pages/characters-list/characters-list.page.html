@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Characters</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="refreshCharacters($event)">
+    <ion-refresher-content> </ion-refresher-content>
+  </ion-refresher>
+  <ng-container *ngIf="characters$ | async as characters">
+    <ion-virtual-scroll [items]="characters">
+      <ion-item *virtualItem="let character">
+        <ion-avatar slot="start">
+          <img
+            src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ character.name }}</h3>
+          <p>{{ character.gender }}</p>
+          <p>{{ character.skinColor }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-virtual-scroll>
+  </ng-container>
+</ion-content>

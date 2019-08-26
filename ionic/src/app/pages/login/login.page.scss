@@ -1,0 +1,25 @@
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.form-submit-button {
+  margin: auto;
+  width: 40%;
+  margin-top: 2rem;
+}
+.form {
+  width: 80%;
+  max-width: 30rem;
+}
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(black, 0.1);
+  z-index: 3;
+}

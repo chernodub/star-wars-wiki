@@ -1,0 +1,34 @@
+<ion-app>
+  <ion-split-pane when="false">
+    <ion-menu type="overlay">
+      <ion-header>
+        <ion-toolbar>
+          <ion-icon name="person" slot="start" class="ion-padding"></ion-icon>
+          <ion-label slot="start" class="hidden-overflow">
+            {{ username$ | async }}
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-icon
+              slot="icon-only"
+              name="exit"
+              (click)="logOut()"
+            ></ion-icon>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="true" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{ p.title }}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

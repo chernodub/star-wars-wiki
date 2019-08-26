@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="backdrop" *ngIf="isBackdropVisible"></div>
+  <div class="form-wrapper">
+    <form (submit)="onSubmit($event)" class="form">
+      <ion-title class="ion-text-center">Reveal yourself</ion-title>
+      <ion-item class="ion-margin">
+        <ion-input
+          placeholder="Email"
+          required
+          [(ngModel)]="email"
+          type="email"
+          autofocus
+          name="email"
+        ></ion-input>
+      </ion-item>
+      <ion-item class="ion-margin">
+        <ion-input
+          placeholder="Password"
+          name="password"
+          required
+          [(ngModel)]="password"
+          type="password"
+        ></ion-input>
+      </ion-item>
+      <ion-button expand="block" type="submit" class="form-submit-button">
+        Login
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
