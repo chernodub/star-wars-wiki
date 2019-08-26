@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Character } from '../../core/models/character';
 import { CacheStorageService } from '../../core/services/cache-storage.service';
@@ -20,7 +21,9 @@ export class CharactersListPage {
   }
 
   /** Refresh characters */
-  public refreshCharacters(): void {
-    this.characters$ = this.storage.getCharacters([], true);
+  public refreshCharacters(event: any): void {
+    this.characters$ = this.storage
+      .getCharacters([], true)
+      .pipe(tap(() => event.target.complete()));
   }
 }

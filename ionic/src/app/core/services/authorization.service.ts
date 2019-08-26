@@ -4,12 +4,13 @@ import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { ToastController, NavController, MenuController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { Observable, EMPTY, from, Subject } from 'rxjs';
-import { tap, mapTo, switchMap } from 'rxjs/operators';
+import { tap, mapTo, switchMap, catchError } from 'rxjs/operators';
 
 import { User } from '../models/user';
 
 import { AppConfig, STORAGE_USER_KEY } from './app-config';
 import { LoginDTO } from './dto/login-dto';
+import { LoadingService } from './loading.service';
 
 const STORAGE_CREDENTIALS_KEY = 'credentials';
 
@@ -31,6 +32,7 @@ export class AuthorizationService {
     private navController: NavController,
     private faio: FingerprintAIO,
     private menu: MenuController,
+    private loadingService: LoadingService,
   ) {
     this.storage
       .get(STORAGE_USER_KEY)
@@ -51,6 +53,7 @@ export class AuthorizationService {
    */
   public loginWithEmail(email: string, password: string): Observable<void> {
     const url = new URL(this.config.loginURL);
+    this.loadingService.startLoading('Logging in...');
     return this.http
       .post<LoginDTO>(url.toString(), {
         email: email,
@@ -71,19 +74,20 @@ export class AuthorizationService {
             }),
           );
         }),
-        tap(
-          () => {
-            this.navController.navigateRoot('films');
-            this.menu.enable(true);
-          },
-          async error => {
-            const toast = await this.toastController.create({
-              message: error.error.error.message,
-              duration: 2000,
-            });
-            toast.present();
-          },
-        ),
+        tap(() => {
+          this.navController.navigateRoot('films').then(() => {
+            this.loadingService.stopLoading();
+          });
+          this.menu.enable(true);
+        }),
+        catchError(async error => {
+          const toast = await this.toastController.create({
+            message: error.error.error.message,
+            duration: 2000,
+          });
+          toast.present();
+          return EMPTY;
+        }),
         switchMap(() => EMPTY),
       );
   }
@@ -129,16 +133,18 @@ export class AuthorizationService {
             refresh_token: user.refreshToken,
           })
           .pipe(
-            tap(result => {
-              this.storage.set(STORAGE_USER_KEY, {
-                ...user,
-                idToken: result['id_token'],
-                refreshToken: result['refresh_token'],
-              });
-            }),
-            mapTo(null),
+            switchMap(result =>
+              from(
+                this.storage.set(STORAGE_USER_KEY, {
+                  ...user,
+                  idToken: result['id_token'],
+                  refreshToken: result['refresh_token'],
+                }),
+              ),
+            ),
           ),
       ),
+      mapTo(null),
     );
   }
 

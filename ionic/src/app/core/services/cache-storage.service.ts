@@ -8,6 +8,7 @@ import { Film } from '../models/film';
 
 import { CharactersService } from './api/characters.service';
 import { FilmsService } from './api/films.service';
+import { LoadingService } from './loading.service';
 
 const FILMS = 'films';
 const CHARACTERS = 'characters';
@@ -21,6 +22,7 @@ export class CacheStorageService {
     private storage: Storage,
     private filmsService: FilmsService,
     private charactersService: CharactersService,
+    private loadingService: LoadingService,
   ) {}
 
   /**
@@ -33,10 +35,14 @@ export class CacheStorageService {
         if (storageFilms && !refresh) {
           return of(storageFilms);
         }
+        if (!refresh) {
+          this.loadingService.startLoading('Getting films...');
+        }
         return this.filmsService.getFilms().pipe(
           map(films => {
             const sortedFilms = films.sort((a, b) => a.episodeId - b.episodeId);
             this.storage.set(FILMS, sortedFilms);
+            this.loadingService.stopLoading();
             return sortedFilms;
           }),
         );
@@ -54,12 +60,17 @@ export class CacheStorageService {
         if (storageCharacters && !refresh) {
           return of(storageCharacters);
         }
+
+        if (!refresh) {
+          this.loadingService.startLoading('Getting characters...');
+        }
         return this.charactersService.getCharacters().pipe(
           map(characters => {
             this.storage.set(CHARACTERS, characters);
             if (!ids || !ids.length) {
               return characters;
             }
+            this.loadingService.stopLoading();
             return characters.filter(character =>
               ids.includes(character.number),
             );
