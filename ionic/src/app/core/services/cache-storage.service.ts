@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Observable, from, of } from 'rxjs';
-import { map, filter, switchMap } from 'rxjs/operators';
+import { map, filter, switchMap, tap } from 'rxjs/operators';
 
 import { Character } from '../models/character';
 import { Film } from '../models/film';
@@ -70,10 +70,12 @@ export class CacheStorageService {
             if (!ids || !ids.length) {
               return characters;
             }
-            this.loadingService.stopLoading();
             return characters.filter(character =>
               ids.includes(character.number),
             );
+          }),
+          tap(() => {
+            this.loadingService.stopLoading();
           }),
         );
       }),
