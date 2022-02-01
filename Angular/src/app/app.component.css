@@ -1,0 +1,40 @@
+.above-all {
+  z-index: 1;
+}
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+a {
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+}
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 1rem 1rem 1rem;
+}
+.nav-button,
+.logo img {
+  transition: 300ms;
+  color: rgba(255, 255, 255, 0.7);
+}
+.logo img {
+  width: 3em;
+  height: 3em;
+}
+.logo img:focus,
+.logo img:hover,
+.nav-button:focus,
+.nav-button:hover {
+  filter: drop-shadow(0 0 0.2em #c2185b);
+}
+.activated > .nav-button {
+  color: #c2185b !important;
+}
+.logo img:active,
+.nav-button:active {
+  filter: none;
+}

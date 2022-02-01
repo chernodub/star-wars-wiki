@@ -1,0 +1,44 @@
+* {
+  transition: 300ms;
+  margin: 0;
+  color: #f2a7a7;
+}
+*:focus {
+  outline-color: #ff4c4c;
+}
+body {
+  background-color: #545454;
+}
+.sw-button {
+  cursor: pointer;
+  font-size: 1rem;
+}
+.sw-a {
+  text-decoration: none;
+  color: #ff4c4c;
+  font-size: 0.9rem;
+}
+.sw-a:active {
+  color: #f2a7a7;
+}
+.sw-input {
+  background-color: #aa6363;
+  font-size: 1.3rem;
+}
+.sw-input::placeholder {
+  color: #545454;
+}
+.sw-button {
+  background-color: inherit;
+}
+.sw-input,
+.sw-button {
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+.sw-input:focus,
+.sw-button:focus {
+  outline: none;
+  filter: drop-shadow(0 0 0.3rem #ff4c4c);
+}

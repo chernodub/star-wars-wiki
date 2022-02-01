@@ -1,0 +1,38 @@
+.box {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.content-wrap {
+  min-width: 20%;
+  max-width: 80%;
+}
+.table-box {
+  width: 100%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+.detail-table {
+  table-layout: fixed;
+}
+td {
+  padding: 0.5em;
+}
+.detail-table-td-title {
+  font-weight: bold;
+}
+.detail-table-td-text {
+  padding-left: 2em;
+}
+a {
+  text-decoration: none;
+  color: white;
+}
+a:focus,
+a:hover {
+  filter: drop-shadow(0px 0px 3px #c2185b);
+}
+a:active {
+  color: rgba(0, 0, 0, 0.54);
+}

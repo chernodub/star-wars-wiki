@@ -1,0 +1,21 @@
+/**
+ * Used for horizontal aligning of description
+*/
+.my-headers-align .mat-expansion-panel-header-title,
+.my-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+.layout {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.layout-part {
+  margin: 0 3em;
+  width: 80%;
+}
+.button-panel {
+  padding-top: 1em;
+  display: flex;
+  justify-content: flex-end;
+}
